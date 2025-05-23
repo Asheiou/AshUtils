@@ -7,7 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class MessageSender {
   public static void sendMessage(CommandSender recipient, String message) {
-    String prefix = ChatColor.translateAlternateColorCodes('&', JavaPlugin.getProvidingPlugin(AshUtils.class).getConfig().getString("chat-prefix"));
+    String prefix = JavaPlugin.getProvidingPlugin(AshUtils.class).getConfig().getString("chat-prefix").replace('&', ChatColor.COLOR_CHAR);
     recipient.sendMessage(prefix + ChatColor.RESET + " " + message);
   }
 }
