@@ -20,17 +20,12 @@ commands:
     usage: /<command> reload
     permission: ashutils.admin
     permission-message: You don't have ashutils.admin.
-  restartonempty:
-    aliases: [roe, ronempty]
-    description: Set the server to restart on empty.
-    usage: /<command> [true/false/status]
-    permission: ashutils.admin
-    permission-message: You don't have ashutils.admin.
 
 permissions:
   ashutils.headsell:
     description: Allows head sell
     default: true
   ashutils.admin:
-    description: Allows admin commands
+    description: Allows /ashutils
+    default: op
         
