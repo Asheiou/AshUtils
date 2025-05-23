@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>uk.asheiou</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.0.1</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -13,17 +13,27 @@
       <name>Spigot Repository</name>
       <url>https://hub.spigotmc.org/nexus/content/groups/public</url>
     </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.8.3-R0.1-SNAPSHOT</version>
+      <version>1.21.5-R0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.MilkBowl</groupId>
+        <artifactId>VaultAPI</artifactId>
+        <version>1.7</version>
+        <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -61,7 +71,7 @@
   </build>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.javaVersion>1.17</project.build.javaVersion>
+    <project.build.javaVersion>21</project.build.javaVersion>
   </properties>
   <profiles>
     <profile>
