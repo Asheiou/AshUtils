@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
 import uk.asheiou.ashutils.EconManager;
+import uk.asheiou.ashutils.MessageSender;
 
 public class HeadSellCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
@@ -24,7 +24,7 @@ public class HeadSellCommandExecutor implements CommandExecutor {
       ItemStack itemInHand = player.getInventory().getItemInMainHand();
       if (itemInHand.getType() == Material.PLAYER_HEAD) {
         if (args.length != 1) {
-          player.sendMessage(ChatColor.RED + "Invalid usage! Usage:");
+          MessageSender.sendMessage(player, "err", "Invalid usage! Usage:");
           return false;
         }
 
@@ -37,11 +37,11 @@ public class HeadSellCommandExecutor implements CommandExecutor {
           try {
             amountToSell = Integer.parseInt(arg);
             if (amountToSell > itemInHand.getAmount()) {
-              player.sendMessage(ChatColor.RED + "You don't have that many in your hand to sell!");
+              MessageSender.sendMessage(player, "err", "You don't have that many in your hand to sell!");
               return true;
             }
           } catch (NumberFormatException e) {
-            player.sendMessage(ChatColor.RED + "Invalid argument! Usage:");
+            MessageSender.sendMessage(player, "err", "Invalid argument! Usage:");
             return false;
           }
         }
@@ -49,15 +49,17 @@ public class HeadSellCommandExecutor implements CommandExecutor {
         int worth = this.plugin.getConfig().getInt("econ.head-worth");
         player.getInventory().getItemInMainHand().setAmount(itemInHand.getAmount() - amountToSell);
         EconManager.getEcon().depositPlayer(player, worth);
-        player.sendMessage(ChatColor.GREEN + "You have sold " + amountToSell + (amountToSell == 1 ? " head" : " heads") + " for " + this.plugin.getConfig().getString("econ.currency-symbol")+worth+".");
+        MessageSender.sendMessage(player, "ok",
+            "You have sold " + amountToSell + (amountToSell == 1 ? " head" : " heads") + " for "
+                + this.plugin.getConfig().getString("econ.currency-symbol") + worth + ".");
         return true;
-        
+
       }
-      player.sendMessage(ChatColor.RED + "You're not holding a head!");
+      MessageSender.sendMessage(player, "err", "You're not holding a head!");
       return true;
 
     }
-    sender.sendMessage(ChatColor.RED + "This command cannot be run from the console.");
+    MessageSender.sendMessage(sender, "err", "This command cannot be run from the console.");
     return true;
   }
 
