@@ -1,3 +1,5 @@
-# RestartOnEmpty    
-RestartOnEmpty is a simple, lightweight plugin I made to restart my Minecraft server when it's empty.    
-For it to work, you need to ensure settings.restart_script is set correctly in spigot.yml, or have a panel or manager that automatically restarts a server when it stops normally.
+# AshUtils
+This is a bespoke general plugin for the demands of mc.asheiou.uk. I don't recommend running it outside of this environment.    
+    
+## Setup
+You need to ensure settings.restart_script is set correctly in spigot.yml, or have a panel or manager that automatically restarts a server when it stops normally.

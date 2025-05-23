@@ -1,11 +1,11 @@
-name: RestartOnEmpty
-main: uk.asheiou.restartonempty.RestartOnEmpty
+name: AshUtils
+main: uk.asheiou.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.18
 website: https://mc.asheiou.uk
 description: >
-             Allows you to set your server to restart on empty.
+             The MC.Asheiou.UK bespoke everything-plugin!
 commands:
   restartonempty:
     aliases: [roe, ronempty]
