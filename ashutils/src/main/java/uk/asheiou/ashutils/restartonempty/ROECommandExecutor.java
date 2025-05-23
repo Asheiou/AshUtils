@@ -1,4 +1,4 @@
-package uk.asheiou.restartonempty;
+package uk.asheiou.ashutils.restartonempty;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

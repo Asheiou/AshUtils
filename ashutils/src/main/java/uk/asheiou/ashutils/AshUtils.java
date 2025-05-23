@@ -1,9 +1,12 @@
-package uk.asheiou.restartonempty;
-
+package uk.asheiou.ashutils;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import uk.asheiou.ashutils.restartonempty.ROECommandExecutor;
+import uk.asheiou.ashutils.restartonempty.ROEToggle;
+
 import java.time.*;
 
-public final class RestartOnEmpty extends JavaPlugin {
+public final class AshUtils extends JavaPlugin {
   
   @Override
   public void onEnable() {

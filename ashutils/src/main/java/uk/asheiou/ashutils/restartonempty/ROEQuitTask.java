@@ -1,4 +1,4 @@
-package uk.asheiou.restartonempty;
+package uk.asheiou.ashutils.restartonempty;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
