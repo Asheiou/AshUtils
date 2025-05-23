@@ -22,14 +22,14 @@ public class AshUtilsTabExecutor implements TabExecutor {
     JavaPlugin plugin = JavaPlugin.getProvidingPlugin(AshUtils.class);
     
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, "info", "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
+      MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
     }
     switch (args[0]) {
     case "reload":
-      MessageSender.sendMessage(sender, "info", "Starting config reload...");
+      MessageSender.sendMessage(sender, "Starting config reload...");
       plugin.reloadConfig();
-      MessageSender.sendMessage(sender, "ok", "Reload complete!");
+      MessageSender.sendMessage(sender, "Reload complete!");
       return true;
 
     case "restartonempty":
@@ -37,35 +37,35 @@ public class AshUtilsTabExecutor implements TabExecutor {
       args = Arrays.copyOfRange(args, 1, args.length);
       if (args.length > 0) {
         if (args.length > 1) {
-          MessageSender.sendMessage(sender, "err", "Too many arguments! Usage:");
+          MessageSender.sendMessage(sender, "Too many arguments! Usage:");
           return false;
         }
         switch (args[0].toLowerCase()) {
         case "true":
           ROEToggle.setStatus(true);
-          MessageSender.sendMessage(sender, "ok", "The server will restart on empty.");
+          MessageSender.sendMessage(sender, "The server will restart on empty.");
           return true;
         case "false":
           ROEToggle.setStatus(false);
-          MessageSender.sendMessage(sender, "ok", "The server will no longer restart on empty.");
+          MessageSender.sendMessage(sender, "The server will no longer restart on empty.");
           return true;
         case "status":
-          MessageSender.sendMessage(sender, "info",
+          MessageSender.sendMessage(sender,
               "The server " + (ROEToggle.getStatus() ? "will" : "will not") + " restart on empty.");
           return true;
         default:
-          MessageSender.sendMessage(sender, "err", "Argument not recognised! Usage:");
+          MessageSender.sendMessage(sender, "Argument not recognised! Usage:");
           return false;
         }
       }
       boolean toSet = !ROEToggle.getStatus();
       ROEToggle.setStatus(toSet);
-      MessageSender.sendMessage(sender, "ok",
+      MessageSender.sendMessage(sender,
           "The server " + (toSet ? "will" : "will no longer") + " restart on empty.");
       return true;
 
     default:
-      MessageSender.sendMessage(sender, "err",
+      MessageSender.sendMessage(sender,
           "Unrecognised subcommand. Usage: /ashutils restartonempty [true/false/status]");
       return true;
     }
