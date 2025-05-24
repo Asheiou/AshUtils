@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.md_5.bungee.api.ChatColor;
 import uk.asheiou.ashutils.EconManager;
 import uk.asheiou.ashutils.MessageSender;
 
@@ -46,12 +47,13 @@ public class HeadSellCommandExecutor implements CommandExecutor {
           }
         }
 
-        int worth = this.plugin.getConfig().getInt("econ.head-worth");
+        int worth = this.plugin.getConfig().getInt("econ.head-worth") * amountToSell;
         player.getInventory().getItemInMainHand().setAmount(itemInHand.getAmount() - amountToSell);
         EconManager.getEcon().depositPlayer(player, worth);
         MessageSender.sendMessage(player,
-            "You have sold " + amountToSell + (amountToSell == 1 ? " head" : " heads") + " for "
-                + this.plugin.getConfig().getString("econ.currency-symbol") + worth + ".");
+            "You have sold " + ChatColor.AQUA + (amountToSell == 1 ? " head" : " heads") + ChatColor.RESET + " for "
+                + ChatColor.AQUA + this.plugin.getConfig().getString("econ.currency-symbol") + worth + ChatColor.RESET
+                + ".");
         return true;
 
       }
