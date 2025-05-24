@@ -3,10 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>uk.asheiou</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.0.1-dev3</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
+  
   <repositories>
     <repository>
       <id>spigot-repo</id>
@@ -17,8 +18,23 @@
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
+        <repository>
+        <id>essentials-releases</id>
+        <url>https://repo.essentialsx.net/releases/</url>
+    </repository>
+    <repository>
+        <id>paper-repo</id>
+        <url>https://repo.papermc.io/repository/maven-public/</url>
+    </repository>
   </repositories>
+  
   <dependencies>
+    <dependency>
+        <groupId>net.essentialsx</groupId>
+        <artifactId>EssentialsX</artifactId>
+        <version>2.21.0</version>
+        <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
@@ -36,6 +52,7 @@
         <scope>provided</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <defaultGoal>install</defaultGoal>
     <resources>
@@ -69,6 +86,7 @@
       </plugin>
     </plugins>
   </build>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.javaVersion>21</project.build.javaVersion>
