@@ -23,11 +23,14 @@ public class AshUtilsTabExecutor implements TabExecutor {
   public AshUtilsTabExecutor(JavaPlugin plugin) { this.plugin = plugin; }
   @Override
   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    //-------------TODO Split this function into subfunctions before it gets hard to manage-------------------//
+    
     if (args.length == 0) {
       MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
     }
     switch (args[0]) {
+    //----------------Reload----------------//
     case "reload":
       MessageSender.sendMessage(sender, "Starting config reload...");
       int response = new ConfigManager(plugin).loadConfig();
@@ -48,6 +51,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
       MessageSender.sendMessage(sender, compose);
       return true;
 
+    //------------RestartOnEmpty-----------//
     case "restartonempty":
     case "roe":
       args = Arrays.copyOfRange(args, 1, args.length);
