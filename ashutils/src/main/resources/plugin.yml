@@ -3,7 +3,7 @@ main: uk.asheiou.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.21.5
-dependencies: [Vault, Essentials, DiscordSRV]
+depend: [Vault, Essentials, DiscordSRV]
 website: https://mc.asheiou.uk
 description: >
              The MC.Asheiou.UK bespoke everything-plugin!
