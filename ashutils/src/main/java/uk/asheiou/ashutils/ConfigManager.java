@@ -3,16 +3,19 @@ package uk.asheiou.ashutils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.scanner.ScannerException;
 
-import com.earth2me.essentials.config.holders.UserConfigHolder;
 
 public class ConfigManager {
   JavaPlugin plugin;
@@ -35,8 +38,10 @@ public class ConfigManager {
   @SuppressWarnings("unchecked")
   public int loadConfig() {
     FileInputStream userInput;
+    File userConfigFile;
     try {
-      userInput = new FileInputStream(new File(plugin.getDataFolder() + File.separator + "config.yml"));
+      userConfigFile = new File(plugin.getDataFolder(), "config.yml");
+      userInput = new FileInputStream(userConfigFile);
     } catch (FileNotFoundException e) {
       plugin.saveDefaultConfig();
       plugin.getLogger().info("Config file not found! Creating one.");
@@ -45,12 +50,29 @@ public class ConfigManager {
 
     InputStream defaultInput;
     defaultInput = getClass().getClassLoader().getResourceAsStream("config.yml");
-    Map<String, Object> userConfig = (Map<String, Object>) yaml.load(userInput);
+    
+    Map<String, Object> userConfig;
+    try {
+      userConfig = (Map<String, Object>) yaml.load(userInput);
+    } catch (ScannerException e) {
+      String brokenConfigString = plugin.getDataFolder() + File.separator + "config-broken" + UUID.randomUUID().toString() + ".yml";
+      
+      try {
+        Files.copy(userConfigFile.toPath(), (new File(brokenConfigString).toPath()), StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
+      userConfigFile.delete();
+      plugin.saveDefaultConfig();
+      plugin.getLogger().info("Config file unreadable! Creating a new one. Your broken config can be found at " + brokenConfigString);
+      return -1;
+    }
+    
     Map<String, Object> defaultConfig = (Map<String, Object>) yaml.load(defaultInput);
 
     if (userConfig == null) {
       plugin.saveDefaultConfig();
-      plugin.getLogger().info("Config file empty or unreadable! Creating a new one.");
+      plugin.getLogger().info("Config file empty! Creating a new one.");
       plugin.reloadConfig();
       return -1;
     }
