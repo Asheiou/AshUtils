@@ -23,20 +23,20 @@ public final class AshUtils extends JavaPlugin {
     if (pm.getPlugin("DiscordSRV") != null && pm.getPlugin("Essentials") != null) {
       pm.registerEvents(new EssEventListener(this), this);
     } else { 
-      getLogger().severe("Dependencies not found! Disabling.");
-      pm.disablePlugin(this);  
+      getLogger().warning("Dependencies for EssEventListener not found - not enabling it.");
     } 
     // // // // // // // // Vault // // // // // // // //
-    if (!EconManager.setupEconomy(this)) {
-      getLogger().severe("Vault dependency not found! Disabling.");
-      pm.disablePlugin(this);
+    if (EconManager.setupEconomy(this)) {
+      this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));    
+    } else {
+      getLogger().warning("Vault or economy plugin not found - not enabling /headsell.");
+      this.getCommand("headsell").setExecutor(new NotEnabledCommandExecutor());
     }
     // // // // // // // // Config // // // // // // // //
     new ConfigManager(this).loadConfig();
     getConfig().options().copyDefaults(true);
     saveConfig();
     // // // // // // // // Commands // // // // // // // //
-    this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
     this.getCommand("ashutils").setExecutor(new AshUtilsTabExecutor(this));
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
     getLogger().info("Commands and events registered.");
