@@ -13,14 +13,16 @@ import org.bukkit.util.StringUtil;
 import java.util.List;
 
 import uk.asheiou.ashutils.AshUtils;
+import uk.asheiou.ashutils.ConfigManager;
 import uk.asheiou.ashutils.MessageSender;
 import uk.asheiou.ashutils.restartonempty.ROEToggle;
 
 public class AshUtilsTabExecutor implements TabExecutor {
+  JavaPlugin plugin;
+  
+  public AshUtilsTabExecutor(JavaPlugin plugin) { this.plugin = plugin; }
   @Override
   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-    JavaPlugin plugin = JavaPlugin.getProvidingPlugin(AshUtils.class);
-    
     if (args.length == 0) {
       MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
@@ -28,8 +30,22 @@ public class AshUtilsTabExecutor implements TabExecutor {
     switch (args[0]) {
     case "reload":
       MessageSender.sendMessage(sender, "Starting config reload...");
+      int response = new ConfigManager(plugin).loadConfig();
       plugin.reloadConfig();
-      MessageSender.sendMessage(sender, "Reload complete!");
+      String compose = "Reload complete! ";
+      switch(response) {
+      case -1:
+        compose += "Your config file was empty, deleted, or unreadable. It has been replaced with the default.";
+        break;
+      case 0:
+        break;
+      case 1:
+        compose += "Added " + response + " missing value.";
+      default:
+        compose += "Added " + response + " missing values.";
+        break;
+      }
+      MessageSender.sendMessage(sender, compose);
       return true;
 
     case "restartonempty":

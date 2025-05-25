@@ -1,5 +1,4 @@
 chat-prefix: "&8[&dAshUtils&8]"
 discord-broadcast-cmd: "discord broadcast"
-econ:
-  head-worth: 100
-  currency-symbol: $
+head-worth: 100
+currency-symbol: $

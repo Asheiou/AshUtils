@@ -47,12 +47,12 @@ public class HeadSellCommandExecutor implements CommandExecutor {
           }
         }
 
-        int worth = this.plugin.getConfig().getInt("econ.head-worth") * amountToSell;
+        int worth = this.plugin.getConfig().getInt("head-worth") * amountToSell;
         player.getInventory().getItemInMainHand().setAmount(itemInHand.getAmount() - amountToSell);
         EconManager.getEcon().depositPlayer(player, worth);
         MessageSender.sendMessage(player,
             "You have sold " + ChatColor.AQUA + amountToSell + (amountToSell == 1 ? " head" : " heads") + ChatColor.RESET + " for "
-                + ChatColor.AQUA + this.plugin.getConfig().getString("econ.currency-symbol") + worth + ChatColor.RESET
+                + ChatColor.AQUA + this.plugin.getConfig().getString("currency-symbol") + worth + ChatColor.RESET
                 + ".");
         return true;
 

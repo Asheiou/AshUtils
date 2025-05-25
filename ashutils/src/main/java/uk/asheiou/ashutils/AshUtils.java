@@ -1,6 +1,5 @@
 package uk.asheiou.ashutils;
 
-import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -33,16 +32,13 @@ public final class AshUtils extends JavaPlugin {
       pm.disablePlugin(this);
     }
     // // // // // // // // Config // // // // // // // //
-    if (!new File(getDataFolder(), "config.yml").exists()) {
-      saveDefaultConfig();
-      getLogger().info("Config file not found! Creating one.");
-    }
+    new ConfigManager(this).loadConfig();
     getConfig().options().copyDefaults(true);
     saveConfig();
     // // // // // // // // Commands // // // // // // // //
     this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
-    this.getCommand("ashutils").setExecutor(new AshUtilsTabExecutor());
-    this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor());
+    this.getCommand("ashutils").setExecutor(new AshUtilsTabExecutor(this));
+    this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
     getLogger().info("Commands and events registered.");
     // // // // // // // // RestartOnEmpty // // // // // // // //
     ROEToggle.setStatus(false);
