@@ -1,3 +1,4 @@
+.idea/
 *.pydevproject
 .project
 .metadata
@@ -9,6 +10,5 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
-.classpath
-.settings/
-.loadpath
+*.iml
+/ashutils/dependency-reduced-pom.xml
