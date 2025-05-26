@@ -68,8 +68,23 @@ public class ConfigManager {
       return -1;
     }
     
-    Map<String, Object> defaultConfig = (Map<String, Object>) yaml.load(defaultInput);
+    
+    Map<String, Object> defaultConfig;
+    try {
+      defaultConfig = (Map<String, Object>) yaml.load(defaultInput);
+    } catch(ScannerException e) {
+      plugin.getLogger().severe("FATAL: Internal config.yml not found! Please check your build. Disabling.");
+      plugin.getServer().getPluginManager().disablePlugin(plugin);
+      return -1;
+    }
 
+    try {
+      userInput.close();
+      defaultInput.close();
+    } catch (IOException e) {
+      plugin.getLogger().warning("InputStreams not successfully closed! This may cause a memory leak.");
+    }
+    
     if (userConfig == null) {
       plugin.saveDefaultConfig();
       plugin.getLogger().info("Config file empty! Creating a new one.");
@@ -94,6 +109,7 @@ public class ConfigManager {
       plugin.getLogger().info(amountAdded + " config value"
           + (amountAdded == 1 ? " " : "s ") + "added, " + amountRemoved + " removed.");
     }
+    plugin.reloadConfig();
     return amountAdded;
   }
 }

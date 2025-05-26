@@ -10,7 +10,6 @@ public class ReloadHandler {
   public static boolean doUtilReload(JavaPlugin plugin, CommandSender sender) {
     MessageSender.sendMessage(sender, "Starting config reload...");
     int response = new ConfigManager(plugin).loadConfig();
-    plugin.reloadConfig();
     String compose = "Reload complete! ";
     switch(response) {
     case -1:
