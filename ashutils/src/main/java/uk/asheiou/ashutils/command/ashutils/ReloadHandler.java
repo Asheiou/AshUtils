@@ -3,7 +3,8 @@ package uk.asheiou.ashutils.command.ashutils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import uk.asheiou.ashutils.ConfigManager;
+import uk.asheiou.configmanager.ConfigManager;
+
 import uk.asheiou.ashutils.MessageSender;
 
 public class ReloadHandler {

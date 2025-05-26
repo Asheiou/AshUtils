@@ -10,6 +10,7 @@ import uk.asheiou.ashutils.command.*;
 import uk.asheiou.ashutils.listener.BukkitEventListener;
 import uk.asheiou.ashutils.listener.EssEventListener;
 import uk.asheiou.ashutils.restartonempty.StatusManager;
+import uk.asheiou.configmanager.ConfigManager;
 
 public final class AshUtils extends JavaPlugin {
 
