@@ -1,6 +1,6 @@
 package uk.asheiou.ashutils.restartonempty;
 
-public final class ROEToggle {
+public final class StatusManager {
   private static boolean status;
 
   public static boolean getStatus() {

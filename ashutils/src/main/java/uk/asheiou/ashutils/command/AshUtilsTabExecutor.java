@@ -28,12 +28,12 @@ public class AshUtilsTabExecutor implements TabExecutor {
     switch (args[0]) {
     //----------------Reload----------------//
     case "reload":
-      return AshUtilsReload.doUtilReload(plugin, sender);
+      return ReloadHandler.doUtilReload(plugin, sender);
     //------------RestartOnEmpty-----------//
     case "restartonempty":
     case "roe":
       args = Arrays.copyOfRange(args, 1, args.length);
-      return AshUtilsROE.doUtilsROE(sender, args);
+      return RestartOnEmptyHandler.doUtilsROE(sender, args);
     default:
       MessageSender.sendMessage(sender,
           "Unrecognised subcommand. Usage: /ashutils restartonempty [true/false/status]");

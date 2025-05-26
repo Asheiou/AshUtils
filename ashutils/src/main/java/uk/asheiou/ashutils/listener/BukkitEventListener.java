@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import uk.asheiou.ashutils.restartonempty.ROEQuitTask;
+import uk.asheiou.ashutils.restartonempty.QuitTask;
 
 public class BukkitEventListener implements Listener {
 
@@ -15,5 +15,5 @@ public class BukkitEventListener implements Listener {
   public BukkitEventListener(JavaPlugin plugin) { this.plugin = plugin; }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onPlayerQuit(PlayerQuitEvent event) { new ROEQuitTask().runTaskLater(this.plugin, 3); }
+  public void onPlayerQuit(PlayerQuitEvent event) { new QuitTask().runTaskLater(this.plugin, 3); }
 }

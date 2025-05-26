@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import uk.asheiou.ashutils.ConfigManager;
 import uk.asheiou.ashutils.MessageSender;
 
-public class AshUtilsReload {
+public class ReloadHandler {
   public static boolean doUtilReload(JavaPlugin plugin, CommandSender sender) {
     MessageSender.sendMessage(sender, "Starting config reload...");
     int response = new ConfigManager(plugin).loadConfig();

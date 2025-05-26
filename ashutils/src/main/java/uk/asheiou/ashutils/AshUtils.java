@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import uk.asheiou.ashutils.command.*;
 import uk.asheiou.ashutils.listener.BukkitEventListener;
 import uk.asheiou.ashutils.listener.EssEventListener;
-import uk.asheiou.ashutils.restartonempty.ROEToggle;
+import uk.asheiou.ashutils.restartonempty.StatusManager;
 
 public final class AshUtils extends JavaPlugin {
 
@@ -41,7 +41,7 @@ public final class AshUtils extends JavaPlugin {
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
     getLogger().info("Commands and events registered.");
     // // // // // // // // RestartOnEmpty // // // // // // // //
-    ROEToggle.setStatus(false);
+    StatusManager.setStatus(false);
 
     Instant endTime = Instant.now();
     getLogger().info("\u001B[32mLoad complete in " + Duration.between(startTime, endTime).toMillis() + "ms.\u001B[0m");

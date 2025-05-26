@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import uk.asheiou.ashutils.AshUtils;
 
-public class ROEQuitTask extends BukkitRunnable {
+public class QuitTask extends BukkitRunnable {
   
   @Override
   public void run() {
@@ -15,7 +15,7 @@ public class ROEQuitTask extends BukkitRunnable {
     plugin.getLogger().info("Player left. Checking if the server should restart...");
     boolean isEmpty = Bukkit.getOnlinePlayers().size() == 0;
     
-    if (isEmpty && ROEToggle.getStatus()) {
+    if (isEmpty && StatusManager.getStatus()) {
       Server server = Bukkit.getServer();
       plugin.getLogger().info("Restarting as the server is empty.");
       server.dispatchCommand(server.getConsoleSender(), "restart");
