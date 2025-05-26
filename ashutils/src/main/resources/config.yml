@@ -1,7 +1,0 @@
-chat-prefix: "&8[&dAshUtils&8]"
-discord-broadcast-cmd: "discord broadcast"
-head-worth: 100
-currency-symbol: $
-xp-sell-worth: 2
-xp-buy-cost: 2.2
-xp-maximum-buy: 10000
