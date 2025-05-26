@@ -1,0 +1,15 @@
+.idea/
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+*.iml
+dependency-reduced-pom.xml
+/target/
