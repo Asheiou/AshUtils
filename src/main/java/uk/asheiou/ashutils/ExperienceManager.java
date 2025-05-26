@@ -7,6 +7,8 @@ plugin please link to this gist publicly so that others can contribute and benef
 Updated by Asheiou (https://github.com/Asheiou) the 26th May 2025 to:
 - Remove deprecated functions in Java 9+
 - Fix a bug where 351 XP was not a valid value to set
+
+https://gist.github.com/Asheiou/8f4873ccdf65c2be56b8799b1a9a31bd
 */
 
 import java.math.BigDecimal;
