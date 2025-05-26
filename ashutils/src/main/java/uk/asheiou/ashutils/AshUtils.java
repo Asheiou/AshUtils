@@ -27,10 +27,15 @@ public final class AshUtils extends JavaPlugin {
     } 
     // // // // // // // // Vault // // // // // // // //
     if (EconManager.setupEconomy(this)) {
-      this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));    
+      // TODO: Make this more elegant with a Map or something
+      this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
+      this.getCommand("xpbuy").setExecutor(new XpCommandExecutor(this));
+      this.getCommand("xpsell").setExecutor(new XpCommandExecutor(this));
     } else {
       getLogger().warning("Vault or economy plugin not found - not enabling /headsell.");
       this.getCommand("headsell").setExecutor(new NotEnabledCommandExecutor());
+      this.getCommand("xpbuy").setExecutor(new NotEnabledCommandExecutor());
+      this.getCommand("xpsell").setExecutor(new NotEnabledCommandExecutor());
     }
     // // // // // // // // Config // // // // // // // //
     new ConfigManager(this).loadConfig();

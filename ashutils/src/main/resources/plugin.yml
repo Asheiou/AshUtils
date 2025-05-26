@@ -17,9 +17,22 @@ commands:
   ashutils:
     aliases: util
     description: Admin command.
-    usage: /<command> reload
+    usage: /<command>
     permission: ashutils.admin
     permission-message: You don't have ashutils.admin.
+  xpsell:
+    aliases: sellxp
+    description: Sell XP for money!
+    usage: /<command> <amount/all>
+    permission: ashutils.xpsell
+    permission-message: You don't have ashutils.xpsell.
+  xpbuy:
+    aliases: buyxp
+    description: Buy XP!
+    usage: /<command> <amount/maximum>
+    permission: ashutils.xpbuy
+    permission-message: You don't have ashutils.xpbuy.
+    
 
 permissions:
   ashutils.headsell:
@@ -28,4 +41,10 @@ permissions:
   ashutils.admin:
     description: Allows /ashutils
     default: op
+  ashutils.xpsell:
+    description: Allows /xpsell
+    default: true
+  ashutils.xpbuy:
+    description: Allows /xpbuy
+    default: true
         
