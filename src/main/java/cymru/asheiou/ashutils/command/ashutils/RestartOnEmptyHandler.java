@@ -1,9 +1,9 @@
-package uk.asheiou.ashutils.command.ashutils;
+package cymru.asheiou.ashutils.command.ashutils;
 
 import org.bukkit.command.CommandSender;
 
-import uk.asheiou.ashutils.MessageSender;
-import uk.asheiou.ashutils.restartonempty.StatusManager;
+import cymru.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.restartonempty.StatusManager;
 
 public class RestartOnEmptyHandler {
   public static boolean doUtilsROE(CommandSender sender, String[] args) {

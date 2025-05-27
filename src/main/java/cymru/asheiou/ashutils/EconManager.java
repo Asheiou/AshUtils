@@ -1,4 +1,4 @@
-package uk.asheiou.ashutils;
+package cymru.asheiou.ashutils;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;

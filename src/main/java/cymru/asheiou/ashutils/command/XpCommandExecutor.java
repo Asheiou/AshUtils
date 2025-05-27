@@ -1,4 +1,4 @@
-package uk.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command;
 
 import java.math.BigDecimal;
 
@@ -10,9 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
-import uk.asheiou.ashutils.EconManager;
-import uk.asheiou.ashutils.ExperienceManager;
-import uk.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.EconManager;
+import cymru.asheiou.ashutils.ExperienceManager;
+import cymru.asheiou.ashutils.MessageSender;
 
 public class XpCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

@@ -1,16 +1,20 @@
-package uk.asheiou.ashutils;
+package cymru.asheiou.ashutils;
 
 import java.time.Duration;
 import java.time.Instant;
 
+import cymru.asheiou.ashutils.command.AshUtilsTabExecutor;
+import cymru.asheiou.ashutils.command.HeadSellCommandExecutor;
+import cymru.asheiou.ashutils.command.NotEnabledCommandExecutor;
+import cymru.asheiou.ashutils.command.XpCommandExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import uk.asheiou.ashutils.command.*;
-import uk.asheiou.ashutils.listener.BukkitEventListener;
-import uk.asheiou.ashutils.listener.EssEventListener;
-import uk.asheiou.ashutils.restartonempty.StatusManager;
-import uk.asheiou.configmanager.ConfigManager;
+import cymru.asheiou.ashutils.command.*;
+import cymru.asheiou.ashutils.listener.BukkitEventListener;
+import cymru.asheiou.ashutils.listener.EssEventListener;
+import cymru.asheiou.ashutils.restartonempty.StatusManager;
+import cymru.asheiou.configmanager.ConfigManager;
 
 public final class AshUtils extends JavaPlugin {
 

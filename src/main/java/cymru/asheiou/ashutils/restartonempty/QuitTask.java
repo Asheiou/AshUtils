@@ -1,11 +1,11 @@
-package uk.asheiou.ashutils.restartonempty;
+package cymru.asheiou.ashutils.restartonempty;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import uk.asheiou.ashutils.AshUtils;
+import cymru.asheiou.ashutils.AshUtils;
 
 public class QuitTask extends BukkitRunnable {
   

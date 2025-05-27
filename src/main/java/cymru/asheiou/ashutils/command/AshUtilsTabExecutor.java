@@ -1,9 +1,11 @@
-package uk.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import cymru.asheiou.ashutils.command.ashutils.ReloadHandler;
+import cymru.asheiou.ashutils.command.ashutils.RestartOnEmptyHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -12,8 +14,8 @@ import org.bukkit.util.StringUtil;
 
 import java.util.List;
 
-import uk.asheiou.ashutils.command.ashutils.*;
-import uk.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.command.ashutils.*;
+import cymru.asheiou.ashutils.MessageSender;
 
 public class AshUtilsTabExecutor implements TabExecutor {
   JavaPlugin plugin;

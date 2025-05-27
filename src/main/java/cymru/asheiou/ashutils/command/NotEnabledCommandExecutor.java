@@ -1,10 +1,10 @@
-package uk.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import uk.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.MessageSender;
 
 public class NotEnabledCommandExecutor implements CommandExecutor {
 

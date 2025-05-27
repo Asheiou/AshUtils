@@ -1,4 +1,4 @@
-package uk.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
-import uk.asheiou.ashutils.EconManager;
-import uk.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.EconManager;
+import cymru.asheiou.ashutils.MessageSender;
 
 public class HeadSellCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

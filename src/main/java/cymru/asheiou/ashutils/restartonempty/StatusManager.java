@@ -1,4 +1,4 @@
-package uk.asheiou.ashutils.restartonempty;
+package cymru.asheiou.ashutils.restartonempty;
 
 public final class StatusManager {
   private static boolean status;
