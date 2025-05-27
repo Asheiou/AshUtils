@@ -28,7 +28,7 @@
     </repository>
     <repository>
       <id>asheiou-repo</id>
-      <url>https://repo.asheiou.uk/snapshots/</url>
+      <url>https://repo.asheiou.cymru/releases/</url>
     </repository>
   </repositories>
   
