@@ -1,5 +1,6 @@
-package cymru.asheiou.ashutils.restartonempty;
+package cymru.asheiou.ashutils.task;
 
+import cymru.asheiou.ashutils.manager.StatusManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,9 +14,9 @@ public class QuitTask extends BukkitRunnable {
   public void run() {
     JavaPlugin plugin = JavaPlugin.getProvidingPlugin(AshUtils.class);
     plugin.getLogger().info("Player left. Checking if the server should restart...");
-    boolean isEmpty = Bukkit.getOnlinePlayers().size() == 0;
-    
-    if (isEmpty && StatusManager.getStatus()) {
+    boolean isEmpty = Bukkit.getOnlinePlayers().isEmpty();
+
+    if (isEmpty && StatusManager.getStatus("restartonempty")) {
       Server server = Bukkit.getServer();
       plugin.getLogger().info("Restarting as the server is empty.");
       server.dispatchCommand(server.getConsoleSender(), "restart");

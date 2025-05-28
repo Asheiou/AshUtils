@@ -8,7 +8,7 @@ import uk.asheiou.configmanager.ConfigManager;
 import cymru.asheiou.ashutils.MessageSender;
 
 public class ReloadHandler {
-  public static boolean doUtilReload(JavaPlugin plugin, CommandSender sender) {
+  public static boolean doUtilReload(CommandSender sender, JavaPlugin plugin) {
     MessageSender.sendMessage(sender, "Starting config reload...");
     Integer[] response = new ConfigManager(plugin, true).loadConfig();
     String compose = "Reload complete! ";

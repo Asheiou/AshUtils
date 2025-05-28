@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils;
+package cymru.asheiou.ashutils.manager;
 /*
 AUTHOR: Dev_Richard (https://www.spigotmc.org/members/dev_richard.38792/)
 DESC: A simple and easy to use class that can get and set a player's total experience points.
@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
 
 public class ExperienceManager {
   
-   private Player player;
+   private final Player player;
   
    public ExperienceManager(Player player) {
      this.player = player;

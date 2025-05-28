@@ -47,4 +47,10 @@ permissions:
   ashutils.xpbuy:
     description: Allows /xpbuy
     default: true
+  ashutils.lockchat.exempt:
+    description: Allows exemption from /ashutils lockchat
+    default: op
+  ashutils.clearchat.exempt:
+    description: Allows exemption from /ashutils clearchat
+    default: op
         

@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
-import cymru.asheiou.ashutils.EconManager;
+import cymru.asheiou.ashutils.manager.EconManager;
 import cymru.asheiou.ashutils.MessageSender;
 
 public class HeadSellCommandExecutor implements CommandExecutor {

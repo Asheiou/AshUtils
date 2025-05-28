@@ -10,8 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
-import cymru.asheiou.ashutils.EconManager;
-import cymru.asheiou.ashutils.ExperienceManager;
+import cymru.asheiou.ashutils.manager.EconManager;
+import cymru.asheiou.ashutils.manager.ExperienceManager;
 import cymru.asheiou.ashutils.MessageSender;
 
 public class XpCommandExecutor implements CommandExecutor {
@@ -81,7 +81,7 @@ public class XpCommandExecutor implements CommandExecutor {
       xpToBuy = xpMaximumBuy;
     }
     econ.withdrawPlayer(player, totalCost);
-    new ExperienceManager(player).setTotalExperience(playerCurrentXp + xpToBuy);
+    experienceManager.setTotalExperience(playerCurrentXp + xpToBuy);
 
     MessageSender.sendMessage(player, "You have bought " + aqua + xpToBuy + " XP" + reset + "@ " + aqua + currencySymbol
         + costPerXp + reset + " per XP for " + aqua + currencySymbol + totalCost + reset + ".");

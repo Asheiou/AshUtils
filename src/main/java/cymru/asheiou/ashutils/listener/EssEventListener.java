@@ -18,7 +18,6 @@ public class EssEventListener implements Listener {
     this.plugin = plugin;
   }
 
-  @SuppressWarnings("deprecation")
   @EventHandler(priority = EventPriority.LOW)
   public void onAfkStatusChange(AfkStatusChangeEvent event) {
     Server server = this.plugin.getServer();

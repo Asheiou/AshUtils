@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils;
+package cymru.asheiou.ashutils.manager;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;

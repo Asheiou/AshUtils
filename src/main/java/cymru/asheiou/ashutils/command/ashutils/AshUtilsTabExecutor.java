@@ -1,11 +1,9 @@
-package cymru.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command.ashutils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import cymru.asheiou.ashutils.command.ashutils.ReloadHandler;
-import cymru.asheiou.ashutils.command.ashutils.RestartOnEmptyHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -14,7 +12,6 @@ import org.bukkit.util.StringUtil;
 
 import java.util.List;
 
-import cymru.asheiou.ashutils.command.ashutils.*;
 import cymru.asheiou.ashutils.MessageSender;
 
 public class AshUtilsTabExecutor implements TabExecutor {
@@ -30,15 +27,20 @@ public class AshUtilsTabExecutor implements TabExecutor {
     switch (args[0]) {
     //----------------Reload----------------//
     case "reload":
-      return ReloadHandler.doUtilReload(plugin, sender);
+      return ReloadHandler.doUtilReload(sender, plugin);
     //------------RestartOnEmpty-----------//
     case "restartonempty":
-    case "roe":
+    case "lockchat":
+      String instance = args[0];
       args = Arrays.copyOfRange(args, 1, args.length);
-      return RestartOnEmptyHandler.doUtilsROE(sender, args);
+      return StatusToggleHandler.doToggleStatus(sender, args, instance);
+
+      case "clearchat":
+        return ClearChatHandler.doClearChat(plugin);
+
     default:
       MessageSender.sendMessage(sender,
-          "Unrecognised subcommand. Usage: /ashutils restartonempty [true/false/status]");
+          "Unrecognised subcommand. Expected: reload, restartonempty, lockchat.");
       return true;
     }
   }
@@ -52,11 +54,12 @@ public class AshUtilsTabExecutor implements TabExecutor {
       if (sender.hasPermission("ashutils.admin")) {
         commands.add("reload");
         commands.add("restartonempty");
+        commands.add("lockchat");
       }
       StringUtil.copyPartialMatches(args[0], commands, completions);
 
     } else if (args.length == 2) {
-      if (args[0].equals("restartonempty") || args[0].equals("roe")) {
+      if (args[0].equals("restartonempty") || args[0].equals("lockchat")) {
         if (sender.hasPermission("ashutils.admin"))
           commands.add("true");
         commands.add("false");
