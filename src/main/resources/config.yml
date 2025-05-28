@@ -2,7 +2,6 @@ chat-prefix: "&8[&dAshUtils&8]"
 discord-broadcast-cmd: "discord broadcast"
 head-worth: 100
 currency-symbol: $
-usermap-save-frequency: 300
 vanish-on-login-group: vol
 xp-sell-worth: 2
 xp-buy-cost: 2.2
