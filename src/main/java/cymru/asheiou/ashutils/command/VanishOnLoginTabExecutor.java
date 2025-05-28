@@ -51,7 +51,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
           }
         }
         case 2:
-          if(sender.hasPermission("ashutils.vanish-on-login.others")) {
+          if(sender.hasPermission("ashutils.vanishonlogin.others")) {
             UUID playerUUID = UserMapManager.getUserFromName(args[1]);
             if (playerUUID == null) {
               MessageSender.sendMessage(sender, "Player not found. Check your spelling and try again.");
