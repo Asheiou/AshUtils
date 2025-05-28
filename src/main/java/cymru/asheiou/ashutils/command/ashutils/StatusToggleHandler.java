@@ -3,7 +3,7 @@ package cymru.asheiou.ashutils.command.ashutils;
 import org.bukkit.command.CommandSender;
 
 import cymru.asheiou.ashutils.manager.StatusManager;
-import cymru.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.manager.MessageSender;
 
 public class StatusToggleHandler {
   public static boolean doToggleStatus(CommandSender sender, String[] args, String instance) {
@@ -11,8 +11,7 @@ public class StatusToggleHandler {
       case "restartonempty" -> "RestartOnEmpty";
       case "lockchat" -> "Chat lock";
       default -> "Unknown instance";
-    };
-    if (args.length > 0) {
+    };if (args.length > 0) {
       if (args.length > 1) {
         MessageSender.sendMessage(sender, "Too many arguments! Usage: /ashutils "+instance+ " [true/false/status].");
       }

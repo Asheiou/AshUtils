@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 import cymru.asheiou.ashutils.manager.EconManager;
-import cymru.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.manager.MessageSender;
 
 public class HeadSellCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

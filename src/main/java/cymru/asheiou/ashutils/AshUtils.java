@@ -3,12 +3,16 @@ package cymru.asheiou.ashutils;
 import java.time.Duration;
 import java.time.Instant;
 
+import cymru.asheiou.ashutils.command.VanishOnLoginTabExecutor;
 import cymru.asheiou.ashutils.command.ashutils.AshUtilsTabExecutor;
 import cymru.asheiou.ashutils.command.HeadSellCommandExecutor;
 import cymru.asheiou.ashutils.command.NotEnabledCommandExecutor;
 import cymru.asheiou.ashutils.command.XpCommandExecutor;
 import cymru.asheiou.ashutils.manager.EconManager;
+import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.StatusManager;
+import cymru.asheiou.ashutils.manager.UserMapManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,15 +24,33 @@ public final class AshUtils extends JavaPlugin {
 
   @Override
   public void onEnable() {
+
     getLogger().info("Starting load.");
     Instant startTime = Instant.now();
     PluginManager pm = getServer().getPluginManager();
+    // // // // // // // // Config // // // // // // // //
+    new ConfigManager(this, true).loadConfig();
+    getConfig().options().copyDefaults(true);
+    saveConfig();
     // // // // // // // // Events // // // // // // // //
     pm.registerEvents(new BukkitEventListener(this), this);
-    if (pm.getPlugin("DiscordSRV") != null && pm.getPlugin("Essentials") != null) {
-      pm.registerEvents(new EssEventListener(this), this);
-    } else { 
-      getLogger().warning("Dependencies for EssEventListener not found - not enabling it.");
+    // // // // // // // // Dependencies // // // // // // // //
+    if (pm.getPlugin("Essentials") != null) {
+      if(pm.getPlugin("DiscordSRV") != null) {
+        pm.registerEvents(new EssEventListener(this), this);
+      } else {
+        getLogger().warning("Dependencies for EssEventListener not found - not enabling it.");
+      } if (pm.getPlugin("LuckPerms") != null) {
+        LuckPermsManager.luckPermsSetup();
+        UserMapManager.loadUserMap();
+        this.getCommand("vanishonlogin").setExecutor(new VanishOnLoginTabExecutor(this));
+        this.getCommand("vanishonlogin").setTabCompleter(new VanishOnLoginTabExecutor(this));
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+          public void run() {
+            UserMapManager.saveUserMap();
+          }
+        }, 6000L, 6000L);
+      }
     } 
     // // // // // // // // Vault // // // // // // // //
     if (EconManager.setupEconomy(this)) {
@@ -42,10 +64,6 @@ public final class AshUtils extends JavaPlugin {
       this.getCommand("xpbuy").setExecutor(new NotEnabledCommandExecutor());
       this.getCommand("xpsell").setExecutor(new NotEnabledCommandExecutor());
     }
-    // // // // // // // // Config // // // // // // // //
-    new ConfigManager(this, true).loadConfig();
-    getConfig().options().copyDefaults(true);
-    saveConfig();
     // // // // // // // // Commands // // // // // // // //
     this.getCommand("ashutils").setExecutor(new AshUtilsTabExecutor(this));
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
@@ -56,5 +74,9 @@ public final class AshUtils extends JavaPlugin {
 
     Instant endTime = Instant.now();
     getLogger().info("\u001B[32mLoad complete in " + Duration.between(startTime, endTime).toMillis() + "ms.\u001B[0m");
+  }
+
+  public void onDisable() {
+    UserMapManager.saveUserMap();
   }
 }

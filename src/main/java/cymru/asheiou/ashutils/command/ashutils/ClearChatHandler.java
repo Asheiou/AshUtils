@@ -1,6 +1,6 @@
 package cymru.asheiou.ashutils.command.ashutils;
 
-import cymru.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.manager.MessageSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 

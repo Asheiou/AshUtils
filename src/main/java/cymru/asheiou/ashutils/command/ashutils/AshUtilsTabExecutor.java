@@ -12,7 +12,7 @@ import org.bukkit.util.StringUtil;
 
 import java.util.List;
 
-import cymru.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.manager.MessageSender;
 
 public class AshUtilsTabExecutor implements TabExecutor {
   JavaPlugin plugin;

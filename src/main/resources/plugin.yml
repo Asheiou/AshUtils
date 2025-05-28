@@ -3,8 +3,8 @@ main: cymru.asheiou.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.21.5
-softdepend: [Vault, Essentials, DiscordSRV]
-website: https://mc.asheiou.uk
+softdepend: [Vault, Essentials, DiscordSRV, LuckPerms]
+website: https://asheiou.cymru
 description: >
              The MC.Asheiou.UK bespoke everything-plugin!
 commands:
@@ -20,6 +20,12 @@ commands:
     usage: /<command>
     permission: ashutils.admin
     permission-message: You don't have ashutils.admin.
+  vanishonlogin:
+      aliases: vol
+      description: Vanish on login
+      usage: /<command> [true/false] [user]
+      permission: ashutils.vanishonlogin
+      permission-message: You don't have ashutils.vanishonlogin.
   xpsell:
     aliases: sellxp
     description: Sell XP for money!
@@ -52,5 +58,11 @@ permissions:
     default: op
   ashutils.clearchat.exempt:
     description: Allows exemption from /ashutils clearchat
+    default: op
+  ashutils.vanishonlogin:
+    description: Allows use of /vanishonlogin for this user
+    default: op
+  ashutils.vanishonlogin.others:
+    description: Allows use of /vanishonlogin for all users
     default: op
         

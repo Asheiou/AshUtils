@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import uk.asheiou.configmanager.ConfigManager;
 
-import cymru.asheiou.ashutils.MessageSender;
+import cymru.asheiou.ashutils.manager.MessageSender;
 
 public class ReloadHandler {
   public static boolean doUtilReload(CommandSender sender, JavaPlugin plugin) {

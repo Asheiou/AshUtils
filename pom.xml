@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cymru.asheiou</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.3</version>
+  <version>1.4</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -30,6 +30,10 @@
       <id>asheiou-repo</id>
       <url>https://repo.asheiou.cymru/releases/</url>
     </repository>
+    <repository>
+      <id>central</id>
+      <url>https://repo1.maven.org/maven2</url>
+    </repository>
   </repositories>
   
   <dependencies>
@@ -45,6 +49,11 @@
       <version>1.21.5-R0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.13.1</version>
+    </dependency>
+    <dependency>
       <groupId>com.github.MilkBowl</groupId>
       <artifactId>VaultAPI</artifactId>
       <version>1.7</version>
@@ -55,6 +64,12 @@
       <artifactId>configmanager</artifactId>
       <version>1.1</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.luckperms</groupId>
+      <artifactId>api</artifactId>
+      <version>5.4</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   
@@ -116,6 +131,7 @@
               <artifactSet>
                 <includes>
                   <include>cymru.asheiou:configmanager</include>
+                  <include>com.google:gson</include>
                 </includes>
               </artifactSet>
             </configuration>

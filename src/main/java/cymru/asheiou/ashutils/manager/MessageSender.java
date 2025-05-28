@@ -1,5 +1,6 @@
-package cymru.asheiou.ashutils;
+package cymru.asheiou.ashutils.manager;
 
+import cymru.asheiou.ashutils.AshUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
