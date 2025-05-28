@@ -80,7 +80,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
     java.util.List<String> commands = new ArrayList<>();
 
     if (args.length == 1) {
-      if (sender.hasPermission("ashutils.vanish-on-login")) {
+      if (sender.hasPermission("ashutils.vanishonlogin")) {
         commands.add("true");
         commands.add("false");
       }
@@ -88,7 +88,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
 
     } else if (args.length == 2) {
       if (args[0].equals("true") || args[0].equals("false")) {
-        if (sender.hasPermission("ashutils.vanish-on-login.others")) {
+        if (sender.hasPermission("ashutils.vanishonlogin.others")) {
           for (Player player : Bukkit.getOnlinePlayers()) {
             commands.add(player.getName());
           }
