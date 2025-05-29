@@ -20,6 +20,11 @@ commands:
     usage: /<command>
     permission: ashutils.admin
     permission-message: You don't have ashutils.admin.
+  fake:
+    description: Fake join or quit
+    usage: /<command> <join/quit>
+    permission: ashutils.fake
+    permission-message: You don't have ashutils.fake.
   vanishonlogin:
       aliases: vol
       description: Vanish on login
@@ -46,6 +51,9 @@ permissions:
     default: true
   ashutils.admin:
     description: Allows /ashutils
+    default: op
+  ashutils.fake:
+    description: Allows /fake
     default: op
   ashutils.xpsell:
     description: Allows /xpsell

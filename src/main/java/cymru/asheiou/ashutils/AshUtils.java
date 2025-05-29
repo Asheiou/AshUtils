@@ -3,11 +3,8 @@ package cymru.asheiou.ashutils;
 import java.time.Duration;
 import java.time.Instant;
 
-import cymru.asheiou.ashutils.command.VanishOnLoginTabExecutor;
+import cymru.asheiou.ashutils.command.*;
 import cymru.asheiou.ashutils.command.ashutils.AshUtilsTabExecutor;
-import cymru.asheiou.ashutils.command.HeadSellCommandExecutor;
-import cymru.asheiou.ashutils.command.NotEnabledCommandExecutor;
-import cymru.asheiou.ashutils.command.XpCommandExecutor;
 import cymru.asheiou.ashutils.manager.EconManager;
 import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.StatusManager;
@@ -50,6 +47,9 @@ public final class AshUtils extends JavaPlugin {
             UserMapManager.saveUserMap();
           }
         }, 6000L, 6000L);
+      } else {
+        Bukkit.getLogger().info("LuckPerms not found - not enabling VanishOnLogin.");
+        this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
       }
     } 
     // // // // // // // // Vault // // // // // // // //
@@ -59,7 +59,7 @@ public final class AshUtils extends JavaPlugin {
       this.getCommand("xpbuy").setExecutor(new XpCommandExecutor(this));
       this.getCommand("xpsell").setExecutor(new XpCommandExecutor(this));
     } else {
-      getLogger().warning("Vault or economy plugin not found - not enabling /headsell.");
+      getLogger().warning("Vault or economy plugin not found - not enabling economy commands.");
       this.getCommand("headsell").setExecutor(new NotEnabledCommandExecutor());
       this.getCommand("xpbuy").setExecutor(new NotEnabledCommandExecutor());
       this.getCommand("xpsell").setExecutor(new NotEnabledCommandExecutor());
@@ -67,6 +67,8 @@ public final class AshUtils extends JavaPlugin {
     // // // // // // // // Commands // // // // // // // //
     this.getCommand("ashutils").setExecutor(new AshUtilsTabExecutor(this));
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
+    this.getCommand("fake").setExecutor(new FakeTabExecutor(this));
+    this.getCommand("fake").setTabCompleter(new FakeTabExecutor(this));
     getLogger().info("Commands and events registered.");
     // // // // // // // // RestartOnEmpty // // // // // // // //
     StatusManager.setStatus("restartonempty", false);
