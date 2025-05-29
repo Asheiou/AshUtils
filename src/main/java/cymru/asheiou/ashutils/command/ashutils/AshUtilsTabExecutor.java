@@ -40,7 +40,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
 
     default:
       MessageSender.sendMessage(sender,
-          "Unrecognised subcommand. Expected: reload, restartonempty, lockchat.");
+          "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
       return true;
     }
   }
@@ -55,6 +55,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
         commands.add("reload");
         commands.add("restartonempty");
         commands.add("lockchat");
+        commands.add("clearchat");
       }
       StringUtil.copyPartialMatches(args[0], commands, completions);
 

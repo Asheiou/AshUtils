@@ -14,10 +14,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import cymru.asheiou.ashutils.task.QuitTask;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class BukkitEventListener implements Listener {
 
   private final JavaPlugin plugin;
+  private Pattern pattern = Pattern.compile("^:[A-Z]{4,}$");
 
   public BukkitEventListener(JavaPlugin plugin) { this.plugin = plugin; }
 
@@ -26,7 +28,7 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onChat(AsyncPlayerChatEvent event) {
-    if(event.getMessage().startsWith(":") && event.getMessage().equals(event.getMessage().toUpperCase())) {
+    if(pattern.matcher(event.getMessage()).matches()) {
       MessageSender.sendMessage(event.getPlayer(), "To use commands, type /<command>.");
       event.setCancelled(true);
       return;
