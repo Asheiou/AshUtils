@@ -35,16 +35,16 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
     switch (args.length) {
       case 0:
         if (sender instanceof Player player) {
-          return permissionUpdate(sender, player, !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
+          return permissionUpdate(sender, player.getUniqueId(), player.getName(), !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
         }
         MessageSender.sendMessage(sender, "This command cannot be run from the console without arguments.");
       case 1:
         if (sender instanceof Player player) {
           switch (args[0]) {
             case "true":
-              return permissionUpdate(sender, player, true);
+              return permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
             case "false":
-              return permissionUpdate(sender, player, false);
+              return permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
             default:
               MessageSender.sendMessage(sender, "Unknown argument! Usage:");
               return false;
@@ -57,12 +57,11 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
               MessageSender.sendMessage(sender, "Player not found. Check your spelling and try again.");
               return true;
             }
-            Player player = Bukkit.getPlayer(playerUUID);
             switch (args[0]) {
               case "true":
-                return permissionUpdate(sender, player, true);
+                return permissionUpdate(sender, playerUUID, args[1], true);
               case "false":
-                return permissionUpdate(sender, player, false);
+                return permissionUpdate(sender, playerUUID, args[1], false);
               default:
                 MessageSender.sendMessage(sender, "Unknown argument! Usage:");
                 return false;
@@ -100,9 +99,9 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
     return completions;
   }
 
-  boolean permissionUpdate(CommandSender sender, Player player, boolean status) {
+  boolean permissionUpdate(CommandSender sender, UUID uuid, String playerName, boolean status) {
     UserManager userManager = LuckPermsManager.getApi().getUserManager();
-    CompletableFuture<User> userFuture = userManager.loadUser(player.getUniqueId());
+    CompletableFuture<User> userFuture = userManager.loadUser(uuid);
     userFuture.thenAcceptAsync(user -> {
       if(status) {
         user.data().add(Node.builder("group."+plugin.getConfig().getString("vanish-on-login-group")).build());
@@ -112,15 +111,9 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         user.data().remove(InheritanceNode.builder(group).build());
       }
       userManager.saveUser(user);
+      String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName+".";
+      MessageSender.sendMessage(sender, toSend);
     });
-    String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + player.getName()+".";
-    MessageSender.sendMessage(sender, toSend);
-    if(sender instanceof Player senderPlayer) {
-      if(!senderPlayer.getUniqueId().equals(player.getUniqueId())) {
-        MessageSender.sendMessage(player, toSend);
-      }
-    }
-
     return true;
   }
 }

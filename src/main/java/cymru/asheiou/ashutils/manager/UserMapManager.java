@@ -1,7 +1,6 @@
 package cymru.asheiou.ashutils.manager;
 
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -18,7 +17,7 @@ public class UserMapManager {
   private static final JavaPlugin plugin = JavaPlugin.getProvidingPlugin(UserMapManager.class);
   private static final String filePath = plugin.getDataFolder() + "/users.json";
 
-  static Map<String, UUID> userMap = new HashMap<>();
+  static Map<String, String> userMap = new HashMap<>();
   static Gson gson = new Gson();
 
   @SuppressWarnings("unchecked")
@@ -26,7 +25,7 @@ public class UserMapManager {
     if (!new File(filePath).exists()) {
       try {
         new File(filePath).createNewFile();
-        gson.toJson(new HashMap<String, UUID>(), new FileWriter(filePath));
+        gson.toJson(new HashMap<String, String>(), new FileWriter(filePath));
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
@@ -42,16 +41,19 @@ public class UserMapManager {
             }
     ).thenAccept(
             result ->
-                    userMap = (Map<String, UUID>) result);
-    plugin.getLogger().info("users.json loaded with "+userMap.size()+" users!");
+            {
+              userMap = (Map<String, String>) result;
+              plugin.getLogger().info("users.json loaded with "+userMap.size()+" users!");
+            });
   }
 
   public static UUID getUserFromName(String name) {
-    return userMap.get(name);
+    plugin.getLogger().info("Getting user from "+name);
+    return UUID.fromString(userMap.get(name));
   }
 
   public static void putUserInMap(String name, UUID uuid) {
-    userMap.put(name, uuid);
+    userMap.put(name, uuid.toString());
   }
 
   public static void saveUserMap() {
