@@ -26,29 +26,33 @@ public class UserMapManager {
       try {
         new File(filePath).createNewFile();
         gson.toJson(new HashMap<String, String>(), new FileWriter(filePath));
+        return;
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
     }
-    CompletableFuture<Void> future = CompletableFuture.supplyAsync(() ->
-            {
-              try {
-                String jsonContent = Files.readString(Paths.get(filePath));
-                return gson.fromJson(jsonContent, Map.class);
-              } catch (Exception e) {
-                throw new RuntimeException(e);
+    else {
+      CompletableFuture<Void> future = CompletableFuture.supplyAsync(() ->
+              {
+                try {
+                  String jsonContent = Files.readString(Paths.get(filePath));
+                  return gson.fromJson(jsonContent, Map.class);
+                } catch (Exception e) {
+                  throw new RuntimeException(e);
+                }
               }
-            }
-    ).thenAccept(
-            result ->
-            {
-              userMap = (Map<String, String>) result;
-              plugin.getLogger().info("users.json loaded with "+userMap.size()+" users!");
-            });
+      ).thenAccept(
+              result ->
+              {
+                userMap = (Map<String, String>) result;
+                plugin.getLogger().info("users.json loaded with " + userMap.size() + " users!");
+              });
+    }
   }
 
   public static UUID getUserFromName(String name) {
     plugin.getLogger().info("Getting user from "+name);
+    if(!userMap.containsKey(name)) { return null; }
     return UUID.fromString(userMap.get(name));
   }
 
