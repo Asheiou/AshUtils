@@ -5,6 +5,8 @@ import com.google.gson.stream.JsonReader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
@@ -31,12 +33,17 @@ public class UserMapManager {
     }
     CompletableFuture<Void> future = CompletableFuture.supplyAsync(() ->
             {
-              return gson.fromJson(filePath, Map.class);
+              try {
+                String jsonContent = Files.readString(Paths.get(filePath));
+                return gson.fromJson(jsonContent, Map.class);
+              } catch (Exception e) {
+                throw new RuntimeException(e);
+              }
             }
     ).thenAccept(
             result ->
                     userMap = (Map<String, UUID>) result);
-    plugin.getLogger().info("users.json loaded!");
+    plugin.getLogger().info("users.json loaded with "+userMap.size()+" users!");
   }
 
   public static UUID getUserFromName(String name) {
