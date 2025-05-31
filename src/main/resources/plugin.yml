@@ -8,6 +8,11 @@ website: https://asheiou.cymru
 description: >
              The Aeolia bespoke everything-plugin!
 commands:
+  code:
+    description: Generate a code to verify you own your account.
+    usage: /<command>
+    permission: ashutils.code
+    permission-message: You don't have ashutils.code.
   headsell:
     aliases: sellhead
     description: Sell any unwanted player heads back to the server!
@@ -46,6 +51,9 @@ commands:
     
 
 permissions:
+  ashutils.code:
+    description: Allows /code
+    default: true
   ashutils.headsell:
     description: Allows head sell
     default: true

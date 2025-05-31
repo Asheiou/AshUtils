@@ -8,3 +8,4 @@ xp-buy-cost: 2.2
 xp-maximum-buy: 10000
 join-message: "&a&l+ &r&e{USERNAME}"
 quit-message: "&c&l- &r&e{USERNAME}"
+discord-staffchat-cmd: "a"
