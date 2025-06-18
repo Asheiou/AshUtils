@@ -25,25 +25,42 @@ public class FakeTabExecutor implements TabExecutor {
 
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-    if(!(sender instanceof Player)) {
-      MessageSender.sendMessage(sender, "This command can only be executed by a player.");
+    if(!(sender instanceof Player) && args.length==1) {
+      MessageSender.sendMessage(sender, "This command can only be executed by a player without an argument.");
       return true;
     }
-    if(args.length != 1) {
+    if (args.length == 0) {
+      MessageSender.sendMessage(sender,"Unrecognised command usage. Usage: ");
+      return false;
+    }
+
+    String message = null;
+    switch(args[0]) {
+      case "quit":
+      case "leave":
+      case "q":
+        message = plugin.getConfig().getString("quit-message");
+        break;
+      case "join":
+      case "j":
+        message = plugin.getConfig().getString("join-message");
+        break;
+      default:
+        MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
+        return false;
+    }
+    if (args.length == 1) {
+      message.replace("{USERNAME}", sender.getName());
+    } else if (args.length == 2) {
+      message.replace("{USERNAME}", args[1]);
+    }
+    else {
       MessageSender.sendMessage(sender, "Unrecognised command usage. Usage:");
       return false;
     }
-    switch(args[0]) {
-      case "quit":
-        Bukkit.broadcastMessage(plugin.getConfig().getString("quit-message").replace('&', ChatColor.COLOR_CHAR).replace("{USERNAME}", sender.getName()));
-        return true;
-      case "join":
-        Bukkit.broadcastMessage(plugin.getConfig().getString("join-message").replace('&', ChatColor.COLOR_CHAR).replace("{USERNAME}", sender.getName()));
-        return true;
-      default:
-        MessageSender.sendMessage(sender, "Unrecognised command usage. Usage:");
-        return false;
-    }
+
+    Bukkit.broadcastMessage(message.replace('&', ChatColor.COLOR_CHAR));
+    return true;
   }
 
   @Override
