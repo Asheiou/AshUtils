@@ -1,7 +1,6 @@
 package cymru.asheiou.ashutils.command;
 
 import cymru.asheiou.ashutils.manager.MessageSender;
-import net.luckperms.api.messenger.message.Message;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -11,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +32,7 @@ public class FakeTabExecutor implements TabExecutor {
       return false;
     }
 
-    String message = null;
+    String message;
     switch(args[0]) {
       case "quit":
       case "leave":
@@ -49,10 +47,12 @@ public class FakeTabExecutor implements TabExecutor {
         MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
         return false;
     }
+    assert message != null;
+
     if (args.length == 1) {
-      message.replace("{USERNAME}", sender.getName());
+      message = message.replace("{USERNAME}", sender.getName());
     } else if (args.length == 2) {
-      message.replace("{USERNAME}", args[1]);
+      message = message.replace("{USERNAME}", args[1]);
     }
     else {
       MessageSender.sendMessage(sender, "Unrecognised command usage. Usage:");
@@ -64,7 +64,7 @@ public class FakeTabExecutor implements TabExecutor {
   }
 
   @Override
-  public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     List<String> completions = new ArrayList<>();
     java.util.List<String> commands = new ArrayList<>();
 
