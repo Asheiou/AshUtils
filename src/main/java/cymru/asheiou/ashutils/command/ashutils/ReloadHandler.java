@@ -3,9 +3,9 @@ package cymru.asheiou.ashutils.command.ashutils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import uk.asheiou.configmanager.ConfigManager;
+import cymru.asheiou.configmanager.ConfigManager;
 
-import cymru.asheiou.ashutils.manager.MessageSender;
+import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class ReloadHandler {
   public static boolean doUtilReload(CommandSender sender, JavaPlugin plugin) {

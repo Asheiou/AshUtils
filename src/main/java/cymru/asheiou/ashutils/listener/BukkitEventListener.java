@@ -1,6 +1,6 @@
 package cymru.asheiou.ashutils.listener;
 
-import cymru.asheiou.ashutils.manager.MessageSender;
+import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.manager.StatusManager;
 import cymru.asheiou.ashutils.manager.UserMapManager;
 import org.bukkit.event.EventHandler;

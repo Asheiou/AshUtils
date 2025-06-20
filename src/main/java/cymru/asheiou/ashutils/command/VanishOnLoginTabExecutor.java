@@ -1,6 +1,6 @@
 package cymru.asheiou.ashutils.command;
 
-import cymru.asheiou.ashutils.manager.MessageSender;
+import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.UserMapManager;
 import net.luckperms.api.model.group.Group;

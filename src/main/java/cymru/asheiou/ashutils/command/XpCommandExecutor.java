@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
 import cymru.asheiou.ashutils.manager.EconManager;
 import cymru.asheiou.ashutils.manager.ExperienceManager;
-import cymru.asheiou.ashutils.manager.MessageSender;
+import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class XpCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
@@ -52,7 +52,7 @@ public class XpCommandExecutor implements CommandExecutor {
   public boolean buyXp(Player player, String arg, ExperienceManager experienceManager, int playerCurrentXp, String currencySymbol) {
     int xpToBuy;
     double playerBalance = econ.getBalance(player);
-    double costPerXp = plugin.getConfig().getDouble("xp-buy-cost");
+    double costPerXp = plugin.getConfig().getDouble("xp.buy-cost");
     int maximumXpPurchasable = (int) Math.floor(playerBalance / costPerXp);
 
     if(costPerXp > playerBalance) {
@@ -74,7 +74,7 @@ public class XpCommandExecutor implements CommandExecutor {
       MessageSender.sendMessage(player, "You don't have enough money for that! You can buy a maximum of " + aqua
           + maximumXpPurchasable + reset + " XP.");
     }
-    int xpMaximumBuy = plugin.getConfig().getInt("xp-maximum-buy");
+    int xpMaximumBuy = plugin.getConfig().getInt("xp.maximum-buy");
     if (xpToBuy > xpMaximumBuy && xpMaximumBuy > 0) {
       MessageSender.sendMessage(player, "This server limits the amount of XP you can buy per use of this command to "
           + aqua + xpMaximumBuy + reset + ".");
@@ -109,7 +109,7 @@ public class XpCommandExecutor implements CommandExecutor {
         return true;
       }
     }
-    double worthPerXp = plugin.getConfig().getInt("xp-sell-worth");
+    double worthPerXp = plugin.getConfig().getInt("xp.sell-worth");
     double totalWorth = (BigDecimal.valueOf(worthPerXp).multiply(BigDecimal.valueOf(xpToSell))).doubleValue();
     experienceManager.setTotalExperience(playerCurrentXp - xpToSell);
     econ.depositPlayer(player, totalWorth);

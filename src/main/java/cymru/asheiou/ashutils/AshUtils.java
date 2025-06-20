@@ -5,7 +5,7 @@ import java.time.Instant;
 
 import cymru.asheiou.ashutils.command.*;
 import cymru.asheiou.ashutils.command.ashutils.AshUtilsTabExecutor;
-import cymru.asheiou.ashutils.command.ashutils.CodeCommandExecutor;
+import cymru.asheiou.ashutils.command.CodeCommandExecutor;
 import cymru.asheiou.ashutils.manager.EconManager;
 import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.StatusManager;
@@ -34,13 +34,10 @@ public final class AshUtils extends JavaPlugin {
     pm.registerEvents(new BukkitEventListener(this), this);
     // // // // // // // // Dependencies // // // // // // // //
     if (pm.getPlugin("Essentials") != null) {
-      if(pm.getPlugin("DiscordSRV") != null) {
         pm.registerEvents(new EssEventListener(this), this);
         this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
       } else {
-        this.getCommand("code").setExecutor(new NotEnabledCommandExecutor());
-        getLogger().warning("Dependencies for EssEventListener not found - not enabling it.");
-      } if (pm.getPlugin("LuckPerms") != null) {
+      if (pm.getPlugin("LuckPerms") != null) {
         LuckPermsManager.luckPermsSetup();
         UserMapManager.loadUserMap();
         this.getCommand("vanishonlogin").setExecutor(new VanishOnLoginTabExecutor(this));
@@ -54,8 +51,7 @@ public final class AshUtils extends JavaPlugin {
         Bukkit.getLogger().info("LuckPerms not found - not enabling VanishOnLogin.");
         this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
       }
-    } 
-    // // // // // // // // Vault // // // // // // // //
+    }
     if (EconManager.setupEconomy(this)) {
       // TODO: Make this more elegant with a Map or something
       this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
@@ -72,6 +68,7 @@ public final class AshUtils extends JavaPlugin {
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
     this.getCommand("fake").setExecutor(new FakeTabExecutor(this));
     this.getCommand("fake").setTabCompleter(new FakeTabExecutor(this));
+    this.getCommand("report").setExecutor(new ReportCommandExecutor(this));
     getLogger().info("Commands and events registered.");
     // // // // // // // // RestartOnEmpty // // // // // // // //
     StatusManager.setStatus("restartonempty", false);

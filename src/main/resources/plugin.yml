@@ -30,6 +30,11 @@ commands:
     usage: /<command> <join/quit> [user]
     permission: ashutils.fake
     permission-message: You don't have ashutils.fake.
+  report:
+    description: Create a report to our staff
+    usage: /<command> <report message>
+    permission: ashutils.report
+    permission-message: You don't have ashutils.report.
   vanishonlogin:
       aliases: vol
       description: Vanish on login
@@ -63,6 +68,9 @@ permissions:
   ashutils.fake:
     description: Allows /fake
     default: op
+  ashutils.report:
+    description: Allows /report
+    default: true
   ashutils.xpsell:
     description: Allows /xpsell
     default: true
