@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cymru.asheiou</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.5.1</version>
+  <version>1.6-dev1</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -62,7 +62,7 @@
     <dependency>
       <groupId>cymru.asheiou</groupId>
       <artifactId>configmanager</artifactId>
-      <version>1.1</version>
+      <version>1.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -113,7 +113,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>dependency/</classpathPrefix>
-              <mainClass>uk.asheiou.configmanager.ConfigManager</mainClass>
+              <mainClass>cymru.asheiou.configmanager.ConfigManager</mainClass>
             </manifest>
           </archive>
         </configuration>

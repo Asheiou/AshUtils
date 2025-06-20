@@ -21,7 +21,7 @@ public class CodeCommandExecutor implements CommandExecutor {
     if (!(sender instanceof Player player)) { MessageSender.sendMessage(sender, "You must be a player to use this command."); return true; }
     String code = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
     MessageSender.sendMessage(sender, "Your code is " + ChatColor.AQUA + code + ChatColor.RESET + ". Staff may ask you for this code to verify you own your account.");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("discord-staffchat-cmd") + " User " + player.getName() + " (`" + player.getUniqueId() + "`) ran /code. Their code is " + code + ". Only accept this code within 24 hours of this message.");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("discord.staffchat-cmd") + " User " + player.getName() + " (`" + player.getUniqueId() + "`) ran /code. Their code is " + code + ". Only accept this code within 24 hours of this message.");
     return true;
   }
 }

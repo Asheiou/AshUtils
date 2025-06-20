@@ -24,7 +24,7 @@ public class EssEventListener implements Listener {
     Pattern colourpattern = Pattern.compile("§(.)");
     Matcher matcher = colourpattern.matcher(event.getAffected().getDisplayName());
     String clean = matcher.replaceAll("");
-    server.dispatchCommand(server.getConsoleSender(), this.plugin.getConfig().getString("discord-broadcast-cmd") +
+    server.dispatchCommand(server.getConsoleSender(), this.plugin.getConfig().getString("discord.broadcast-cmd") +
         " **" + clean + "** is " + (event.getValue() ? "now" : "no longer") + " AFK.");
   }
 }
