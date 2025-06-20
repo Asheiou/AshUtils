@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.manager;
+package cymru.asheiou.ashutils.sender;
 
 import cymru.asheiou.ashutils.AshUtils;
 import org.bukkit.command.CommandSender;

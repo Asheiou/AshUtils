@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
 import cymru.asheiou.ashutils.manager.EconManager;
 import cymru.asheiou.ashutils.manager.ExperienceManager;
-import cymru.asheiou.ashutils.manager.MessageSender;
+import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class XpCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

@@ -5,7 +5,7 @@ import java.time.Instant;
 
 import cymru.asheiou.ashutils.command.*;
 import cymru.asheiou.ashutils.command.ashutils.AshUtilsTabExecutor;
-import cymru.asheiou.ashutils.command.ashutils.CodeCommandExecutor;
+import cymru.asheiou.ashutils.command.CodeCommandExecutor;
 import cymru.asheiou.ashutils.manager.EconManager;
 import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.StatusManager;
@@ -34,13 +34,10 @@ public final class AshUtils extends JavaPlugin {
     pm.registerEvents(new BukkitEventListener(this), this);
     // // // // // // // // Dependencies // // // // // // // //
     if (pm.getPlugin("Essentials") != null) {
-      if(pm.getPlugin("DiscordSRV") != null) {
         pm.registerEvents(new EssEventListener(this), this);
         this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
       } else {
-        this.getCommand("code").setExecutor(new NotEnabledCommandExecutor());
-        getLogger().warning("Dependencies for EssEventListener not found - not enabling it.");
-      } if (pm.getPlugin("LuckPerms") != null) {
+      if (pm.getPlugin("LuckPerms") != null) {
         LuckPermsManager.luckPermsSetup();
         UserMapManager.loadUserMap();
         this.getCommand("vanishonlogin").setExecutor(new VanishOnLoginTabExecutor(this));

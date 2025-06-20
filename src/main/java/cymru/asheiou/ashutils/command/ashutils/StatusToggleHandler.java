@@ -3,7 +3,7 @@ package cymru.asheiou.ashutils.command.ashutils;
 import org.bukkit.command.CommandSender;
 
 import cymru.asheiou.ashutils.manager.StatusManager;
-import cymru.asheiou.ashutils.manager.MessageSender;
+import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class StatusToggleHandler {
   public static boolean doToggleStatus(CommandSender sender, String[] args, String instance) {

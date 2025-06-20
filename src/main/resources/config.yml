@@ -9,6 +9,6 @@ xp:
   sell-worth: 2
   maximum-buy: 10000
 discord:
-  broadcast-cmd: "discord broadcast"
-  staffchat-cmd: "a"
+  afk-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
+  code-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   report-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
