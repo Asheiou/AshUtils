@@ -54,8 +54,7 @@ public final class AshUtils extends JavaPlugin {
         Bukkit.getLogger().info("LuckPerms not found - not enabling VanishOnLogin.");
         this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
       }
-    } 
-    // // // // // // // // Vault // // // // // // // //
+    }
     if (EconManager.setupEconomy(this)) {
       // TODO: Make this more elegant with a Map or something
       this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
@@ -72,6 +71,7 @@ public final class AshUtils extends JavaPlugin {
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
     this.getCommand("fake").setExecutor(new FakeTabExecutor(this));
     this.getCommand("fake").setTabCompleter(new FakeTabExecutor(this));
+    this.getCommand("report").setExecutor(new ReportCommandExecutor(this));
     getLogger().info("Commands and events registered.");
     // // // // // // // // RestartOnEmpty // // // // // // // //
     StatusManager.setStatus("restartonempty", false);
