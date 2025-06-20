@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class BukkitEventListener implements Listener {
 
   private final JavaPlugin plugin;
-  private Pattern pattern = Pattern.compile("^:[A-Z]{4,}$");
+  private final Pattern pattern = Pattern.compile("^:[A-Z]{4,}$");
 
   public BukkitEventListener(JavaPlugin plugin) { this.plugin = plugin; }
 
