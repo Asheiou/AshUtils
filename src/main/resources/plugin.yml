@@ -3,7 +3,7 @@ main: cymru.asheiou.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.21.5
-softdepend: [Vault, Essentials, DiscordSRV, LuckPerms]
+softdepend: [Vault, Essentials, LuckPerms]
 website: https://asheiou.cymru
 description: >
              The Aeolia bespoke everything-plugin!
