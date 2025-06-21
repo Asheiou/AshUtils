@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cymru.asheiou</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.6-dev3</version>
+  <version>1.6-dev4</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
