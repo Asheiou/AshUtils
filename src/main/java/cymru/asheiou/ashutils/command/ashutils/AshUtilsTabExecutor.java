@@ -26,22 +26,25 @@ public class AshUtilsTabExecutor implements TabExecutor {
     }
     switch (args[0]) {
     //----------------Reload----------------//
-    case "reload":
-      return ReloadHandler.doUtilReload(sender, plugin);
+      case "reload":
+        return ReloadHandler.doUtilReload(sender, plugin);
     //------------RestartOnEmpty-----------//
-    case "restartonempty":
-    case "lockchat":
-      String instance = args[0];
-      args = Arrays.copyOfRange(args, 1, args.length);
-      return StatusToggleHandler.doToggleStatus(sender, args, instance);
+      case "restartonempty":
+      case "roe":
+      case "lc":
+      case "lockchat":
+        String instance = args[0];
+        args = Arrays.copyOfRange(args, 1, args.length);
+        return StatusToggleHandler.doToggleStatus(sender, args, instance);
 
       case "clearchat":
+      case "cc":
         return ClearChatHandler.doClearChat(plugin);
 
-    default:
-      MessageSender.sendMessage(sender,
-          "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
-      return true;
+      default:
+        MessageSender.sendMessage(sender,
+            "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
+        return true;
     }
   }
 

@@ -7,11 +7,17 @@ import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class StatusToggleHandler {
   public static boolean doToggleStatus(CommandSender sender, String[] args, String instance) {
+    instance = switch (instance) {
+      case "roe" -> "restartonempty";
+      case "lc" -> "lockchat";
+      default -> instance;
+    };
     String instanceFormatted = switch (instance) {
       case "restartonempty" -> "RestartOnEmpty";
       case "lockchat" -> "Chat lock";
       default -> "Unknown instance";
-    };if (args.length > 0) {
+    };
+    if (args.length > 0) {
       if (args.length > 1) {
         MessageSender.sendMessage(sender, "Too many arguments! Usage: /ashutils "+instance+ " [true/false/status].");
       }
