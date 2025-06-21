@@ -41,8 +41,8 @@ public class ReportCommandExecutor implements CommandExecutor {
       return true;
     }
     Location location = player.getLocation();
-    HttpResponse<String> response = WebhookSender.postWebhook(uri, sender.getName() + "has created a report at" +
-            location.getBlockX() + "X, " + location.getBlockY() + "Y, " + location.getBlockZ() +  "Z in " +
+    HttpResponse<String> response = WebhookSender.postWebhook(uri, sender.getName() + " has created a report at " +
+            location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() +  " in " +
             Objects.requireNonNull(location.getWorld()).getName() + ":\n" + String.join(" ", args));
 
     if(response.statusCode() != 204) {
