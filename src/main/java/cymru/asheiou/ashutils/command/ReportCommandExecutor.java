@@ -3,9 +3,11 @@ package cymru.asheiou.ashutils.command;
 import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.sender.WebhookSender;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +22,11 @@ public class ReportCommandExecutor implements CommandExecutor {
   }
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    if (!(sender instanceof Player player)) {
+      MessageSender.sendMessage(sender, "This command can only be executed by a player.");
+      return true;
+    }
+
     if (args.length == 0) {
       MessageSender.sendMessage(sender, "Invalid usage! Usage:");
       return false;
@@ -33,7 +40,10 @@ public class ReportCommandExecutor implements CommandExecutor {
       MessageSender.sendMessage(sender, "An internal error occurred. Please contact an administrator.");
       return true;
     }
-    HttpResponse<String> response = WebhookSender.postWebhook(uri, sender.getName() + "has created a report \n" + String.join(" ", args));
+    Location location = player.getLocation();
+    HttpResponse<String> response = WebhookSender.postWebhook(uri, sender.getName() + " has created a report at " +
+            location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() +  " in " +
+            Objects.requireNonNull(location.getWorld()).getName() + ":\n" + String.join(" ", args));
 
     if(response.statusCode() != 204) {
       plugin.getLogger().severe("Could not send report: " + response.statusCode() + " " + response.body());
