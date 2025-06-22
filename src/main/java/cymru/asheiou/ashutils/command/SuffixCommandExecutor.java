@@ -60,6 +60,7 @@ public class SuffixCommandExecutor implements TabExecutor {
       return true;
     }
     if (PermissionManager.permissionUpdate(uuid, "ashutils.suffix."+args[2], status)) {
+      if (!status) { PermissionManager.groupUpdate(plugin, uuid, args[2], false); }
       MessageSender.sendMessage(sender, "Successfully "+ (status ? "granted " : "revoked ")
               + args[2] + " for " + args[1] + ".");
       return true;
@@ -96,7 +97,8 @@ public class SuffixCommandExecutor implements TabExecutor {
 
     } else if (args.length == 3) {
       if (args[0].equals("grant") || args[0].equals("revoke")) {
-        for (String s : plugin.getConfig().getStringList("suffix.list"))  commands.add(s);
+        commands.addAll(plugin.getConfig().getStringList("suffix.list"));
+        StringUtil.copyPartialMatches(args[2], commands, completions);
       }
     }
     Collections.sort(completions);
