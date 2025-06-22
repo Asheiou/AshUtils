@@ -40,7 +40,6 @@ public class AshUtilsTabExecutor implements TabExecutor {
       case "clearchat":
       case "cc":
         return ClearChatHandler.doClearChat(plugin);
-
       default:
         MessageSender.sendMessage(sender,
             "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");

@@ -98,7 +98,5 @@ public class SuffixMenu implements InventoryProvider  {
   }
 
   @Override
-  public void update(Player player, InventoryContents inventoryContents) {
-
-  }
+  public void update(Player player, InventoryContents inventoryContents) {}
 }
