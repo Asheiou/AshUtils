@@ -46,7 +46,7 @@ public class SuffixMenu implements InventoryProvider  {
         }
         capitalise = false;
       }
-      formatted = new String(formattedArray);
+      formatted = ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray).replace('_', ' ');
 
       ItemStack item;
       ItemMeta meta;
