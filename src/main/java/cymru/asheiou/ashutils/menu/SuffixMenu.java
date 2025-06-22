@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
 
 public class SuffixMenu implements InventoryProvider  {
-  private JavaPlugin plugin;
+  private final JavaPlugin plugin;
   public final SmartInventory INVENTORY;
   public SuffixMenu(JavaPlugin plugin) {
     this.plugin = plugin;
@@ -33,16 +33,28 @@ public class SuffixMenu implements InventoryProvider  {
   public void init(Player player, InventoryContents inventoryContents) {
     List<String> suffixlist = plugin.getConfig().getStringList("suffix.list");
     for (String s : suffixlist) {
-      String formatted = ChatColor.ITALIC + "the " + WordUtils.capitalizeFully(
-              s.replace('_', ' '));
+      String formatted = WordUtils.capitalizeFully(s.replace('_', ' '));
+      boolean capitalise = false;
+      char[] formattedArray = formatted.toCharArray();
+      for (int i = 0; i < formattedArray.length; i++) {
+        if (formattedArray[i] == '-') {
+          capitalise = true;
+          continue;
+        } else if (capitalise) {
+          formattedArray[i] = Character.toUpperCase(formattedArray[i]);
+          break;
+        }
+        capitalise = false;
+      }
+      formatted = new String(formattedArray);
+
       ItemStack item;
       ItemMeta meta;
-
       if(player.hasPermission("group."+s)) {
         item = new ItemStack(Material.EMERALD_BLOCK, 1);
-        meta = item.getItemMeta();
+        meta = item.getItemMeta(); assert meta != null;
         meta.setDisplayName(formatted);
-        meta.setLore(List.of(ChatColor.AQUA+ "Equipped!"));
+        meta.setLore(List.of(ChatColor.AQUA + "Equipped!"));
         item.setItemMeta(meta);
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
@@ -50,9 +62,10 @@ public class SuffixMenu implements InventoryProvider  {
           MessageSender.sendMessage(player, "Suffix unequipped.");
           player.closeInventory();
         }));
+
       } else if (player.hasPermission("ashutils.suffix."+s)) {
         item = new ItemStack(Material.DEEPSLATE, 1);
-        meta = item.getItemMeta();
+        meta = item.getItemMeta(); assert meta != null;
         meta.setDisplayName(formatted);
         meta.setLore(List.of(ChatColor.GREEN + "Equip"));
         item.setItemMeta(meta);
@@ -68,9 +81,10 @@ public class SuffixMenu implements InventoryProvider  {
           MessageSender.sendMessage(player, "Suffix changed to " + finalFormatted + ".");
           player.closeInventory();
         }));
+
       } else {
         item = new ItemStack(Material.REDSTONE_BLOCK, 1);
-        meta = item.getItemMeta();
+        meta = item.getItemMeta(); assert meta != null;
         meta.setDisplayName(formatted);
         meta.setLore(List.of(ChatColor.RED+ "Not unlocked!"));
         item.setItemMeta(meta);
