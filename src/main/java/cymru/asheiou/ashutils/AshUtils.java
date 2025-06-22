@@ -6,10 +6,7 @@ import java.time.Instant;
 import cymru.asheiou.ashutils.command.*;
 import cymru.asheiou.ashutils.command.ashutils.AshUtilsTabExecutor;
 import cymru.asheiou.ashutils.command.CodeCommandExecutor;
-import cymru.asheiou.ashutils.manager.EconManager;
-import cymru.asheiou.ashutils.manager.LuckPermsManager;
-import cymru.asheiou.ashutils.manager.StatusManager;
-import cymru.asheiou.ashutils.manager.UserMapManager;
+import cymru.asheiou.ashutils.manager.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,8 +44,14 @@ public final class AshUtils extends JavaPlugin {
             UserMapManager.saveUserMap();
           }
         }, 6000L, 6000L);
+        if (pm.getPlugin("SmartInvs") != null) {
+          this.getCommand("suffix").setExecutor(new SuffixCommandExecutor(this));
+        } else {
+          this.getCommand("suffix").setExecutor(new NotEnabledCommandExecutor());
+          Bukkit.getLogger().info("SmartInvs not found - not enabling /suffix.");
+        }
       } else {
-        Bukkit.getLogger().info("LuckPerms not found - not enabling VanishOnLogin.");
+        Bukkit.getLogger().info("LuckPerms not found - not enabling permission features.");
         this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
       }
     }

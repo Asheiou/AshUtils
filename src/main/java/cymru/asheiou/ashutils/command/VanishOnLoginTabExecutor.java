@@ -1,5 +1,6 @@
 package cymru.asheiou.ashutils.command;
 
+import cymru.asheiou.ashutils.manager.PermissionManager;
 import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.UserMapManager;
@@ -100,20 +101,9 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
   }
 
   boolean permissionUpdate(CommandSender sender, UUID uuid, String playerName, boolean status) {
-    UserManager userManager = LuckPermsManager.getApi().getUserManager();
-    CompletableFuture<User> userFuture = userManager.loadUser(uuid);
-    userFuture.thenAcceptAsync(user -> {
-      if(status) {
-        user.data().add(Node.builder("group."+plugin.getConfig().getString("vanish-on-login-group")).build());
-      }
-      else {
-        Group group = LuckPermsManager.getApi().getGroupManager().getGroup(plugin.getConfig().getString("vanish-on-login-group"));
-        user.data().remove(InheritanceNode.builder(group).build());
-      }
-      userManager.saveUser(user);
-      String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName+".";
-      MessageSender.sendMessage(sender, toSend);
-    });
+    PermissionManager.permissionUpdate(plugin, uuid, plugin.getConfig().getString("vanish-on-login-group"), status);
+    String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName+".";
+    MessageSender.sendMessage(sender, toSend);
     return true;
   }
 }

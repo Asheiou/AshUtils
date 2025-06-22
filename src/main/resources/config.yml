@@ -12,3 +12,6 @@ discord:
   afk-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   code-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   report-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
+suffix:
+  size: 3
+  list: ["builder"]

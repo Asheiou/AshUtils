@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cymru.asheiou</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.6.1</version>
+  <version>1.7-dev1</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -42,6 +42,11 @@
         <artifactId>EssentialsX</artifactId>
         <version>2.21.0</version>
         <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>fr.minuskube.inv</groupId>
+      <artifactId>smart-invs</artifactId>
+      <version>1.2.7</version>
     </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
@@ -113,7 +118,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>dependency/</classpathPrefix>
-              <mainClass>cymru.asheiou.configmanager.ConfigManager</mainClass>
+              <mainClass>cymru.asheiou.ashutils.AshUtils</mainClass>
             </manifest>
           </archive>
         </configuration>
