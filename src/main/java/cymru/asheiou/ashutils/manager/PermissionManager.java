@@ -1,6 +1,5 @@
 package cymru.asheiou.ashutils.manager;
 
-import cymru.asheiou.ashutils.sender.MessageSender;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.model.user.UserManager;
@@ -12,7 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class PermissionManager {
-  public static boolean permissionUpdate(JavaPlugin plugin, UUID uuid, String groupname, boolean status) {
+  public static boolean groupUpdate(JavaPlugin plugin, UUID uuid, String groupname, boolean status) {
     UserManager userManager = LuckPermsManager.getApi().getUserManager();
     CompletableFuture<User> userFuture = userManager.loadUser(uuid);
     userFuture.thenAcceptAsync(user -> {
@@ -25,6 +24,20 @@ public class PermissionManager {
           return;
         }
         user.data().remove(InheritanceNode.builder(group).build());
+      }
+      userManager.saveUser(user);
+    });
+    return true;
+  }
+
+  public static boolean permissionUpdate(UUID uuid, String permission, boolean status) {
+    UserManager userManager = LuckPermsManager.getApi().getUserManager();
+    CompletableFuture<User> userFuture = userManager.loadUser(uuid);
+    userFuture.thenAcceptAsync(user -> {
+      if (status) {
+        user.data().add(Node.builder(permission).build());
+      } else {
+        user.data().remove(Node.builder(permission).build());
       }
       userManager.saveUser(user);
     });

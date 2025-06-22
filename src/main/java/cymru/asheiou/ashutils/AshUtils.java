@@ -29,32 +29,36 @@ public final class AshUtils extends JavaPlugin {
     saveConfig();
     // // // // // // // // Events // // // // // // // //
     pm.registerEvents(new BukkitEventListener(this), this);
-    // // // // // // // // Dependencies // // // // // // // //
+    // // // // // // // // Essentials // // // // // // // //
     if (pm.getPlugin("Essentials") != null) {
-        pm.registerEvents(new EssEventListener(this), this);
-        this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
-      } else {
-      if (pm.getPlugin("LuckPerms") != null) {
-        LuckPermsManager.luckPermsSetup();
-        UserMapManager.loadUserMap();
-        this.getCommand("vanishonlogin").setExecutor(new VanishOnLoginTabExecutor(this));
-        this.getCommand("vanishonlogin").setTabCompleter(new VanishOnLoginTabExecutor(this));
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-          public void run() {
-            UserMapManager.saveUserMap();
-          }
-        }, 6000L, 6000L);
-        if (pm.getPlugin("SmartInvs") != null) {
-          this.getCommand("suffix").setExecutor(new SuffixCommandExecutor(this));
-        } else {
-          this.getCommand("suffix").setExecutor(new NotEnabledCommandExecutor());
-          Bukkit.getLogger().info("SmartInvs not found - not enabling /suffix.");
-        }
-      } else {
-        Bukkit.getLogger().info("LuckPerms not found - not enabling permission features.");
-        this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
-      }
+      pm.registerEvents(new EssEventListener(this), this);
+      this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
     }
+    // // // // // // // // LuckPerms // // // // // // // //
+    if (pm.getPlugin("LuckPerms") != null) {
+      LuckPermsManager.luckPermsSetup();
+      UserMapManager.loadUserMap();
+      this.getCommand("vanishonlogin").setExecutor(new VanishOnLoginTabExecutor(this));
+      this.getCommand("vanishonlogin").setTabCompleter(new VanishOnLoginTabExecutor(this));
+      Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+        public void run() {
+          UserMapManager.saveUserMap();
+        }
+      }, 6000L, 6000L);
+
+      if (pm.getPlugin("SmartInvs") != null) {
+        this.getCommand("suffix").setExecutor(new SuffixCommandExecutor(this));
+      } else {
+        this.getCommand("suffix").setExecutor(new NotEnabledCommandExecutor());
+        Bukkit.getLogger().info("SmartInvs not found - not enabling /suffix.");
+      }
+
+    } else {
+      Bukkit.getLogger().info("LuckPerms not found - not enabling permission features.");
+      this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
+    }
+
+    // // // // // // // // Vault // // // // // // // //
     if (EconManager.setupEconomy(this)) {
       // TODO: Make this more elegant with a Map or something
       this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
@@ -73,7 +77,7 @@ public final class AshUtils extends JavaPlugin {
     this.getCommand("fake").setTabCompleter(new FakeTabExecutor(this));
     this.getCommand("report").setExecutor(new ReportCommandExecutor(this));
     getLogger().info("Commands and events registered.");
-    // // // // // // // // RestartOnEmpty // // // // // // // //
+    // // // // // // // // Toggles // // // // // // // //
     StatusManager.setStatus("restartonempty", false);
     StatusManager.setStatus("lockchat", false);
 

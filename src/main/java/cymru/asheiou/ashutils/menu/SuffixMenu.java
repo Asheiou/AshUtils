@@ -9,7 +9,6 @@ import fr.minuskube.inv.content.InventoryProvider;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,42 +33,41 @@ public class SuffixMenu implements InventoryProvider  {
   public void init(Player player, InventoryContents inventoryContents) {
     List<String> suffixlist = plugin.getConfig().getStringList("suffix.list");
     for (String s : suffixlist) {
-      String formatted = s.replace('_', ' ');
-      formatted = ChatColor.ITALIC + "the " + WordUtils.capitalizeFully(s);
+      String formatted = ChatColor.ITALIC + "the " + WordUtils.capitalizeFully(
+              s.replace('_', ' '));
       ItemStack item;
       ItemMeta meta;
-      if (player.hasPermission("ashutils.suffix."+s)) {
-        if (!player.hasPermission("ashutils.suffix."+s+".active")) {
-          item = new ItemStack(Material.DEEPSLATE, 1);
-          meta = item.getItemMeta();
-          meta.setDisplayName(formatted);
-          meta.setLore(List.of(ChatColor.GREEN + "Equip"));
-          item.setItemMeta(meta);
-          String finalFormatted = formatted;
-          inventoryContents.add(ClickableItem.of(item, e -> {
-            e.setCancelled(true);
-            for (String s1: suffixlist) {
-              if (player.hasPermission("ashutils.suffix."+s1+".active")) {
-                PermissionManager.permissionUpdate(plugin, player.getUniqueId(), s1, false);
-              }
-              PermissionManager.permissionUpdate(plugin, player.getUniqueId(), s, true);
-              MessageSender.sendMessage(player, "Suffix changed to " + finalFormatted + ".");
-              player.closeInventory();
+
+      if(player.hasPermission("group."+s)) {
+        item = new ItemStack(Material.EMERALD_BLOCK, 1);
+        meta = item.getItemMeta();
+        meta.setDisplayName(formatted);
+        meta.setLore(List.of(ChatColor.AQUA+ "Equipped!"));
+        item.setItemMeta(meta);
+        inventoryContents.add(ClickableItem.of(item, e -> {
+          e.setCancelled(true);
+          PermissionManager.groupUpdate(plugin, player.getUniqueId(), s, false);
+          MessageSender.sendMessage(player, "Suffix unequipped.");
+          player.closeInventory();
+        }));
+      } else if (player.hasPermission("ashutils.suffix."+s)) {
+        item = new ItemStack(Material.DEEPSLATE, 1);
+        meta = item.getItemMeta();
+        meta.setDisplayName(formatted);
+        meta.setLore(List.of(ChatColor.GREEN + "Equip"));
+        item.setItemMeta(meta);
+        String finalFormatted = formatted;
+        inventoryContents.add(ClickableItem.of(item, e -> {
+          e.setCancelled(true);
+          for (String s1 : suffixlist) {
+            if (player.hasPermission("group." + s1)) {
+              PermissionManager.groupUpdate(plugin, player.getUniqueId(), s1, false);
             }
-          }));
-        } else {
-          item = new ItemStack(Material.EMERALD_BLOCK, 1);
-          meta = item.getItemMeta();
-          meta.setDisplayName(formatted);
-          meta.setLore(List.of(ChatColor.AQUA+ "Equipped!"));
-          item.setItemMeta(meta);
-          inventoryContents.add(ClickableItem.of(item, e -> {
-            e.setCancelled(true);
-            PermissionManager.permissionUpdate(plugin, player.getUniqueId(), s, false);
-            MessageSender.sendMessage(player, "Suffix unequipped.");
-            player.closeInventory();
-          }));
-        }
+          }
+          PermissionManager.groupUpdate(plugin, player.getUniqueId(), s, true);
+          MessageSender.sendMessage(player, "Suffix changed to " + finalFormatted + ".");
+          player.closeInventory();
+        }));
       } else {
         item = new ItemStack(Material.REDSTONE_BLOCK, 1);
         meta = item.getItemMeta();
