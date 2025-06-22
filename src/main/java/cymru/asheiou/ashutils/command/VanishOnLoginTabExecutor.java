@@ -1,13 +1,8 @@
 package cymru.asheiou.ashutils.command;
 
+import cymru.asheiou.ashutils.manager.PermissionManager;
 import cymru.asheiou.ashutils.sender.MessageSender;
-import cymru.asheiou.ashutils.manager.LuckPermsManager;
 import cymru.asheiou.ashutils.manager.UserMapManager;
-import net.luckperms.api.model.group.Group;
-import net.luckperms.api.model.user.User;
-import net.luckperms.api.model.user.UserManager;
-import net.luckperms.api.node.Node;
-import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class VanishOnLoginTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;
@@ -100,20 +94,9 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
   }
 
   boolean permissionUpdate(CommandSender sender, UUID uuid, String playerName, boolean status) {
-    UserManager userManager = LuckPermsManager.getApi().getUserManager();
-    CompletableFuture<User> userFuture = userManager.loadUser(uuid);
-    userFuture.thenAcceptAsync(user -> {
-      if(status) {
-        user.data().add(Node.builder("group."+plugin.getConfig().getString("vanish-on-login-group")).build());
-      }
-      else {
-        Group group = LuckPermsManager.getApi().getGroupManager().getGroup(plugin.getConfig().getString("vanish-on-login-group"));
-        user.data().remove(InheritanceNode.builder(group).build());
-      }
-      userManager.saveUser(user);
-      String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName+".";
-      MessageSender.sendMessage(sender, toSend);
-    });
+    PermissionManager.groupUpdate(plugin, uuid, plugin.getConfig().getString("vanish-on-login-group"), status);
+    String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName+".";
+    MessageSender.sendMessage(sender, toSend);
     return true;
   }
 }

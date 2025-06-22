@@ -3,7 +3,7 @@ main: cymru.asheiou.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.21.5
-softdepend: [Vault, Essentials, LuckPerms]
+softdepend: [Vault, Essentials, LuckPerms, SmartInvs]
 website: https://asheiou.cymru
 description: >
              The Aeolia bespoke everything-plugin!
@@ -53,6 +53,11 @@ commands:
     usage: /<command> <amount/maximum>
     permission: ashutils.xpbuy
     permission-message: You don't have ashutils.xpbuy.
+  suffix:
+    description: Open the suffix menu
+    usage: /<command>
+    permission: ashutils.suffix
+    permission-message: You don't have ashutils.suffix.
     
 
 permissions:

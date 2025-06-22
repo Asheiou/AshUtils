@@ -61,6 +61,9 @@ public class UserMapManager {
   }
 
   public static void saveUserMap() {
+    if (userMap.isEmpty()) {
+      return; // Prevent userMap from overwriting if the plugin crashes on startup
+    }
     CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
       try (FileWriter writer = new FileWriter(filePath)) {
         gson.toJson(userMap, writer);
