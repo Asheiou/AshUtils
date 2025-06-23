@@ -61,6 +61,9 @@ commands:
     
 
 permissions:
+  ashutils.alert:
+    description: Allows seeing alerts
+    default: op
   ashutils.code:
     description: Allows /code
     default: true
@@ -79,6 +82,12 @@ permissions:
   ashutils.xpsell:
     description: Allows /xpsell
     default: true
+  ashutils.suffix:
+    description: Allows /suffix
+    default: true
+  ashutils.suffix-grant:
+    description: Allows /suffix with arguments
+    default: op
   ashutils.xpbuy:
     description: Allows /xpbuy
     default: true

@@ -6,6 +6,7 @@ import java.time.Instant;
 import cymru.asheiou.ashutils.command.*;
 import cymru.asheiou.ashutils.command.ashutils.AshUtilsTabExecutor;
 import cymru.asheiou.ashutils.command.CodeCommandExecutor;
+import cymru.asheiou.ashutils.listener.MineListener;
 import cymru.asheiou.ashutils.manager.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -28,6 +29,11 @@ public final class AshUtils extends JavaPlugin {
     getConfig().options().copyDefaults(true);
     saveConfig();
     // // // // // // // // Events // // // // // // // //
+    MineListener mineListener = new MineListener(this);
+    mineListener.init();
+    Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+      public void run() {mineListener.tick();}
+    }, 1L, 1L);
     pm.registerEvents(new BukkitEventListener(this), this);
     // // // // // // // // Essentials // // // // // // // //
     if (pm.getPlugin("Essentials") != null) {
@@ -45,7 +51,7 @@ public final class AshUtils extends JavaPlugin {
           UserMapManager.saveUserMap();
         }
       }, 6000L, 6000L);
-
+    // // // // // // // // SmartInvs // // // // // // // //
       if (pm.getPlugin("SmartInvs") != null) {
         this.getCommand("suffix").setExecutor(new SuffixCommandExecutor(this));
       } else {
