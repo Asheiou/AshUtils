@@ -25,6 +25,7 @@ public class EssEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onAfkStatusChange(AfkStatusChangeEvent event) {
+    if (event.getAffected().isVanished()) return;
     Server server = this.plugin.getServer();
     Pattern colourpattern = Pattern.compile("§(.)");
     Matcher matcher = colourpattern.matcher(event.getAffected().getDisplayName());

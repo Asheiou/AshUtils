@@ -11,6 +11,7 @@ xp:
 discord:
   afk-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   code-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
+  mine-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   report-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
 suffix:
   size: 3
