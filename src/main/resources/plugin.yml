@@ -17,7 +17,7 @@ commands:
     aliases: sellhead
     description: Sell any unwanted player heads back to the server!
     usage: /<command> <amount/all>
-    permisison: ashutils.headsell
+    permission: ashutils.headsell
     permission-message: You don't have ashutils.headsell.
   ashutils:
     aliases: util
@@ -67,9 +67,6 @@ permissions:
   ashutils.code:
     description: Allows /code
     default: true
-  ashutils.headsell:
-    description: Allows head sell
-    default: true
   ashutils.admin:
     description: Allows /ashutils
     default: op
@@ -103,4 +100,6 @@ permissions:
   ashutils.vanishonlogin.others:
     description: Allows use of /vanishonlogin for all users
     default: op
-        
+  ashutils.headsell:
+    description: Allows head sell
+    default: true

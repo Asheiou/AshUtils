@@ -1,7 +1,5 @@
 package cymru.asheiou.ashutils.listener;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -11,7 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.sender.WebhookSender;
 import hk.siggi.bukkit.plugcubebuildersin.world.WorldBlock;
 import net.md_5.bungee.api.ChatColor;
@@ -31,6 +28,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 Based on
 https://github.com/CubeBuilders/PlugCubeBuildersIn/blob/main/src/main/java/hk/siggi/bukkit/plugcubebuildersin/module/MineWatchModuleImpl.java
 by Sigurður Jón/WesternIcelander, licensed to me as MIT
+Changes made:
+- Reduced dependence on PlugCubeBuildersIn classes and functions
+- New implementation for sendMine to work on Bukkit and not BungeeCord (and to POST a webhook)
  */
 
 public class MineListener implements Listener {

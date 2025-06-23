@@ -16,7 +16,7 @@ import cymru.asheiou.ashutils.listener.BukkitEventListener;
 import cymru.asheiou.ashutils.listener.EssEventListener;
 import cymru.asheiou.configmanager.ConfigManager;
 
-public final class AshUtils extends JavaPlugin {
+public class AshUtils extends JavaPlugin {
 
   @Override
   public void onEnable() {
