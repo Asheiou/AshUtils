@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command.user;
 
 import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.sender.WebhookSender;

@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command.admin;
 
 import cymru.asheiou.ashutils.manager.PermissionManager;
 import cymru.asheiou.ashutils.sender.MessageSender;

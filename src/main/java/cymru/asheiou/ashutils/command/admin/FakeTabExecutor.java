@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command.admin;
 
 import cymru.asheiou.ashutils.sender.MessageSender;
 import net.md_5.bungee.api.ChatColor;

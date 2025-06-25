@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.command;
+package cymru.asheiou.ashutils.command.user;
 
 import java.math.BigDecimal;
 

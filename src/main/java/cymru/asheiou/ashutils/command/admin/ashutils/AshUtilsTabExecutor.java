@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.command.ashutils;
+package cymru.asheiou.ashutils.command.admin.ashutils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

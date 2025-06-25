@@ -1,4 +1,4 @@
-package cymru.asheiou.ashutils.command.ashutils;
+package cymru.asheiou.ashutils.command.admin.ashutils;
 
 import cymru.asheiou.ashutils.sender.MessageSender;
 import org.bukkit.entity.Player;
