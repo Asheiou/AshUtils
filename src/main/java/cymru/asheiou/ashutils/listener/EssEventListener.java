@@ -1,8 +1,10 @@
 package cymru.asheiou.ashutils.listener;
 
 import cymru.asheiou.ashutils.sender.WebhookSender;
+import cymru.asheiou.ashutils.user.UserHelper;
 import net.ess3.api.events.AfkStatusChangeEvent;
 import org.bukkit.Server;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -24,7 +26,7 @@ public class EssEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onAfkStatusChange(AfkStatusChangeEvent event) {
-    if (event.getAffected().isVanished()) return;
+    if (UserHelper.getUser((Player) event.getAffected()).getVanish()) return;
     Server server = this.plugin.getServer();
     Pattern colourpattern = Pattern.compile("§(.)");
     Matcher matcher = colourpattern.matcher(event.getAffected().getDisplayName());
