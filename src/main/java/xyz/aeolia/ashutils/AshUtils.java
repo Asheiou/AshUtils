@@ -6,6 +6,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.command.NotEnabledCommandExecutor;
 import xyz.aeolia.ashutils.command.admin.FakeTabExecutor;
+import xyz.aeolia.ashutils.command.admin.ModCommandExecutor;
 import xyz.aeolia.ashutils.command.admin.VanishOnLoginTabExecutor;
 import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor;
 import xyz.aeolia.ashutils.command.user.*;
@@ -31,10 +32,7 @@ public class AshUtils extends JavaPlugin {
     // // // // // // // // User // // // // // // // //
     UserHelper.init(this);
     UserMapManager.loadUserMap();
-    Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-      UserMapManager.saveUserMap();
-      UserHelper.saveUsers();
-    }, 6000L, 6000L);
+    Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::saveAll, 6000L, 6000L);
     // // // // // // // // Config // // // // // // // //
     new ConfigManager(this, true).loadConfig();
     getConfig().options().copyDefaults(true);
@@ -85,6 +83,7 @@ public class AshUtils extends JavaPlugin {
     this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
     this.getCommand("fake").setExecutor(new FakeTabExecutor(this));
     this.getCommand("fake").setTabCompleter(new FakeTabExecutor(this));
+    this.getCommand("mod").setExecutor(new ModCommandExecutor());
     this.getCommand("report").setExecutor(new ReportCommandExecutor(this));
     getLogger().info("Commands and events registered.");
     // // // // // // // // Toggles // // // // // // // //
@@ -95,7 +94,10 @@ public class AshUtils extends JavaPlugin {
     getLogger().info("\u001B[32mLoad complete in " + Duration.between(startTime, endTime).toMillis() + "ms.\u001B[0m");
   }
 
-  public void onDisable() {
+  public void onDisable() { saveAll(); }
+
+  public void saveAll() {
     UserMapManager.saveUserMap();
+    UserHelper.saveUsers();
   }
 }
