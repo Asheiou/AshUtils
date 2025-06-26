@@ -1,16 +1,7 @@
 package cymru.asheiou.ashutils.listener;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
-import cymru.asheiou.ashutils.user.UserHelper;
 import cymru.asheiou.ashutils.sender.WebhookSender;
+import cymru.asheiou.ashutils.user.UserHelper;
 import hk.siggi.bukkit.plugcubebuildersin.world.WorldBlock;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -25,6 +16,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
+
 /*
 Based on
 https://github.com/CubeBuilders/PlugCubeBuildersIn/blob/main/src/main/java/hk/siggi/bukkit/plugcubebuildersin/module/MineWatchModuleImpl.java
@@ -35,8 +30,8 @@ Changes made:
  */
 
 public class MineListener implements Listener {
+  private static final BlockFace[] faces = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.WEST, BlockFace.EAST};
   private final JavaPlugin plugin;
-
   private final Map<Material, String> materials = new HashMap<>();
   private final Map<WorldBlock, Long> blocksFound = new HashMap<>();
 
@@ -73,7 +68,8 @@ public class MineListener implements Listener {
 
       materials.put(Material.COPPER_ORE, "copper");
       materials.put(Material.DEEPSLATE_COPPER_ORE, "copper");
-    } catch (Throwable t) {}
+    } catch (Throwable t) {
+    }
   }
 
   public void init() {
@@ -82,7 +78,7 @@ public class MineListener implements Listener {
 
   public void tick() {
     long now = System.currentTimeMillis();
-    for (Iterator<WorldBlock> iterator = blocksFound.keySet().iterator(); iterator.hasNext();) {
+    for (Iterator<WorldBlock> iterator = blocksFound.keySet().iterator(); iterator.hasNext(); ) {
       WorldBlock wb = iterator.next();
       Long timeL = blocksFound.get(wb);
       if (timeL == null) {
@@ -95,8 +91,6 @@ public class MineListener implements Listener {
       }
     }
   }
-
-  private static final BlockFace[] faces = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.WEST, BlockFace.EAST};
 
   @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
   public void blockBreakEvent(BlockBreakEvent event) {
@@ -184,15 +178,15 @@ public class MineListener implements Listener {
   }
 
   private void sendMine(Player p, Block block, String ore, int count, int lightLevel) {
-    String message = ChatColor.AQUA +p.getName() + ChatColor.YELLOW +" found " +
-            ChatColor.AQUA +count+"x " + ore + ChatColor.YELLOW + " at " + ChatColor.AQUA + block.getX() + " "
+    String message = ChatColor.AQUA + p.getName() + ChatColor.YELLOW + " found " +
+            ChatColor.AQUA + count + "x " + ore + ChatColor.YELLOW + " at " + ChatColor.AQUA + block.getX() + " "
             + block.getY() + " " + block.getZ() + " in " + block.getWorld().getName() + ChatColor.YELLOW
             + " (light level: " + ChatColor.AQUA + lightLevel + ChatColor.YELLOW + ")!";
-    for(Player player : Bukkit.getOnlinePlayers()) {
+    for (Player player : Bukkit.getOnlinePlayers()) {
       if (player.hasPermission("ashutils.alert"))
         if (UserHelper.getUser(player).getModMode())
           player.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "!! " +
-                ChatColor.RESET + message);
+                  ChatColor.RESET + message);
     }
     URI uri;
     try {

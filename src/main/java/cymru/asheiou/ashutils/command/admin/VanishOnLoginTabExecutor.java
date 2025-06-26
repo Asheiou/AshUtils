@@ -1,8 +1,8 @@
 package cymru.asheiou.ashutils.command.admin;
 
 import cymru.asheiou.ashutils.manager.PermissionManager;
-import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.manager.UserMapManager;
+import cymru.asheiou.ashutils.sender.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,9 +20,11 @@ import java.util.UUID;
 
 public class VanishOnLoginTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;
+
   public VanishOnLoginTabExecutor(JavaPlugin plugin) {
     this.plugin = plugin;
   }
+
   @Override
   @SuppressWarnings("deprecated")
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -44,23 +46,23 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
               return false;
           }
         }
-        case 2:
-          if(sender.hasPermission("ashutils.vanishonlogin.others")) {
-            UUID playerUUID = UserMapManager.getUserFromName(args[1]);
-            if (playerUUID == null) {
-              MessageSender.sendMessage(sender, "Player not found. Check your spelling and try again.");
-              return true;
-            }
-            switch (args[0]) {
-              case "true":
-                return permissionUpdate(sender, playerUUID, args[1], true);
-              case "false":
-                return permissionUpdate(sender, playerUUID, args[1], false);
-              default:
-                MessageSender.sendMessage(sender, "Unknown argument! Usage:");
-                return false;
-            }
+      case 2:
+        if (sender.hasPermission("ashutils.vanishonlogin.others")) {
+          UUID playerUUID = UserMapManager.getUserFromName(args[1]);
+          if (playerUUID == null) {
+            MessageSender.sendMessage(sender, "Player not found. Check your spelling and try again.");
+            return true;
           }
+          switch (args[0]) {
+            case "true":
+              return permissionUpdate(sender, playerUUID, args[1], true);
+            case "false":
+              return permissionUpdate(sender, playerUUID, args[1], false);
+            default:
+              MessageSender.sendMessage(sender, "Unknown argument! Usage:");
+              return false;
+          }
+        }
       default:
         MessageSender.sendMessage(sender, "Too many arguments! Usage:");
         return false;
@@ -95,7 +97,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
 
   boolean permissionUpdate(CommandSender sender, UUID uuid, String playerName, boolean status) {
     PermissionManager.groupUpdate(plugin, uuid, plugin.getConfig().getString("vanish-on-login-group"), status);
-    String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName+".";
+    String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName + ".";
     MessageSender.sendMessage(sender, toSend);
     return true;
   }

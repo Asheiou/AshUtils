@@ -1,10 +1,9 @@
 package cymru.asheiou.ashutils.command;
 
+import cymru.asheiou.ashutils.sender.MessageSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-
-import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class NotEnabledCommandExecutor implements CommandExecutor {
 

@@ -1,34 +1,35 @@
 package cymru.asheiou.ashutils.command.admin.ashutils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
+import cymru.asheiou.ashutils.sender.MessageSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class AshUtilsTabExecutor implements TabExecutor {
   JavaPlugin plugin;
-  
-  public AshUtilsTabExecutor(JavaPlugin plugin) { this.plugin = plugin; }
+
+  public AshUtilsTabExecutor(JavaPlugin plugin) {
+    this.plugin = plugin;
+  }
+
   @Override
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) { 
+  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
     if (args.length == 0) {
       MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
     }
     switch (args[0]) {
-    //----------------Reload----------------//
+      //----------------Reload----------------//
       case "reload":
         return ReloadHandler.doUtilReload(sender, plugin);
-    //------------RestartOnEmpty-----------//
+      //------------RestartOnEmpty-----------//
       case "restartonempty":
       case "roe":
       case "lc":
@@ -42,7 +43,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
         return ClearChatHandler.doClearChat(plugin);
       default:
         MessageSender.sendMessage(sender,
-            "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
+                "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
         return true;
     }
   }

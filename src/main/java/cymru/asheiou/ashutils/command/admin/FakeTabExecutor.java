@@ -17,23 +17,24 @@ import java.util.List;
 
 public class FakeTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;
+
   public FakeTabExecutor(JavaPlugin plugin) {
     this.plugin = plugin;
   }
 
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-    if(!(sender instanceof Player) && args.length==1) {
+    if (!(sender instanceof Player) && args.length == 1) {
       MessageSender.sendMessage(sender, "This command can only be executed by a player without an argument.");
       return true;
     }
     if (args.length == 0) {
-      MessageSender.sendMessage(sender,"Unrecognised command usage. Usage: ");
+      MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
       return false;
     }
 
     String message;
-    switch(args[0]) {
+    switch (args[0]) {
       case "quit":
       case "leave":
       case "q":
@@ -53,8 +54,7 @@ public class FakeTabExecutor implements TabExecutor {
       message = message.replace("{USERNAME}", sender.getName());
     } else if (args.length == 2) {
       message = message.replace("{USERNAME}", args[1]);
-    }
-    else {
+    } else {
       MessageSender.sendMessage(sender, "Unrecognised command usage. Usage:");
       return false;
     }

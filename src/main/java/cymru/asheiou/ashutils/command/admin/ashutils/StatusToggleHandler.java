@@ -1,9 +1,8 @@
 package cymru.asheiou.ashutils.command.admin.ashutils;
 
-import org.bukkit.command.CommandSender;
-
 import cymru.asheiou.ashutils.manager.StatusManager;
 import cymru.asheiou.ashutils.sender.MessageSender;
+import org.bukkit.command.CommandSender;
 
 public class StatusToggleHandler {
   public static boolean doToggleStatus(CommandSender sender, String[] args, String instance) {
@@ -19,24 +18,24 @@ public class StatusToggleHandler {
     };
     if (args.length > 0) {
       if (args.length > 1) {
-        MessageSender.sendMessage(sender, "Too many arguments! Usage: /ashutils "+instance+ " [true/false/status].");
+        MessageSender.sendMessage(sender, "Too many arguments! Usage: /ashutils " + instance + " [true/false/status].");
       }
       switch (args[0].toLowerCase()) {
-      case "true":
-        StatusManager.setStatus(instance, true);
-        MessageSender.sendMessage(sender, instanceFormatted + " enabled.");
-        return true;
-      case "false":
-        StatusManager.setStatus(instance, false);
-        MessageSender.sendMessage(sender, instanceFormatted + " disabled.");
-        return true;
-      case "status":
-        MessageSender.sendMessage(sender,
-            instanceFormatted + " " + (StatusManager.getStatus(instance) ? "enabled" : "disabled") + ".");
-        return true;
-      default:
-        MessageSender.sendMessage(sender, "Argument not recognised! Usage:");
-        return false;
+        case "true":
+          StatusManager.setStatus(instance, true);
+          MessageSender.sendMessage(sender, instanceFormatted + " enabled.");
+          return true;
+        case "false":
+          StatusManager.setStatus(instance, false);
+          MessageSender.sendMessage(sender, instanceFormatted + " disabled.");
+          return true;
+        case "status":
+          MessageSender.sendMessage(sender,
+                  instanceFormatted + " " + (StatusManager.getStatus(instance) ? "enabled" : "disabled") + ".");
+          return true;
+        default:
+          MessageSender.sendMessage(sender, "Argument not recognised! Usage:");
+          return false;
       }
     }
     boolean toSet = !StatusManager.getStatus(instance);

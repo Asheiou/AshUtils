@@ -1,11 +1,9 @@
 package cymru.asheiou.ashutils.command.admin.ashutils;
 
+import cymru.asheiou.ashutils.sender.MessageSender;
+import cymru.asheiou.configmanager.ConfigManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import cymru.asheiou.configmanager.ConfigManager;
-
-import cymru.asheiou.ashutils.sender.MessageSender;
 
 public class ReloadHandler {
   public static boolean doUtilReload(CommandSender sender, JavaPlugin plugin) {

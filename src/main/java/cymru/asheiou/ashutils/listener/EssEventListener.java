@@ -1,20 +1,19 @@
 package cymru.asheiou.ashutils.listener;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpResponse;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import cymru.asheiou.ashutils.sender.WebhookSender;
+import net.ess3.api.events.AfkStatusChangeEvent;
 import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.ess3.api.events.AfkStatusChangeEvent;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpResponse;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EssEventListener implements Listener {
   JavaPlugin plugin;

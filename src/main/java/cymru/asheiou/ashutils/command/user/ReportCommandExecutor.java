@@ -17,9 +17,11 @@ import java.util.Objects;
 
 public class ReportCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
+
   public ReportCommandExecutor(JavaPlugin plugin) {
     this.plugin = plugin;
   }
+
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
     if (!(sender instanceof Player player)) {
@@ -42,10 +44,10 @@ public class ReportCommandExecutor implements CommandExecutor {
     }
     Location location = player.getLocation();
     HttpResponse<String> response = WebhookSender.postWebhook(uri, sender.getName() + " has created a report at " +
-            location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() +  " in " +
+            location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + " in " +
             Objects.requireNonNull(location.getWorld()).getName() + ":\n" + String.join(" ", args));
 
-    if(response.statusCode() != 204) {
+    if (response.statusCode() != 204) {
       plugin.getLogger().severe("Could not send report: " + response.statusCode() + " " + response.body());
       MessageSender.sendMessage(sender, "Could not send report, error " + response.statusCode() +
               ". Please contact an administrator via " + ChatColor.AQUA + "/discord " + ChatColor.RESET

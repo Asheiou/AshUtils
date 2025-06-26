@@ -21,9 +21,11 @@ import java.util.UUID;
 
 public class SuffixCommandExecutor implements TabExecutor {
   JavaPlugin plugin;
+
   public SuffixCommandExecutor(JavaPlugin plugin) {
     this.plugin = plugin;
   }
+
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
                            @NotNull String label, @NotNull String[] args) {
@@ -44,9 +46,14 @@ public class SuffixCommandExecutor implements TabExecutor {
 
     boolean status;
     switch (args[0]) {
-      case "grant": status = true; break;
-      case "revoke": status = false; break;
-      default: return invEx(sender);
+      case "grant":
+        status = true;
+        break;
+      case "revoke":
+        status = false;
+        break;
+      default:
+        return invEx(sender);
     }
     UUID uuid = UserMapManager.getUserFromName(args[1]);
     if (uuid == null) {
@@ -59,9 +66,11 @@ public class SuffixCommandExecutor implements TabExecutor {
       MessageSender.sendMessage(sender, "Invalid suffix!");
       return true;
     }
-    if (PermissionManager.permissionUpdate(uuid, "ashutils.suffix."+args[2], status)) {
-      if (!status) { PermissionManager.groupUpdate(plugin, uuid, args[2], false); }
-      MessageSender.sendMessage(sender, "Successfully "+ (status ? "granted " : "revoked ")
+    if (PermissionManager.permissionUpdate(uuid, "ashutils.suffix." + args[2], status)) {
+      if (!status) {
+        PermissionManager.groupUpdate(plugin, uuid, args[2], false);
+      }
+      MessageSender.sendMessage(sender, "Successfully " + (status ? "granted " : "revoked ")
               + args[2] + " for " + args[1] + ".");
       return true;
     }
@@ -72,7 +81,7 @@ public class SuffixCommandExecutor implements TabExecutor {
 
   public boolean invEx(CommandSender sender) {
     // Short for invalid execution
-    MessageSender.sendMessage(sender,"Invalid usage! Usage: " + "\n" + "/suffix [grant/revoke] <user> <suffix>");
+    MessageSender.sendMessage(sender, "Invalid usage! Usage: " + "\n" + "/suffix [grant/revoke] <user> <suffix>");
     return true;
   }
 
@@ -91,7 +100,7 @@ public class SuffixCommandExecutor implements TabExecutor {
 
     } else if (args.length == 2) {
       if (args[0].equals("grant") || args[0].equals("revoke")) {
-        for (Player p : Bukkit.getOnlinePlayers())  commands.add(p.getName());
+        for (Player p : Bukkit.getOnlinePlayers()) commands.add(p.getName());
       }
       StringUtil.copyPartialMatches(args[1], commands, completions);
 

@@ -10,13 +10,13 @@ import java.io.*;
 import java.util.UUID;
 
 public class UserHelper {
+  private static final Gson gson = new Gson();
   private static JavaPlugin plugin;
   private static File folder;
-  private static final Gson gson = new Gson();
 
   public static void init(JavaPlugin plugin) {
     UserHelper.plugin = plugin;
-    folder = new File(plugin.getDataFolder()+"/users/");
+    folder = new File(plugin.getDataFolder() + "/users/");
     if (!folder.exists()) {
       if (!folder.mkdir()) {
         Bukkit.getLogger().severe("Failed to create folder " + folder.getAbsolutePath());

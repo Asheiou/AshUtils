@@ -16,5 +16,7 @@ public class LuckPermsManager {
     return false;
   }
 
-  public static LuckPerms getApi() { return api; }
+  public static LuckPerms getApi() {
+    return api;
+  }
 }

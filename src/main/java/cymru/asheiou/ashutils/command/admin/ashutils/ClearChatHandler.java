@@ -6,9 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ClearChatHandler {
   public static boolean doClearChat(JavaPlugin plugin) {
-    for(Player player : plugin.getServer().getOnlinePlayers()) {
+    for (Player player : plugin.getServer().getOnlinePlayers()) {
       if (!player.hasPermission("ashutils.clearchat.exempt")) {
-        for(int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
           player.sendMessage(" ");
         }
       } else {

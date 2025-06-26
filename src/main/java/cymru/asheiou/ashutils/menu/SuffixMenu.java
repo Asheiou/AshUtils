@@ -16,12 +16,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-public class SuffixMenu implements InventoryProvider  {
-  private final JavaPlugin plugin;
+public class SuffixMenu implements InventoryProvider {
   public final SmartInventory INVENTORY;
+  private final JavaPlugin plugin;
+
   public SuffixMenu(JavaPlugin plugin) {
     this.plugin = plugin;
-     INVENTORY = SmartInventory.builder()
+    INVENTORY = SmartInventory.builder()
             .id("suffixGui")
             .provider(this)
             .size(plugin.getConfig().getInt("suffix.size"), 9)
@@ -50,9 +51,10 @@ public class SuffixMenu implements InventoryProvider  {
 
       ItemStack item;
       ItemMeta meta;
-      if(player.hasPermission("group."+s)) {
+      if (player.hasPermission("group." + s)) {
         item = new ItemStack(Material.EMERALD_BLOCK, 1);
-        meta = item.getItemMeta(); assert meta != null;
+        meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(formatted);
         meta.setLore(List.of(ChatColor.AQUA + "Equipped!"));
         item.setItemMeta(meta);
@@ -63,9 +65,10 @@ public class SuffixMenu implements InventoryProvider  {
           player.closeInventory();
         }));
 
-      } else if (player.hasPermission("ashutils.suffix."+s)) {
+      } else if (player.hasPermission("ashutils.suffix." + s)) {
         item = new ItemStack(Material.DEEPSLATE, 1);
-        meta = item.getItemMeta(); assert meta != null;
+        meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(formatted);
         meta.setLore(List.of(ChatColor.GREEN + "Equip"));
         item.setItemMeta(meta);
@@ -84,9 +87,10 @@ public class SuffixMenu implements InventoryProvider  {
 
       } else {
         item = new ItemStack(Material.REDSTONE_BLOCK, 1);
-        meta = item.getItemMeta(); assert meta != null;
+        meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(formatted);
-        meta.setLore(List.of(ChatColor.RED+ "Not unlocked!"));
+        meta.setLore(List.of(ChatColor.RED + "Not unlocked!"));
         item.setItemMeta(meta);
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
@@ -98,5 +102,6 @@ public class SuffixMenu implements InventoryProvider  {
   }
 
   @Override
-  public void update(Player player, InventoryContents inventoryContents) {}
+  public void update(Player player, InventoryContents inventoryContents) {
+  }
 }

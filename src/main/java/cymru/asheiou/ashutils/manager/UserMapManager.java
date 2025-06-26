@@ -3,12 +3,14 @@ package cymru.asheiou.ashutils.manager;
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -30,8 +32,7 @@ public class UserMapManager {
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
-    }
-    else {
+    } else {
       CompletableFuture<Void> future = CompletableFuture.supplyAsync(() ->
               {
                 try {
@@ -51,8 +52,10 @@ public class UserMapManager {
   }
 
   public static UUID getUserFromName(String name) {
-    plugin.getLogger().info("Getting user from "+name);
-    if(!userMap.containsKey(name)) { return null; }
+    plugin.getLogger().info("Getting user from " + name);
+    if (!userMap.containsKey(name)) {
+      return null;
+    }
     return UUID.fromString(userMap.get(name));
   }
 

@@ -1,18 +1,17 @@
 package cymru.asheiou.ashutils.command.user;
 
-import java.math.BigDecimal;
-
+import cymru.asheiou.ashutils.manager.EconManager;
+import cymru.asheiou.ashutils.manager.ExperienceManager;
+import cymru.asheiou.ashutils.sender.MessageSender;
+import net.md_5.bungee.api.ChatColor;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
-import net.milkbowl.vault.economy.Economy;
-import cymru.asheiou.ashutils.manager.EconManager;
-import cymru.asheiou.ashutils.manager.ExperienceManager;
-import cymru.asheiou.ashutils.sender.MessageSender;
+import java.math.BigDecimal;
 
 public class XpCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
@@ -36,16 +35,16 @@ public class XpCommandExecutor implements CommandExecutor {
     }
     String currencySymbol = plugin.getConfig().getString("currency-symbol");
     ExperienceManager experienceManager = new ExperienceManager(player);
-    
-    switch(command.getName()) {
-    case "xpbuy":
-      return buyXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
-    case "xpsell":
-      return sellXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
-    default:
-      MessageSender.sendMessage(player,
-          "Error: Command not found. This is an issue with the plugin, please inform an administrator.");
-      return false;
+
+    switch (command.getName()) {
+      case "xpbuy":
+        return buyXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
+      case "xpsell":
+        return sellXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
+      default:
+        MessageSender.sendMessage(player,
+                "Error: Command not found. This is an issue with the plugin, please inform an administrator.");
+        return false;
     }
   }
 
@@ -55,11 +54,11 @@ public class XpCommandExecutor implements CommandExecutor {
     double costPerXp = plugin.getConfig().getDouble("xp.buy-cost");
     int maximumXpPurchasable = (int) Math.floor(playerBalance / costPerXp);
 
-    if(costPerXp > playerBalance) {
+    if (costPerXp > playerBalance) {
       MessageSender.sendMessage(player, "You need at least " + aqua + currencySymbol + costPerXp + reset + " to buy XP!");
       return true;
     }
-    
+
     if (arg.equalsIgnoreCase("max") || arg.equalsIgnoreCase("maximum")) {
       xpToBuy = maximumXpPurchasable;
     } else
@@ -72,24 +71,24 @@ public class XpCommandExecutor implements CommandExecutor {
     double totalCost = (BigDecimal.valueOf(costPerXp).multiply(BigDecimal.valueOf(xpToBuy))).doubleValue();
     if (totalCost > playerBalance) {
       MessageSender.sendMessage(player, "You don't have enough money for that! You can buy a maximum of " + aqua
-          + maximumXpPurchasable + reset + " XP.");
+              + maximumXpPurchasable + reset + " XP.");
     }
     int xpMaximumBuy = plugin.getConfig().getInt("xp.maximum-buy");
     if (xpToBuy > xpMaximumBuy && xpMaximumBuy > 0) {
       MessageSender.sendMessage(player, "This server limits the amount of XP you can buy per use of this command to "
-          + aqua + xpMaximumBuy + reset + ".");
+              + aqua + xpMaximumBuy + reset + ".");
       xpToBuy = xpMaximumBuy;
     }
     econ.withdrawPlayer(player, totalCost);
     experienceManager.setTotalExperience(playerCurrentXp + xpToBuy);
 
     MessageSender.sendMessage(player, "You have bought " + aqua + xpToBuy + " XP" + reset + "@ " + aqua + currencySymbol
-        + costPerXp + reset + " per XP for " + aqua + currencySymbol + totalCost + reset + ".");
+            + costPerXp + reset + " per XP for " + aqua + currencySymbol + totalCost + reset + ".");
     return true;
   }
 
   public boolean sellXp(Player player, String arg, ExperienceManager experienceManager, int playerCurrentXp, String currencySymbol) {
-    if(playerCurrentXp==0) {
+    if (playerCurrentXp == 0) {
       MessageSender.sendMessage(player, "You have no XP to sell!");
       return true;
     }
@@ -105,7 +104,7 @@ public class XpCommandExecutor implements CommandExecutor {
       }
       if (xpToSell > playerCurrentXp) {
         MessageSender.sendMessage(player,
-            "You don't have that much XP to sell! You can sell up to " + aqua + playerCurrentXp + reset + " XP.");
+                "You don't have that much XP to sell! You can sell up to " + aqua + playerCurrentXp + reset + " XP.");
         return true;
       }
     }
@@ -114,7 +113,7 @@ public class XpCommandExecutor implements CommandExecutor {
     experienceManager.setTotalExperience(playerCurrentXp - xpToSell);
     econ.depositPlayer(player, totalWorth);
     MessageSender.sendMessage(player, "You have sold " + aqua + xpToSell + " XP " + reset + "@ " + aqua + currencySymbol
-        + worthPerXp + reset + " per XP for " + aqua + currencySymbol + totalWorth + reset + ".");
+            + worthPerXp + reset + " per XP for " + aqua + currencySymbol + totalWorth + reset + ".");
     return true;
   }
 }

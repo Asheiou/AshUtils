@@ -7,9 +7,12 @@ public class User {
   private Boolean modmode;
 
   public UUID getUuid() {
-    if (uuid == null) { throw new RuntimeException(); }
-      return uuid;
+    if (uuid == null) {
+      throw new RuntimeException();
+    }
+    return uuid;
   }
+
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
     UserHelper.saveUser(this);

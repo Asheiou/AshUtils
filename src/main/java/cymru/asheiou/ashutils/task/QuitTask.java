@@ -1,15 +1,14 @@
 package cymru.asheiou.ashutils.task;
 
+import cymru.asheiou.ashutils.AshUtils;
 import cymru.asheiou.ashutils.manager.StatusManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import cymru.asheiou.ashutils.AshUtils;
-
 public class QuitTask extends BukkitRunnable {
-  
+
   @Override
   public void run() {
     JavaPlugin plugin = JavaPlugin.getProvidingPlugin(AshUtils.class);
@@ -23,7 +22,7 @@ public class QuitTask extends BukkitRunnable {
     } else {
       plugin.getLogger().info("No restart because " + (isEmpty ? "ROE is disabled." : "the server is not empty."));
     }
-    
+
     this.cancel();
   }
 }

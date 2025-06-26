@@ -4,14 +4,11 @@ import com.earth2me.essentials.Essentials;
 import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.user.User;
 import cymru.asheiou.ashutils.user.UserHelper;
-import net.ess3.api.IUser;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class ModCommandExecutor implements CommandExecutor {
   @Override
@@ -36,17 +33,19 @@ public class ModCommandExecutor implements CommandExecutor {
                 ? "enabled." : "disabled."));
         return true;
       default:
-          MessageSender.sendMessage(sender, "Invalid usage! Usage:");
-          return false;
+        MessageSender.sendMessage(sender, "Invalid usage! Usage:");
+        return false;
     }
     user.setModMode(toSet);
     MessageSender.sendMessage(sender, "Mod mode " + (toSet ? "enabled." : "disabled."));
 
     try {
       /* Soft depend ess */
-      Essentials ess = (Essentials) Bukkit.getPluginManager().getPlugin("essentials"); assert ess != null;
+      Essentials ess = (Essentials) Bukkit.getPluginManager().getPlugin("essentials");
+      assert ess != null;
       ess.getUser(player).setSocialSpyEnabled(toSet);
-    } catch (NoClassDefFoundError ignored) {}
+    } catch (NoClassDefFoundError ignored) {
+    }
 
     return true;
   }

@@ -1,8 +1,9 @@
 package cymru.asheiou.ashutils.listener;
 
-import cymru.asheiou.ashutils.sender.MessageSender;
 import cymru.asheiou.ashutils.manager.StatusManager;
 import cymru.asheiou.ashutils.manager.UserMapManager;
+import cymru.asheiou.ashutils.sender.MessageSender;
+import cymru.asheiou.ashutils.task.QuitTask;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -10,8 +11,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import cymru.asheiou.ashutils.task.QuitTask;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -21,14 +20,18 @@ public class BukkitEventListener implements Listener {
   private final JavaPlugin plugin;
   private final Pattern pattern = Pattern.compile("^:[A-Z]{4,}$");
 
-  public BukkitEventListener(JavaPlugin plugin) { this.plugin = plugin; }
+  public BukkitEventListener(JavaPlugin plugin) {
+    this.plugin = plugin;
+  }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onPlayerQuit(PlayerQuitEvent event) { new QuitTask().runTaskLater(this.plugin, 3); }
+  public void onPlayerQuit(PlayerQuitEvent event) {
+    new QuitTask().runTaskLater(this.plugin, 3);
+  }
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onChat(AsyncPlayerChatEvent event) {
-    if(pattern.matcher(event.getMessage()).matches()) {
+    if (pattern.matcher(event.getMessage()).matches()) {
       MessageSender.sendMessage(event.getPlayer(), "To use commands, type /<command>.");
       event.setCancelled(true);
       return;
@@ -39,11 +42,11 @@ public class BukkitEventListener implements Listener {
     }
   }
 
-  @EventHandler(priority=EventPriority.LOW)
+  @EventHandler(priority = EventPriority.LOW)
   public void onPlayerJoin(PlayerJoinEvent event) {
     UUID refUUID = UserMapManager.getUserFromName(event.getPlayer().getName());
-    if(refUUID != null) {
-      if(refUUID.equals(event.getPlayer().getUniqueId())) {
+    if (refUUID != null) {
+      if (refUUID.equals(event.getPlayer().getUniqueId())) {
         plugin.getLogger().info(event.getPlayer().getName() + " is already registered to users.json.");
         return;
       }
