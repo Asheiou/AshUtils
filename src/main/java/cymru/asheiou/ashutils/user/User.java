@@ -1,12 +1,10 @@
 package cymru.asheiou.ashutils.user;
 
-import cymru.asheiou.ashutils.manager.UserManager;
-
 import java.util.UUID;
 
 public class User {
   private UUID uuid;
-  private Boolean alertstatus;
+  private Boolean modmode;
 
   public UUID getUuid() {
     if (uuid == null) { throw new RuntimeException(); }
@@ -14,19 +12,19 @@ public class User {
   }
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
-    UserManager.saveUser(this);
+    UserHelper.saveUser(this);
   }
 
-  public boolean getAlertStatus() {
-    if (alertstatus == null) {
-      this.alertstatus = UserManager.getDefaultUser().getAlertStatus();
-      UserManager.saveUser(this);
+  public boolean getModMode() {
+    if (modmode == null) {
+      this.modmode = UserHelper.getDefaultUser().getModMode();
+      UserHelper.saveUser(this);
     }
-    return alertstatus;
+    return modmode;
   }
 
-  public void setAlertStatus(Boolean alertstatus) {
-    this.alertstatus = alertstatus;
-    UserManager.saveUser(this);
+  public void setModMode(Boolean modmode) {
+    this.modmode = modmode;
+    UserHelper.saveUser(this);
   }
 }

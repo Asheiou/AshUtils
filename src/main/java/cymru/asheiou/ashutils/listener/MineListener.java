@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import cymru.asheiou.ashutils.user.UserHelper;
 import cymru.asheiou.ashutils.sender.WebhookSender;
 import hk.siggi.bukkit.plugcubebuildersin.world.WorldBlock;
 import net.md_5.bungee.api.ChatColor;
@@ -189,7 +190,8 @@ public class MineListener implements Listener {
             + " (light level: " + ChatColor.AQUA + lightLevel + ChatColor.YELLOW + ")!";
     for(Player player : Bukkit.getOnlinePlayers()) {
       if (player.hasPermission("ashutils.alert"))
-        player.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "!! " +
+        if (UserHelper.getUser(player).getModMode())
+          player.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "!! " +
                 ChatColor.RESET + message);
     }
     URI uri;
