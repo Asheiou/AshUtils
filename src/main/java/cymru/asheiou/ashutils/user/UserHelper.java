@@ -1,21 +1,21 @@
-package cymru.asheiou.ashutils.manager;
+package cymru.asheiou.ashutils.user;
 
 import com.google.gson.Gson;
 import cymru.asheiou.ashutils.AshUtils;
-import cymru.asheiou.ashutils.user.User;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
 import java.util.UUID;
 
-public class UserManager {
+public class UserHelper {
   private static JavaPlugin plugin;
   private static File folder;
   private static final Gson gson = new Gson();
 
   public static void init(JavaPlugin plugin) {
-    UserManager.plugin = plugin;
+    UserHelper.plugin = plugin;
     folder = new File(plugin.getDataFolder()+"/users/");
     if (!folder.exists()) {
       if (!folder.mkdir()) {
@@ -37,6 +37,10 @@ public class UserManager {
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public static User getUser(Player player) {
+    return getUser(player.getUniqueId());
   }
 
   public static void saveUser(User user) {

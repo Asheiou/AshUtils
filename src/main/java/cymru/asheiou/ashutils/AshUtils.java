@@ -12,6 +12,7 @@ import cymru.asheiou.ashutils.listener.EssEventListener;
 import cymru.asheiou.ashutils.listener.MineListener;
 import cymru.asheiou.ashutils.manager.*;
 
+import cymru.asheiou.ashutils.user.UserHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,7 +27,7 @@ public class AshUtils extends JavaPlugin {
     Instant startTime = Instant.now();
     PluginManager pm = getServer().getPluginManager();
     // // // // // // // // User // // // // // // // //
-    UserManager.init(this);
+    UserHelper.init(this);
     // // // // // // // // Config // // // // // // // //
     new ConfigManager(this, true).loadConfig();
     getConfig().options().copyDefaults(true);
