@@ -1,5 +1,5 @@
 name: AshUtils
-main: cymru.asheiou.ashutils.AshUtils
+main: xyz.aeolia.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.21.5
