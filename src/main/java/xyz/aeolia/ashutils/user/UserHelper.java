@@ -30,7 +30,12 @@ public class UserHelper {
   }
 
   public static User getUser(UUID uuid) {
-    User user = users.get(uuid);
+    User user;
+    try {
+      user = users.get(uuid);
+    } catch (NullPointerException e) {
+      user = null;
+    }
     if (user == null) {
       File file = new File(folder, uuid.toString() + ".json");
       if (!file.exists()) {
