@@ -86,7 +86,7 @@ public class UserHelper {
   public static User getDefaultUser() {
     InputStream defaultFile = UserHelper.class.getClassLoader().getResourceAsStream("default.json");
 
-    if (defaultFile != null) {
+    if (defaultFile == null) {
       Bukkit.getLogger().severe("Missing resource in jar! Check your build.");
       plugin.getServer().getPluginManager().disablePlugin(plugin);
     }
