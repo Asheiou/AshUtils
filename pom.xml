@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xyz.aeolia</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.8.1-dev7</version>
+  <version>1.8.1</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
