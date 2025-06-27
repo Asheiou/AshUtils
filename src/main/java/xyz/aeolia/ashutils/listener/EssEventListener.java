@@ -1,6 +1,7 @@
 package xyz.aeolia.ashutils.listener;
 
 import net.ess3.api.events.AfkStatusChangeEvent;
+import net.ess3.api.events.VanishStatusChangeEvent;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.sender.WebhookSender;
+import xyz.aeolia.ashutils.task.VanishTask;
 import xyz.aeolia.ashutils.user.UserHelper;
 
 import java.net.URI;
@@ -44,5 +46,10 @@ public class EssEventListener implements Listener {
     if (response.statusCode() != 204) {
       plugin.getLogger().severe("afk-webhook returned: " + response.statusCode() + " " + response.body());
     }
+  }
+
+  @EventHandler(priority = EventPriority.LOWEST)
+  public void onVanishStatusChange(VanishStatusChangeEvent event) {
+    new VanishTask(event).runTaskLater(plugin, 2);
   }
 }
