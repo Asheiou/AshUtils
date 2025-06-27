@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import xyz.aeolia.ashutils.AshUtils;
 
 import java.io.*;
 import java.util.HashMap;
@@ -75,6 +74,7 @@ public class UserHelper {
   }
 
   public static void saveUsers() {
+    if (users == null) { return; }
     CompletableFuture.supplyAsync(() -> {
       for (User user : users.values()) {
         saveUser(user);
@@ -84,7 +84,7 @@ public class UserHelper {
   }
 
   public static User getDefaultUser() {
-    InputStream defaultFile = AshUtils.class.getResourceAsStream("/default.json");
+    InputStream defaultFile = UserHelper.class.getClassLoader().getResourceAsStream("default.json");
 
     if (defaultFile != null) {
       Bukkit.getLogger().severe("Missing resource in jar! Check your build.");
