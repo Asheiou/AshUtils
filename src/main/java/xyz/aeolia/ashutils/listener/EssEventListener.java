@@ -3,7 +3,6 @@ package xyz.aeolia.ashutils.listener;
 import net.ess3.api.events.AfkStatusChangeEvent;
 import net.ess3.api.events.VanishStatusChangeEvent;
 import org.bukkit.Server;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,7 +27,7 @@ public class EssEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onAfkStatusChange(AfkStatusChangeEvent event) {
-    if (UserHelper.getUser((Player) event.getAffected()).getVanish()) return;
+    if (UserHelper.getUser(event.getAffected().getUUID()).getVanish()) return;
     Server server = this.plugin.getServer();
     Pattern colourpattern = Pattern.compile("§(.)");
     Matcher matcher = colourpattern.matcher(event.getAffected().getDisplayName());
