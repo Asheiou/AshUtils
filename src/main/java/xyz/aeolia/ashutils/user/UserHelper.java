@@ -14,7 +14,7 @@ public class UserHelper {
   private static final Gson gson = new Gson();
   private static JavaPlugin plugin;
   private static File folder;
-  private static HashMap<UUID, User> users;
+  private static final HashMap<UUID, User> users = new HashMap<>();
 
 
   public static void init(JavaPlugin plugin) {
@@ -30,11 +30,7 @@ public class UserHelper {
 
   public static User getUser(UUID uuid) {
     User user;
-    try {
-      user = users.get(uuid);
-    } catch (NullPointerException e) {
-      user = null;
-    }
+    user = users.get(uuid);
     if (user == null) {
       File file = new File(folder, uuid.toString() + ".json");
       if (!file.exists()) {
@@ -79,6 +75,7 @@ public class UserHelper {
       for (User user : users.values()) {
         saveUser(user);
       }
+      plugin.getLogger().info("Saved " + users.size() + " users!");
       return null;
     });
   }
@@ -91,6 +88,6 @@ public class UserHelper {
       plugin.getServer().getPluginManager().disablePlugin(plugin);
     }
     assert defaultFile != null;
-    return gson.fromJson(defaultFile.toString(), User.class);
+    return gson.fromJson(new InputStreamReader(defaultFile), User.class);
   }
 }
