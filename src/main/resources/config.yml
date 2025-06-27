@@ -16,3 +16,7 @@ discord:
 suffix:
   size: 3
   list: ["builder"]
+pvp:
+  worlds: ["testing"]
+  kill-prize: 100
+  prize-cooldown: 60

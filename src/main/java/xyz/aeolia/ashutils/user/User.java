@@ -6,6 +6,7 @@ public class User {
   private UUID uuid;
   private Boolean modmode;
   private Boolean vanish;
+  private Long lastpvppayout;
 
   public UUID getUuid() {
     if (uuid == null) {
@@ -47,5 +48,17 @@ public class User {
     this.vanish = vanish;
     UserHelper.putUser(this);
     return vanish;
+  }
+
+  public Long getLastPvpPayout() {
+    if (lastpvppayout == null) {
+      this.lastpvppayout = UserHelper.getDefaultUser().getLastPvpPayout();
+    }
+    return lastpvppayout;
+  }
+
+  public void setLastPvpPayout(long lastpvppayout) {
+    this.lastpvppayout = lastpvppayout;
+    UserHelper.putUser(this);
   }
 }

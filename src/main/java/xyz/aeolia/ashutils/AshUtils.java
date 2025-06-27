@@ -13,6 +13,7 @@ import xyz.aeolia.ashutils.command.user.*;
 import xyz.aeolia.ashutils.listener.BukkitEventListener;
 import xyz.aeolia.ashutils.listener.EssEventListener;
 import xyz.aeolia.ashutils.listener.MineListener;
+import xyz.aeolia.ashutils.listener.VaultListener;
 import xyz.aeolia.ashutils.manager.EconManager;
 import xyz.aeolia.ashutils.manager.LuckPermsManager;
 import xyz.aeolia.ashutils.manager.StatusManager;
@@ -69,6 +70,7 @@ public class AshUtils extends JavaPlugin {
     // // // // // // // // Vault // // // // // // // //
     if (EconManager.setupEconomy(this)) {
       // TODO: Make this more elegant with a Map or something
+      pm.registerEvents(new VaultListener(this), this);
       this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
       this.getCommand("xpbuy").setExecutor(new XpCommandExecutor(this));
       this.getCommand("xpsell").setExecutor(new XpCommandExecutor(this));
