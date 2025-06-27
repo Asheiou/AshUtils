@@ -1,5 +1,5 @@
 name: AshUtils
-main: cymru.asheiou.ashutils.AshUtils
+main: xyz.aeolia.ashutils.AshUtils
 version: ${project.version}
 author: Asheiou
 api-version: 1.21.5
@@ -17,7 +17,7 @@ commands:
     aliases: sellhead
     description: Sell any unwanted player heads back to the server!
     usage: /<command> <amount/all>
-    permisison: ashutils.headsell
+    permission: ashutils.headsell
     permission-message: You don't have ashutils.headsell.
   ashutils:
     aliases: util
@@ -30,6 +30,11 @@ commands:
     usage: /<command> <join/quit> [user]
     permission: ashutils.fake
     permission-message: You don't have ashutils.fake.
+  mod:
+    description: Toggle mod mode
+    usage: /<command> [true/false/status]
+    permission: ashutils.mod
+    permission-message: You don't have ashutils.mod.
   report:
     description: Create a report to our staff
     usage: /<command> <report message>
@@ -67,14 +72,14 @@ permissions:
   ashutils.code:
     description: Allows /code
     default: true
-  ashutils.headsell:
-    description: Allows head sell
-    default: true
   ashutils.admin:
     description: Allows /ashutils
     default: op
   ashutils.fake:
     description: Allows /fake
+    default: op
+  ashutils.mod:
+    description: Allows mod mode
     default: op
   ashutils.report:
     description: Allows /report
@@ -103,4 +108,6 @@ permissions:
   ashutils.vanishonlogin.others:
     description: Allows use of /vanishonlogin for all users
     default: op
-        
+  ashutils.headsell:
+    description: Allows head sell
+    default: true
