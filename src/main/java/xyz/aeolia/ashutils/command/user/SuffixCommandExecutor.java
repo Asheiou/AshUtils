@@ -1,5 +1,6 @@
 package xyz.aeolia.ashutils.command.user;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -42,6 +43,21 @@ public class SuffixCommandExecutor implements TabExecutor {
       if (sender instanceof Player player) new SuffixMenu(plugin).INVENTORY.open(player);
       return true;
     }
+
+    List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
+
+    if (args[0].equals("create")) {
+      if (!sender.hasPermission("ashutils.suffix-create")) return true;
+      String formatted = SuffixMenu.formatSuffix(args[1]);
+      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp creategroup " + args[1]);
+      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp group " + args[1] + " meta setsuffix \" "
+              + formatted + "\" 5");
+      suffixList.add(args[1]);
+      plugin.getConfig().set("suffix.list", suffixList);
+      plugin.saveConfig();
+      MessageSender.sendMessage(sender, "Created suffix " + formatted + ChatColor.RESET + ".");
+      return true;
+    }
     if (args.length != 3) return invEx(sender);
 
     boolean status;
@@ -61,7 +77,6 @@ public class SuffixCommandExecutor implements TabExecutor {
       return true;
     }
 
-    List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
     if (!suffixList.contains(args[2])) {
       MessageSender.sendMessage(sender, "Invalid suffix!");
       return true;
