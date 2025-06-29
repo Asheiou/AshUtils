@@ -58,6 +58,10 @@ public class UserHelper {
     users.put(user.getUuid(), user);
   }
 
+  public static void removeUser(UUID uuid) {
+    users.remove(uuid);
+  }
+
   public static void saveUser(User user) {
     File file = new File(folder, user.getUuid().toString() + ".json");
     try {

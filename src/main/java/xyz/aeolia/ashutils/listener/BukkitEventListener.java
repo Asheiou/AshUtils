@@ -10,7 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.StatusManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
-import xyz.aeolia.ashutils.task.QuitTask;
+import xyz.aeolia.ashutils.task.ROEQuitTask;
+import xyz.aeolia.ashutils.task.UserPruneTask;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -26,7 +27,9 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onPlayerQuit(PlayerQuitEvent event) {
-    new QuitTask().runTaskLater(this.plugin, 3);
+    new ROEQuitTask().runTaskLater(this.plugin, 3);
+    new UserPruneTask(event.getPlayer()).runTaskLater(this.plugin, 2000L);
+
   }
 
   @EventHandler(priority = EventPriority.HIGH)
