@@ -32,23 +32,9 @@ public class SuffixMenu implements InventoryProvider {
 
   @Override
   public void init(Player player, InventoryContents inventoryContents) {
-    List<String> suffixlist = plugin.getConfig().getStringList("suffix.list");
-    for (String s : suffixlist) {
-      String formatted = WordUtils.capitalizeFully(s.replace('_', ' '));
-      boolean capitalise = false;
-      char[] formattedArray = formatted.toCharArray();
-      for (int i = 0; i < formattedArray.length; i++) {
-        if (formattedArray[i] == '-') {
-          capitalise = true;
-          continue;
-        } else if (capitalise) {
-          formattedArray[i] = Character.toUpperCase(formattedArray[i]);
-          break;
-        }
-        capitalise = false;
-      }
-      formatted = ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray).replace('_', ' ');
-
+    List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
+    for (String s : suffixList) {
+      String formatted = formatSuffix(s);
       ItemStack item;
       ItemMeta meta;
       if (player.hasPermission("group." + s)) {
@@ -75,7 +61,7 @@ public class SuffixMenu implements InventoryProvider {
         String finalFormatted = formatted;
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
-          for (String s1 : suffixlist) {
+          for (String s1 : suffixList) {
             if (player.hasPermission("group." + s1)) {
               PermissionManager.groupUpdate(plugin, player.getUniqueId(), s1, false);
             }
@@ -103,5 +89,22 @@ public class SuffixMenu implements InventoryProvider {
 
   @Override
   public void update(Player player, InventoryContents inventoryContents) {
+  }
+
+  public static String formatSuffix(String s) {
+    String formatted = WordUtils.capitalizeFully(s.replace('_', ' '));
+    boolean capitalise = false;
+    char[] formattedArray = formatted.toCharArray();
+    for (int i = 0; i < formattedArray.length; i++) {
+      if (formattedArray[i] == '-') {
+        capitalise = true;
+        continue;
+      } else if (capitalise) {
+        formattedArray[i] = Character.toUpperCase(formattedArray[i]);
+        break;
+      }
+      capitalise = false;
+    }
+    return ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray).replace('_', ' ');
   }
 }
