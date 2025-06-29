@@ -1,3 +1,7 @@
+[![GPL 3.0](https://img.shields.io/github/license/AeoliaXYZ/AshUtils?&logo=github)](LICENSE)
+[![Build](https://github.com/AeoliaXYZ/AshUtils/actions/workflows/maven.yml/badge.svg)](https://github.com/AeoliaXYZ/AshUtils/actions)
+[![Dependency review](https://github.com/AeoliaXYZ/AshUtils/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/AeoliaXYZ/AshUtils/actions)
+
 # AshUtils
 This is a bespoke general plugin for the demands of aeolia.xyz. We don't recommend running it outside of this environment.    
     
