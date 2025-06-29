@@ -16,6 +16,10 @@ discord:
 suffix:
   size: 3
   list: ["builder"]
+  ontime-reward:
+    enabled: true
+    name: "grinder"
+    reward-time: TIME IN DAYS
 pvp:
   worlds: ["testing"]
   kill-prize: 100

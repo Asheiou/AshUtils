@@ -1,7 +1,6 @@
 package xyz.aeolia.ashutils.listener;
 
 import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.User;
 import net.ess3.api.events.AfkStatusChangeEvent;
 import net.ess3.api.events.VanishStatusChangeEvent;
 import org.bukkit.Bukkit;
@@ -9,7 +8,6 @@ import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.sender.WebhookSender;
 import xyz.aeolia.ashutils.task.VanishTask;
@@ -25,7 +23,6 @@ import java.util.regex.Pattern;
 public class EssEventListener implements Listener {
   JavaPlugin plugin;
   final Essentials ess;
-
   public EssEventListener(JavaPlugin plugin) {
     this.plugin = plugin;
     this.ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
@@ -59,11 +56,5 @@ public class EssEventListener implements Listener {
   @EventHandler(priority = EventPriority.LOWEST)
   public void onVanishStatusChange(VanishStatusChangeEvent event) {
     new VanishTask(event).runTaskLater(plugin, 2);
-  }
-
-  @EventHandler(priority = EventPriority.LOWEST)
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    User user = ess.getUser(event.getPlayer());
-
   }
 }
