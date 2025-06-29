@@ -1,4 +1,5 @@
-[![GPL 3.0](https://img.shields.io/github/license/AeoliaXYZ/AshUtils?&logo=github)](LICENSE)
+![Version](https://img.shields.io/badge/dynamic/xml?color=blue&label=Version&logo=github&query=%2F%2A%5Blocal-name%28%29%3D'project'%5D%2F%2A%5Blocal-name%28%29%3D'version'%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FAeoliaXYZ%2FAshUtils%2Fmaster%2Fpom.xml)
+[![GPL 3.0](https://img.shields.io/github/license/AeoliaXYZ/AshUtils?&logo=github&label=License)](LICENSE)
 [![Build](https://github.com/AeoliaXYZ/AshUtils/actions/workflows/maven.yml/badge.svg)](https://github.com/AeoliaXYZ/AshUtils/actions)
 [![Dependency review](https://github.com/AeoliaXYZ/AshUtils/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/AeoliaXYZ/AshUtils/actions)
 
