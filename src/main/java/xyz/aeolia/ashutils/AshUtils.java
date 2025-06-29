@@ -38,7 +38,7 @@ public class AshUtils extends JavaPlugin {
     Bukkit.getScheduler().scheduleSyncRepeatingTask(this, mineListener::tick, 1L, 1L);
     pm.registerEvents(new BukkitEventListener(this), this);
     // // // // // // // // Essentials // // // // // // // //
-    if (pm.getPlugin("Essentials") != null) {
+    if (pm.getPlugin("Essentials") == null) {
       pm.disablePlugin(this);
     }
     MiniMessageManager.init();
