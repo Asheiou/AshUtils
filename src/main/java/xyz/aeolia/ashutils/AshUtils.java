@@ -11,10 +11,7 @@ import xyz.aeolia.ashutils.command.admin.VanishOnLoginTabExecutor;
 import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor;
 import xyz.aeolia.ashutils.command.user.*;
 import xyz.aeolia.ashutils.listener.*;
-import xyz.aeolia.ashutils.manager.EconManager;
-import xyz.aeolia.ashutils.manager.LuckPermsManager;
-import xyz.aeolia.ashutils.manager.StatusManager;
-import xyz.aeolia.ashutils.manager.UserMapManager;
+import xyz.aeolia.ashutils.manager.*;
 import xyz.aeolia.ashutils.user.UserHelper;
 
 import java.time.Duration;
@@ -42,9 +39,11 @@ public class AshUtils extends JavaPlugin {
     pm.registerEvents(new BukkitEventListener(this), this);
     // // // // // // // // Essentials // // // // // // // //
     if (pm.getPlugin("Essentials") != null) {
-      pm.registerEvents(new EssEventListener(this), this);
-      this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
+      pm.disablePlugin(this);
     }
+    MiniMessageManager.init();
+    pm.registerEvents(new EssEventListener(this), this);
+    this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
     // // // // // // // // LuckPerms // // // // // // // //
     if (pm.getPlugin("LuckPerms") != null) {
       LuckPermsManager.luckPermsSetup();
