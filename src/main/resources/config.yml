@@ -24,3 +24,4 @@ pvp:
   worlds: ["testing"]
   kill-prize: 100
   prize-cooldown: 60
+prune-time: 2000
