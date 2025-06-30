@@ -1,9 +1,8 @@
 package xyz.aeolia.ashutils.manager;
 
-import com.earth2me.essentials.libs.kyori.adventure.platform.bukkit.BukkitAudiences;
-import com.earth2me.essentials.libs.kyori.adventure.text.minimessage.MiniMessage;
-import com.earth2me.essentials.libs.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import com.earth2me.essentials.libs.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +20,7 @@ public class MiniMessageManager {
   public static void init(JavaPlugin plugin) {
     miniMessage = MiniMessage.builder()
             .tags(TagResolver.builder()
-                    .resolver(StandardTags.color())
+                    .resolver(TagResolver.standard())
                     .build()
             )
             .build();

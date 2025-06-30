@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xyz.aeolia</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.8.4-dev5</version>
+  <version>1.8.4-dev6</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -63,6 +63,22 @@
       <artifactId>VaultAPI</artifactId>
       <version>1.7</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-text-minimessage</artifactId>
+      <version>4.22.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-api</artifactId>
+      <version>4.22.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-platform-bukkit</artifactId>
+      <version>4.4.0</version>
     </dependency>
     <dependency>
       <groupId>cymru.asheiou</groupId>
@@ -138,6 +154,7 @@
                 <includes>
                   <include>cymru.asheiou:configmanager</include>
                   <include>com.google:gson</include>
+                  <include>net.kyori:*</include>
                 </includes>
               </artifactSet>
             </configuration>
