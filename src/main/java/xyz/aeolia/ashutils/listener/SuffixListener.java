@@ -26,14 +26,17 @@ public class SuffixListener implements Listener {
     Player player = event.getPlayer();
     long ontimeMillis = player.getStatistic(Statistic.PLAY_ONE_MINUTE) * 50L;
     double awardTimeMillis = config.getDouble("suffix.ontime-reward.reward-time") * 86400000L;
+    plugin.getLogger().info(ontimeMillis + " ontime, " + awardTimeMillis + " to be awarded role.");
     if (ontimeMillis > awardTimeMillis) {
+      plugin.getLogger().info("Should award.");
       String rewardGroup = config.getString("suffix.ontime-reward.name");
       if (rewardGroup == null) {
         plugin.getLogger().severe("Ontime reward group is null");
         return;
       }
-      if (player.hasPermission("group." + rewardGroup)) return;
-      PermissionManager.groupUpdate(plugin, player.getUniqueId(), rewardGroup, true);
+      String permission = "ashutils.suffix." + rewardGroup;
+      if (player.hasPermission(permission)) return;
+      PermissionManager.permissionUpdate(player.getUniqueId(), permission, true);
       new MessageLaterTask(player, "You have received an ontime reward suffix: "
               + SuffixMenu.formatSuffix(rewardGroup, true) + "<reset>! You can equip it by running" +
               " <aqua>/suffix</aqua>.")

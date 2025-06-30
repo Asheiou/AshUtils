@@ -58,7 +58,6 @@ public class SuffixMenu implements InventoryProvider {
         meta.setDisplayName(formatted);
         meta.setLore(List.of(ChatColor.GREEN + "Equip"));
         item.setItemMeta(meta);
-        String finalFormatted = formatted;
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
           for (String s1 : suffixList) {

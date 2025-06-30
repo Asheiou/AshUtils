@@ -59,7 +59,7 @@ public class UserHelper {
   }
 
   public static void removeUser(UUID uuid) {
-    saveUser(users.get(uuid)); // save user to prevent data loss from prune
+    saveUser(getUser(uuid)); // save user to prevent data loss from prune
     users.remove(uuid);
   }
 
