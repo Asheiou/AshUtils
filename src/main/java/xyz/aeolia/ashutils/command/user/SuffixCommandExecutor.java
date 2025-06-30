@@ -50,11 +50,10 @@ public class SuffixCommandExecutor implements TabExecutor {
       String formatted = SuffixMenu.formatSuffix(args[1], true);
       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp creategroup " + args[1]);
       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp group " + args[1] + " meta setsuffix 5 \" "
-              + formatted + "\"");
+              + SuffixMenu.formatSuffix(args[1], false) + "\"");
       suffixList.add(args[1]);
       plugin.getConfig().set("suffix.list", suffixList);
       plugin.saveConfig();
-      MessageSender.sendMessage(sender, "Created suffix " + formatted + "</reset>.");
       MessageSender.sendMessage(sender, "Created suffix " + formatted + "</reset>.");
       return true;
     }
