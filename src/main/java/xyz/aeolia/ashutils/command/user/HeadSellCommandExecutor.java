@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.command.user;
 
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -50,9 +49,8 @@ public class HeadSellCommandExecutor implements CommandExecutor {
         player.getInventory().getItemInMainHand().setAmount(itemInHand.getAmount() - amountToSell);
         EconManager.getEcon().depositPlayer(player, worth);
         MessageSender.sendMessage(player,
-                "You have sold " + ChatColor.AQUA + amountToSell + (amountToSell == 1 ? " head" : " heads") + ChatColor.RESET + " for "
-                        + ChatColor.AQUA + this.plugin.getConfig().getString("currency-symbol") + worth + ChatColor.RESET
-                        + ".");
+                "You have sold <aqua>" + amountToSell + (amountToSell == 1 ? " head" : " heads") + "</aqua> for <aqua>"
+                        + this.plugin.getConfig().getString("currency-symbol") + worth + "</aqua>.");
         return true;
 
       }

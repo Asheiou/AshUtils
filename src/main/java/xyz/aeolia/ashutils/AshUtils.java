@@ -10,14 +10,8 @@ import xyz.aeolia.ashutils.command.admin.ModCommandExecutor;
 import xyz.aeolia.ashutils.command.admin.VanishOnLoginTabExecutor;
 import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor;
 import xyz.aeolia.ashutils.command.user.*;
-import xyz.aeolia.ashutils.listener.BukkitEventListener;
-import xyz.aeolia.ashutils.listener.EssEventListener;
-import xyz.aeolia.ashutils.listener.MineListener;
-import xyz.aeolia.ashutils.listener.VaultListener;
-import xyz.aeolia.ashutils.manager.EconManager;
-import xyz.aeolia.ashutils.manager.LuckPermsManager;
-import xyz.aeolia.ashutils.manager.StatusManager;
-import xyz.aeolia.ashutils.manager.UserMapManager;
+import xyz.aeolia.ashutils.listener.*;
+import xyz.aeolia.ashutils.manager.*;
 import xyz.aeolia.ashutils.user.UserHelper;
 
 import java.time.Duration;
@@ -44,10 +38,12 @@ public class AshUtils extends JavaPlugin {
     Bukkit.getScheduler().scheduleSyncRepeatingTask(this, mineListener::tick, 1L, 1L);
     pm.registerEvents(new BukkitEventListener(this), this);
     // // // // // // // // Essentials // // // // // // // //
-    if (pm.getPlugin("Essentials") != null) {
-      pm.registerEvents(new EssEventListener(this), this);
-      this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
+    if (pm.getPlugin("Essentials") == null) {
+      pm.disablePlugin(this);
     }
+    MiniMessageManager.init(this);
+    pm.registerEvents(new EssEventListener(this), this);
+    this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
     // // // // // // // // LuckPerms // // // // // // // //
     if (pm.getPlugin("LuckPerms") != null) {
       LuckPermsManager.luckPermsSetup();
@@ -57,6 +53,7 @@ public class AshUtils extends JavaPlugin {
       // // // // // // // // SmartInvs // // // // // // // //
       if (pm.getPlugin("SmartInvs") != null) {
         this.getCommand("suffix").setExecutor(new SuffixCommandExecutor(this));
+        pm.registerEvents(new SuffixListener(this), this);
       } else {
         this.getCommand("suffix").setExecutor(new NotEnabledCommandExecutor());
         Bukkit.getLogger().info("SmartInvs not found - not enabling /suffix.");

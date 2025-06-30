@@ -32,23 +32,9 @@ public class SuffixMenu implements InventoryProvider {
 
   @Override
   public void init(Player player, InventoryContents inventoryContents) {
-    List<String> suffixlist = plugin.getConfig().getStringList("suffix.list");
-    for (String s : suffixlist) {
-      String formatted = WordUtils.capitalizeFully(s.replace('_', ' '));
-      boolean capitalise = false;
-      char[] formattedArray = formatted.toCharArray();
-      for (int i = 0; i < formattedArray.length; i++) {
-        if (formattedArray[i] == '-') {
-          capitalise = true;
-          continue;
-        } else if (capitalise) {
-          formattedArray[i] = Character.toUpperCase(formattedArray[i]);
-          break;
-        }
-        capitalise = false;
-      }
-      formatted = ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray).replace('_', ' ');
-
+    List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
+    for (String s : suffixList) {
+      String formatted = formatSuffix(s, false);
       ItemStack item;
       ItemMeta meta;
       if (player.hasPermission("group." + s)) {
@@ -72,16 +58,15 @@ public class SuffixMenu implements InventoryProvider {
         meta.setDisplayName(formatted);
         meta.setLore(List.of(ChatColor.GREEN + "Equip"));
         item.setItemMeta(meta);
-        String finalFormatted = formatted;
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
-          for (String s1 : suffixlist) {
+          for (String s1 : suffixList) {
             if (player.hasPermission("group." + s1)) {
               PermissionManager.groupUpdate(plugin, player.getUniqueId(), s1, false);
             }
           }
           PermissionManager.groupUpdate(plugin, player.getUniqueId(), s, true);
-          MessageSender.sendMessage(player, "Suffix changed to " + finalFormatted + ".");
+          MessageSender.sendMessage(player, "Suffix changed to " + formatSuffix(s, true) + ".");
           player.closeInventory();
         }));
 
@@ -103,5 +88,25 @@ public class SuffixMenu implements InventoryProvider {
 
   @Override
   public void update(Player player, InventoryContents inventoryContents) {
+  }
+
+  public static String formatSuffix(String s, boolean miniMessage) {
+    String formatted = "the " + WordUtils.capitalizeFully(s.replace('_', ' '));
+    boolean capitalise = false;
+    char[] formattedArray = formatted.toCharArray();
+    for (int i = 0; i < formattedArray.length; i++) {
+      if (formattedArray[i] == '-') {
+        capitalise = true;
+        continue;
+      } else if (capitalise) {
+        formattedArray[i] = Character.toUpperCase(formattedArray[i]);
+        break;
+      }
+      capitalise = false;
+    }
+    if (miniMessage) {
+      return "<gray><italic>" + new String(formattedArray) + "</italic></gray>";
+    }
+    return ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray);
   }
 }

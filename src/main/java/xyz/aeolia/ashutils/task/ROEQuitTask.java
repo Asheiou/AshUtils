@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import xyz.aeolia.ashutils.AshUtils;
 import xyz.aeolia.ashutils.manager.StatusManager;
 
-public class QuitTask extends BukkitRunnable {
+public class ROEQuitTask extends BukkitRunnable {
 
   @Override
   public void run() {

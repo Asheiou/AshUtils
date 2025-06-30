@@ -1,7 +1,9 @@
 package xyz.aeolia.ashutils.listener;
 
+import com.earth2me.essentials.Essentials;
 import net.ess3.api.events.AfkStatusChangeEvent;
 import net.ess3.api.events.VanishStatusChangeEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,9 +22,13 @@ import java.util.regex.Pattern;
 
 public class EssEventListener implements Listener {
   JavaPlugin plugin;
-
+  final Essentials ess;
   public EssEventListener(JavaPlugin plugin) {
     this.plugin = plugin;
+    this.ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
+    if (this.ess == null) {
+      plugin.getLogger().severe("Essentials not found! This code has been initialised incorrectly.");
+    }
   }
 
   @EventHandler(priority = EventPriority.LOW)

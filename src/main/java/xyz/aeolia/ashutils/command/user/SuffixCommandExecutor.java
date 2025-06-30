@@ -42,6 +42,21 @@ public class SuffixCommandExecutor implements TabExecutor {
       if (sender instanceof Player player) new SuffixMenu(plugin).INVENTORY.open(player);
       return true;
     }
+
+    List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
+
+    if (args[0].equals("create")) {
+      if (!sender.hasPermission("ashutils.suffix-create")) return true;
+      String formatted = SuffixMenu.formatSuffix(args[1], true);
+      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp creategroup " + args[1]);
+      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp group " + args[1] + " meta setsuffix 5 \" "
+              + SuffixMenu.formatSuffix(args[1], false) + "\"");
+      suffixList.add(args[1]);
+      plugin.getConfig().set("suffix.list", suffixList);
+      plugin.saveConfig();
+      MessageSender.sendMessage(sender, "Created suffix " + formatted + "</reset>.");
+      return true;
+    }
     if (args.length != 3) return invEx(sender);
 
     boolean status;
@@ -61,7 +76,6 @@ public class SuffixCommandExecutor implements TabExecutor {
       return true;
     }
 
-    List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
     if (!suffixList.contains(args[2])) {
       MessageSender.sendMessage(sender, "Invalid suffix!");
       return true;

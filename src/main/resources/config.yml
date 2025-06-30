@@ -1,4 +1,4 @@
-chat-prefix: "&8[&dAshUtils&8]"
+chat-prefix: "<gradient:#ff0066:#aa0022>AshUtils</gradient>"
 head-worth: 100
 currency-symbol: $
 vanish-on-login-group: vol
@@ -16,7 +16,12 @@ discord:
 suffix:
   size: 3
   list: ["builder"]
+  ontime-reward:
+    enabled: true
+    name: "grinder"
+    reward-time: TIME IN DAYS
 pvp:
   worlds: ["testing"]
   kill-prize: 100
   prize-cooldown: 60
+prune-time: 2000

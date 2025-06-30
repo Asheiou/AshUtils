@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.command.user;
 
-import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,7 +46,8 @@ public class CodeCommandExecutor implements CommandExecutor {
       MessageSender.sendMessage(sender, "An internal error occurred. Please contact an administrator");
     }
 
-    MessageSender.sendMessage(sender, "Your code is " + ChatColor.AQUA + code + ChatColor.RESET + ". Staff may ask you for this code to verify you own your account. It is valid for 24 hours.");
+    MessageSender.sendMessage(sender, "Your code is <aqua>" + code
+            + "</aqua>. Staff may ask you for this code to verify you own your account. It is valid for 24 hours.");
     return true;
   }
 }

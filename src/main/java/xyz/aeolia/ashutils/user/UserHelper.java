@@ -58,6 +58,11 @@ public class UserHelper {
     users.put(user.getUuid(), user);
   }
 
+  public static void removeUser(UUID uuid) {
+    saveUser(getUser(uuid)); // save user to prevent data loss from prune
+    users.remove(uuid);
+  }
+
   public static void saveUser(User user) {
     File file = new File(folder, user.getUuid().toString() + ".json");
     try {
@@ -70,7 +75,9 @@ public class UserHelper {
   }
 
   public static void saveUsers() {
-    if (users == null) { return; }
+    if (users.isEmpty()) {
+      return;
+    }
     CompletableFuture.supplyAsync(() -> {
       for (User user : users.values()) {
         saveUser(user);
