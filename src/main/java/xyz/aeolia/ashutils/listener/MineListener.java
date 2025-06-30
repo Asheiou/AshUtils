@@ -195,7 +195,7 @@ public class MineListener implements Listener {
       return;
     }
 
-    Pattern pattern = Pattern.compile("<(?:[a-zA-Z0-9_-]+:|/)[^>]+>|\\{[^}]+}");
+    Pattern pattern = Pattern.compile("<(?:[a-zA-Z0-9_-]+:|)[^>]+>|\\{[^}]+}");
     String stripped = pattern.matcher(message).replaceAll("");
     WebhookSender.postWebhook(uri, stripped);
   }
