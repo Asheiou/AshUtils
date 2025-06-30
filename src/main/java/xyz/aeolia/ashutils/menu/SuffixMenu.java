@@ -67,7 +67,7 @@ public class SuffixMenu implements InventoryProvider {
             }
           }
           PermissionManager.groupUpdate(plugin, player.getUniqueId(), s, true);
-          MessageSender.sendMessage(player, "Suffix changed to " + finalFormatted + ".");
+          MessageSender.sendMessage(player, "Suffix changed to " + formatSuffix(s, true) + ".");
           player.closeInventory();
         }));
 
