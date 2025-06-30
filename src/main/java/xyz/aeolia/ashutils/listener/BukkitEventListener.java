@@ -7,9 +7,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.aeolia.ashutils.command.admin.ashutils.MotdHandler;
 import xyz.aeolia.ashutils.manager.StatusManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
+import xyz.aeolia.ashutils.task.MessageLaterTask;
 import xyz.aeolia.ashutils.task.ROEQuitTask;
 import xyz.aeolia.ashutils.task.UserPruneTask;
 
@@ -58,5 +60,10 @@ public class BukkitEventListener implements Listener {
       plugin.getLogger().info(event.getPlayer().getName() + " is not registered to users.json. Adding them.");
     }
     UserMapManager.putUserInMap(event.getPlayer().getName(), event.getPlayer().getUniqueId());
+
+    if (MotdHandler.getMotd() != null) {
+      // Send MOTD if it exists
+      new MessageLaterTask(event.getPlayer(), MotdHandler.getMotd()).runTaskLater(plugin, 20L);
+    }
   }
 }

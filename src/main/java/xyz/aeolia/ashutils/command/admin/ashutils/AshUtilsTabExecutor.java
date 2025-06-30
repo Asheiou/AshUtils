@@ -25,27 +25,21 @@ public class AshUtilsTabExecutor implements TabExecutor {
       MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
     }
-    switch (args[0]) {
+    String[] subCommandArgs = Arrays.copyOfRange(args, 1, args.length);
+    return switch (args[0]) {
       //----------------Reload----------------//
-      case "reload":
-        return ReloadHandler.doUtilReload(sender, plugin);
+      case "reload" -> ReloadHandler.doUtilReload(sender, plugin);
       //------------RestartOnEmpty-----------//
-      case "restartonempty":
-      case "roe":
-      case "lc":
-      case "lockchat":
-        String instance = args[0];
-        args = Arrays.copyOfRange(args, 1, args.length);
-        return StatusToggleHandler.doToggleStatus(sender, args, instance);
-
-      case "clearchat":
-      case "cc":
-        return ClearChatHandler.doClearChat(plugin);
-      default:
+      case "restartonempty", "roe", "lc", "lockchat" ->
+              StatusToggleHandler.doToggleStatus(sender, subCommandArgs, args[0]);
+      case "clearchat", "cc" -> ClearChatHandler.doClearChat(plugin);
+      case "motd" -> MotdHandler.handleCommand(sender, args);
+      default -> {
         MessageSender.sendMessage(sender,
-                "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
-        return true;
-    }
+                "Unrecognised subcommand. Expected: reload, restartonempty, motd, clearchat, lockchat.");
+        yield true;
+      }
+    };
   }
 
   @Override
@@ -74,5 +68,4 @@ public class AshUtilsTabExecutor implements TabExecutor {
     Collections.sort(completions);
     return completions;
   }
-
 }
