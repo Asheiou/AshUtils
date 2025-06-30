@@ -47,10 +47,10 @@ public class SuffixCommandExecutor implements TabExecutor {
 
     if (args[0].equals("create")) {
       if (!sender.hasPermission("ashutils.suffix-create")) return true;
-      String formatted = SuffixMenu.formatSuffix(args[1], false);
+      String formatted = SuffixMenu.formatSuffix(args[1], true);
       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp creategroup " + args[1]);
-      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp group " + args[1] + " meta setsuffix \" "
-              + formatted + "\" 5");
+      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp group " + args[1] + " meta setsuffix 5 \" "
+              + formatted + "\"");
       suffixList.add(args[1]);
       plugin.getConfig().set("suffix.list", suffixList);
       plugin.saveConfig();

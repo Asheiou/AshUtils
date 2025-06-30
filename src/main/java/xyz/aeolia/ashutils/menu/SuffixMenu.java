@@ -92,7 +92,7 @@ public class SuffixMenu implements InventoryProvider {
   }
 
   public static String formatSuffix(String s, boolean miniMessage) {
-    String formatted = "the" + WordUtils.capitalizeFully(s.replace('_', ' '));
+    String formatted = "the " + WordUtils.capitalizeFully(s.replace('_', ' '));
     boolean capitalise = false;
     char[] formattedArray = formatted.toCharArray();
     for (int i = 0; i < formattedArray.length; i++) {
