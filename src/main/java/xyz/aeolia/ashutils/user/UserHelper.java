@@ -59,6 +59,7 @@ public class UserHelper {
   }
 
   public static void removeUser(UUID uuid) {
+    saveUser(users.get(uuid)); // save user to prevent data loss from prune
     users.remove(uuid);
   }
 
@@ -74,7 +75,9 @@ public class UserHelper {
   }
 
   public static void saveUsers() {
-    if (users == null) { return; }
+    if (users.isEmpty()) {
+      return;
+    }
     CompletableFuture.supplyAsync(() -> {
       for (User user : users.values()) {
         saveUser(user);
