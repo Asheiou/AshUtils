@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.listener;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -36,8 +35,8 @@ public class SuffixListener implements Listener {
       if (player.hasPermission("group." + rewardGroup)) return;
       PermissionManager.groupUpdate(plugin, player.getUniqueId(), rewardGroup, true);
       new MessageLaterTask(player, "You have received an ontime reward suffix: "
-              + SuffixMenu.formatSuffix(rewardGroup) + ChatColor.RESET + "! You can equip it by running "
-              + ChatColor.AQUA + "/suffix" + ChatColor.RESET + ".")
+              + SuffixMenu.formatSuffix(rewardGroup, true) + "<reset>! You can equip it by running" +
+              " <aqua>/suffix</aqua>.")
               .runTaskLater(plugin, 20L);
     }
   }

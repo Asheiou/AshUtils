@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.command.user;
 
-import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,8 +14,8 @@ import java.math.BigDecimal;
 
 public class XpCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
-  ChatColor aqua = ChatColor.AQUA;
-  ChatColor reset = ChatColor.RESET;
+  String aqua = "<aqua>";
+  String reset = "</aqua>";
   Economy econ = EconManager.getEcon();
 
   public XpCommandExecutor(JavaPlugin plugin) {

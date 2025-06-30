@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.listener;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -43,8 +42,8 @@ public class VaultListener implements Listener {
     EconManager.getEcon().depositPlayer(killer, pvpPrize);
     victimuser.setLastPvpPayout(currentTimeSeconds);
 
-    String messageEnd = " and claimed a prize of " + ChatColor.AQUA
-            + config.getString("currency-symbol")+ pvpPrize + ChatColor.RESET + ".";
+    String messageEnd = " and claimed a prize of <aqua>"
+            + config.getString("currency-symbol") + pvpPrize + "</aqua>.";
     MessageSender.sendMessage(victim, killer.getName() + " killed you" + messageEnd);
     MessageSender.sendMessage(killer, "You killed " + victim.getName() + messageEnd);
   }

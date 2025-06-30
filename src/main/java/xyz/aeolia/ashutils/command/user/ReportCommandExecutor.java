@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.command.user;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -50,12 +49,11 @@ public class ReportCommandExecutor implements CommandExecutor {
     if (response.statusCode() != 204) {
       plugin.getLogger().severe("Could not send report: " + response.statusCode() + " " + response.body());
       MessageSender.sendMessage(sender, "Could not send report, error " + response.statusCode() +
-              ". Please contact an administrator via " + ChatColor.AQUA + "/discord " + ChatColor.RESET
-              + "or the email on " + ChatColor.AQUA + "/support" + ChatColor.RESET + ".");
+              ". Please contact an administrator via <aqua>/discord</aqua> or the email on <aqua>/support</aqua>.");
       return true;
     }
     MessageSender.sendMessage(sender, "Report sent successfully. You will receive a response via " +
-            ChatColor.AQUA + "/mail " + ChatColor.RESET + "or on our Discord if you're a member.");
+            "<aqua>/mail</aqua> or on our Discord if you're a member.");
     return true;
   }
 }

@@ -1,7 +1,6 @@
 package xyz.aeolia.ashutils.listener;
 
 import hk.siggi.bukkit.plugcubebuildersin.world.WorldBlock;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -19,6 +18,7 @@ import xyz.aeolia.ashutils.user.UserHelper;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /*
 Based on
@@ -178,15 +178,14 @@ public class MineListener implements Listener {
   }
 
   private void sendMine(Player p, Block block, String ore, int count, int lightLevel) {
-    String message = ChatColor.AQUA + p.getName() + ChatColor.YELLOW + " found " +
-            ChatColor.AQUA + count + "x " + ore + ChatColor.YELLOW + " at " + ChatColor.AQUA + block.getX() + " "
-            + block.getY() + " " + block.getZ() + " in " + block.getWorld().getName() + ChatColor.YELLOW
-            + " (light level: " + ChatColor.AQUA + lightLevel + ChatColor.YELLOW + ")!";
+    String message = "<aqua>" + p.getName() + "</aqua><yellow> found </yellow><aqua>" + count + "x " + ore +
+            "</aqua><yellow> at </yellow><aqua>" + block.getX() + " "
+            + block.getY() + " " + block.getZ() + " in " + block.getWorld().getName()
+            + "</aqua><yellow> (light level: </yellow><aqua>" + lightLevel + "</aqua><yellow>)!";
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player.hasPermission("ashutils.alert"))
         if (UserHelper.getUser(player).getModMode())
-          player.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "!! " +
-                  ChatColor.RESET + message);
+          player.sendMessage("<gold><bold>!! </gold></bold>" + message);
     }
     URI uri;
     try {
@@ -195,7 +194,10 @@ public class MineListener implements Listener {
       plugin.getLogger().warning("mine-webhook URI could not be parsed.");
       return;
     }
-    WebhookSender.postWebhook(uri, ChatColor.stripColor(message));
+
+    Pattern pattern = Pattern.compile("<(?:[a-zA-Z0-9_-]+:|/)[^>]+>|\\{[^}]+}");
+    String stripped = pattern.matcher(message).replaceAll("");
+    WebhookSender.postWebhook(uri, stripped);
   }
 
 }

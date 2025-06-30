@@ -59,6 +59,7 @@ public class FakeTabExecutor implements TabExecutor {
       return false;
     }
 
+    // This use of ChatColor is not ideal but currently is isolated to this one case so it won't be fixed
     Bukkit.broadcastMessage(message.replace('&', ChatColor.COLOR_CHAR));
     return true;
   }

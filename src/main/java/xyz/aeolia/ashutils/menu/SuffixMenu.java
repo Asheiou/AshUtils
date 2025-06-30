@@ -34,7 +34,7 @@ public class SuffixMenu implements InventoryProvider {
   public void init(Player player, InventoryContents inventoryContents) {
     List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
     for (String s : suffixList) {
-      String formatted = formatSuffix(s);
+      String formatted = formatSuffix(s, false);
       ItemStack item;
       ItemMeta meta;
       if (player.hasPermission("group." + s)) {
@@ -91,8 +91,8 @@ public class SuffixMenu implements InventoryProvider {
   public void update(Player player, InventoryContents inventoryContents) {
   }
 
-  public static String formatSuffix(String s) {
-    String formatted = WordUtils.capitalizeFully(s.replace('_', ' '));
+  public static String formatSuffix(String s, boolean miniMessage) {
+    String formatted = "the" + WordUtils.capitalizeFully(s.replace('_', ' '));
     boolean capitalise = false;
     char[] formattedArray = formatted.toCharArray();
     for (int i = 0; i < formattedArray.length; i++) {
@@ -105,6 +105,9 @@ public class SuffixMenu implements InventoryProvider {
       }
       capitalise = false;
     }
-    return ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray).replace('_', ' ');
+    if (miniMessage) {
+      return "<gray><italic>" + new String(formattedArray) + "</italic></gray>";
+    }
+    return ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray);
   }
 }
