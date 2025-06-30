@@ -186,7 +186,7 @@ public class MineListener implements Listener {
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player.hasPermission("ashutils.alert"))
         if (UserHelper.getUser(player).getModMode())
-          MessageSender.sendMessage(player, "<gold><bold>!! </gold></bold>" + message);
+          MessageSender.sendMessage(player, "<gold><bold>!! <reset>" + message, false);
     }
     URI uri;
     try {
