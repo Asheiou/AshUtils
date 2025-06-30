@@ -41,7 +41,7 @@ public class AshUtils extends JavaPlugin {
     if (pm.getPlugin("Essentials") == null) {
       pm.disablePlugin(this);
     }
-    MiniMessageManager.init();
+    MiniMessageManager.init(this);
     pm.registerEvents(new EssEventListener(this), this);
     this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
     // // // // // // // // LuckPerms // // // // // // // //

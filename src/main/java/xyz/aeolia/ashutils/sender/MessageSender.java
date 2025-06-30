@@ -11,6 +11,6 @@ public class MessageSender {
     String prefix = JavaPlugin.getProvidingPlugin(AshUtils.class).getConfig().getString("chat-prefix");
     message = prefix + "<reset> " + message;
     Component deserialized = MiniMessageManager.getMiniMessage().deserialize(message);
-    recipient.sendMessage();
+    MiniMessageManager.adventure().sender(recipient).sendMessage(deserialized);
   }
 }
