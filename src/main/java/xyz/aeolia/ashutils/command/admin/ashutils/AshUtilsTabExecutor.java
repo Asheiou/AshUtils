@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
   }
 
   @Override
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     if (args.length == 0) {
       MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
@@ -43,7 +44,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
   }
 
   @Override
-  public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     List<String> completions = new ArrayList<>();
     java.util.List<String> commands = new ArrayList<>();
 
