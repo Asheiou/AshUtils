@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.sender.WebhookSender;
 import xyz.aeolia.ashutils.task.VanishTask;
-import xyz.aeolia.ashutils.user.UserHelper;
+import xyz.aeolia.ashutils.manager.UserManager;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,7 +33,7 @@ public class EssEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onAfkStatusChange(AfkStatusChangeEvent event) {
-    if (UserHelper.getUser(event.getAffected().getUUID()).getVanish()) return;
+    if (UserManager.getUser(event.getAffected().getUUID()).getVanish()) return;
     Server server = this.plugin.getServer();
     Pattern colourpattern = Pattern.compile("§(.)");
     Matcher matcher = colourpattern.matcher(event.getAffected().getDisplayName());

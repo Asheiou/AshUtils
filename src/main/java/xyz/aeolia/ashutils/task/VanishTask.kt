@@ -2,10 +2,10 @@ package xyz.aeolia.ashutils.task
 
 import net.ess3.api.events.VanishStatusChangeEvent
 import org.bukkit.scheduler.BukkitRunnable
-import xyz.aeolia.ashutils.user.UserHelper
+import xyz.aeolia.ashutils.manager.UserManager
 
 class VanishTask(val event: VanishStatusChangeEvent) : BukkitRunnable() {
   override fun run() {
-    UserHelper.getUser(event.affected.uuid).vanish = event.value;
+    UserManager.getUser(event.affected.uuid).vanish = event.value;
   }
 }

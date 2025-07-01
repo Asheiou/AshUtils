@@ -6,10 +6,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.aeolia.ashutils.sender.Message;
+import xyz.aeolia.ashutils.object.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
-import xyz.aeolia.ashutils.user.User;
-import xyz.aeolia.ashutils.user.UserHelper;
+import xyz.aeolia.ashutils.object.User;
+import xyz.aeolia.ashutils.manager.UserManager;
 
 public class ModCommandExecutor implements CommandExecutor {
   @Override
@@ -18,7 +18,7 @@ public class ModCommandExecutor implements CommandExecutor {
       MessageSender.sendMessage(sender, Message.generic.notPlayer);
       return true;
     }
-    User user = UserHelper.getUser(player);
+    User user = UserManager.getUser(player);
     boolean toSet;
     if (args.length == 0) {
       toSet = !user.getModMode();

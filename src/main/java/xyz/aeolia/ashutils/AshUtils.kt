@@ -17,7 +17,7 @@ import xyz.aeolia.ashutils.manager.LuckPermsManager
 import xyz.aeolia.ashutils.manager.StatusManager
 import xyz.aeolia.ashutils.manager.UserMapManager
 import xyz.aeolia.ashutils.sender.MessageSender
-import xyz.aeolia.ashutils.user.UserHelper
+import xyz.aeolia.ashutils.manager.UserManager
 import java.time.Duration
 import java.time.Instant
 
@@ -33,7 +33,7 @@ class AshUtils : JavaPlugin() {
     }
     // Inits
     MessageSender.init(this)
-    UserHelper.init(this)
+    UserManager.init(this)
     UserMapManager.loadUserMap()
     val mineListener = MineListener(this)
     // Repeaters
@@ -100,7 +100,7 @@ class AshUtils : JavaPlugin() {
 
   fun saveAll() {
     UserMapManager.saveUserMap()
-    UserHelper.saveUsers()
+    UserManager.saveUsers()
   }
 
   fun setExecutor(command: String, executor: CommandExecutor?) {

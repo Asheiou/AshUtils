@@ -1,16 +1,17 @@
-package xyz.aeolia.ashutils.user;
+package xyz.aeolia.ashutils.manager;
 
 import com.google.gson.Gson;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.aeolia.ashutils.object.User;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class UserHelper {
+public class UserManager {
   private static final Gson gson = new Gson();
   private static JavaPlugin plugin;
   private static File folder;
@@ -18,7 +19,7 @@ public class UserHelper {
 
 
   public static void init(JavaPlugin plugin) {
-    UserHelper.plugin = plugin;
+    UserManager.plugin = plugin;
     folder = new File(plugin.getDataFolder() + "/users/");
     if (!folder.exists()) {
       if (!folder.mkdir()) {
@@ -36,12 +37,12 @@ public class UserHelper {
       if (!file.exists()) {
         user = getDefaultUser();
         user.setUuid(uuid);
-        users.put(uuid, user);
+        putUser(user);
         return user;
       }
       try {
         user = gson.fromJson(new FileReader(file), User.class);
-        users.put(uuid, user);
+        putUser(user);
         return user;
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
@@ -88,7 +89,7 @@ public class UserHelper {
   }
 
   public static User getDefaultUser() {
-    InputStream defaultFile = UserHelper.class.getClassLoader().getResourceAsStream("default.json");
+    InputStream defaultFile = UserManager.class.getClassLoader().getResourceAsStream("default.json");
 
     if (defaultFile == null) {
       Bukkit.getLogger().severe("Missing resource in jar! Check your build.");
