@@ -1,9 +1,10 @@
 package xyz.aeolia.ashutils.menu;
 
-import fr.minuskube.inv.ClickableItem;
-import fr.minuskube.inv.SmartInventory;
-import fr.minuskube.inv.content.InventoryContents;
-import fr.minuskube.inv.content.InventoryProvider;
+
+import cymru.asheiou.ClickableItem;
+import cymru.asheiou.SmartInventory;
+import cymru.asheiou.content.InventoryContents;
+import cymru.asheiou.content.InventoryProvider;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
