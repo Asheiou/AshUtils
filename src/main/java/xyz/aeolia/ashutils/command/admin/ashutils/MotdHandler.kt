@@ -14,7 +14,7 @@ class MotdHandler {
     }
 
     @JvmStatic
-    fun setMotd(motd: String?) {
+    fun setMotd (motd: String?) {
       this.motd = motd
     }
 
@@ -27,7 +27,7 @@ class MotdHandler {
       }
       setMotd(args.joinToString(" "))
       MessageSender.sendMessage(sender, "Motd set to:")
-      MessageSender.sendMessage(sender, getMotd())
+      MessageSender.sendMessage(sender, motd)
       MessageSender.sendMessage(
         sender, "It will persist until the server restarts or you reset it by " +
                 "running this command again without an argument."
