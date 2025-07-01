@@ -53,9 +53,10 @@ public class BukkitEventListener implements Listener {
     if (refUUID != null) {
       if (refUUID.equals(event.getPlayer().getUniqueId())) {
         plugin.getLogger().info(event.getPlayer().getName() + " is already registered to users.json.");
-        return;
       }
-      plugin.getLogger().info(event.getPlayer().getName() + " is registered to users.json as another UUID! Correcting.");
+      else {
+        plugin.getLogger().info(event.getPlayer().getName() + " is registered to users.json as another UUID! Correcting.");
+      }
     } else {
       plugin.getLogger().info(event.getPlayer().getName() + " is not registered to users.json. Adding them.");
     }
