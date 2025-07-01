@@ -29,7 +29,7 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onPlayerQuit(PlayerQuitEvent event) {
-    new ROEQuitTask().runTaskLater(this.plugin, 3);
+    new ROEQuitTask(this.plugin).runTaskLater(this.plugin, 3);
     new UserPruneTask(event.getPlayer()).runTaskLater(this.plugin, plugin.getConfig().getLong("prune-time"));
 
   }
