@@ -31,7 +31,7 @@ public class AshUtils extends JavaPlugin {
     Instant startTime = Instant.now();
     PluginManager pm = getServer().getPluginManager();
     // // // // // // // // Sender // // // // // // // //
-    MessageSender.init();
+    MessageSender.init(this);
     // // // // // // // // User // // // // // // // //
     UserHelper.init(this);
     UserMapManager.loadUserMap();
