@@ -35,7 +35,7 @@ public class UserManager {
     if (user == null) {
       File file = new File(folder, uuid.toString() + ".json");
       if (!file.exists()) {
-        user = getDefaultUser();
+        user = new User();
         user.setUuid(uuid);
         putUser(user);
         return user;
@@ -86,16 +86,5 @@ public class UserManager {
       plugin.getLogger().info("Saved " + users.size() + " users!");
       return null;
     });
-  }
-
-  public static User getDefaultUser() {
-    InputStream defaultFile = UserManager.class.getClassLoader().getResourceAsStream("default.json");
-
-    if (defaultFile == null) {
-      Bukkit.getLogger().severe("Missing resource in jar! Check your build.");
-      plugin.getServer().getPluginManager().disablePlugin(plugin);
-    }
-    assert defaultFile != null;
-    return gson.fromJson(new InputStreamReader(defaultFile), User.class);
   }
 }
