@@ -12,6 +12,7 @@ import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor;
 import xyz.aeolia.ashutils.command.user.*;
 import xyz.aeolia.ashutils.listener.*;
 import xyz.aeolia.ashutils.manager.*;
+import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.user.UserHelper;
 
 import java.time.Duration;
@@ -24,6 +25,8 @@ public class AshUtils extends JavaPlugin {
     getLogger().info("Starting load.");
     Instant startTime = Instant.now();
     PluginManager pm = getServer().getPluginManager();
+    // // // // // // // // Sender // // // // // // // //
+    MessageSender.init();
     // // // // // // // // User // // // // // // // //
     UserHelper.init(this);
     UserMapManager.loadUserMap();
@@ -41,7 +44,6 @@ public class AshUtils extends JavaPlugin {
     if (pm.getPlugin("Essentials") == null) {
       pm.disablePlugin(this);
     }
-    MiniMessageManager.init(this);
     pm.registerEvents(new EssEventListener(this), this);
     this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
     // // // // // // // // LuckPerms // // // // // // // //
