@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.PermissionManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
@@ -69,21 +70,21 @@ public class SuffixMenu implements InventoryProvider {
           MessageSender.sendMessage(player, "Suffix changed to " + formatSuffix(s, true) + ".");
           player.closeInventory();
         }));
-
-      } else {
-        item = new ItemStack(Material.REDSTONE_BLOCK, 1);
-        meta = item.getItemMeta();
-        assert meta != null;
-        meta.setDisplayName(formatted);
-        meta.setLore(List.of(ChatColor.RED + "Not unlocked!"));
-        item.setItemMeta(meta);
-        inventoryContents.add(ClickableItem.of(item, e -> {
-          e.setCancelled(true);
-          MessageSender.sendMessage(player, "You don't have this suffix yet!");
-          player.closeInventory();
-        }));
       }
     }
+    ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD, 1);
+    SkullMeta playerHeadMeta = (SkullMeta) playerHead.getItemMeta();
+    assert playerHeadMeta != null;
+    playerHeadMeta.setOwningPlayer(player);
+    playerHeadMeta.setDisplayName(ChatColor.AQUA + "Want more suffixes?");
+    playerHeadMeta.setLore(List.of(ChatColor.RESET + "Click here to find out more!"));
+    playerHead.setItemMeta(playerHeadMeta);
+    inventoryContents.add(ClickableItem.of(playerHead, e -> {
+      e.setCancelled(true);
+      MessageSender.sendMessage(player, "<aqua><click:open_url:'" + plugin.getConfig()
+              .getString("suffix.url") + "'>Click here</click></aqua> to learn more about suffixes!");
+      }));
+
   }
 
   @Override
