@@ -2,6 +2,8 @@ package xyz.aeolia.ashutils;
 
 import cymru.asheiou.configmanager.ConfigManager;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.command.NotEnabledCommandExecutor;
@@ -12,10 +14,14 @@ import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor;
 import xyz.aeolia.ashutils.command.user.*;
 import xyz.aeolia.ashutils.listener.*;
 import xyz.aeolia.ashutils.manager.*;
+import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.user.UserHelper;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class AshUtils extends JavaPlugin {
 
@@ -24,6 +30,8 @@ public class AshUtils extends JavaPlugin {
     getLogger().info("Starting load.");
     Instant startTime = Instant.now();
     PluginManager pm = getServer().getPluginManager();
+    // // // // // // // // Sender // // // // // // // //
+    MessageSender.init();
     // // // // // // // // User // // // // // // // //
     UserHelper.init(this);
     UserMapManager.loadUserMap();
@@ -37,53 +45,55 @@ public class AshUtils extends JavaPlugin {
     mineListener.init();
     Bukkit.getScheduler().scheduleSyncRepeatingTask(this, mineListener::tick, 1L, 1L);
     pm.registerEvents(new BukkitEventListener(this), this);
+    // // // // // // // // Commands // // // // // // // //
+    AshUtils plugin = this;
+    Map<String, CommandExecutor> commands = new HashMap<>(){
+      {
+        put("ashutils", new AshUtilsTabExecutor(plugin));
+        put("code", new CodeCommandExecutor(plugin));
+        put("mod", new ModCommandExecutor());
+        put("report", new ReportCommandExecutor(plugin));
+        put("fake", new FakeTabExecutor(plugin));
+      }
+    };
     // // // // // // // // Essentials // // // // // // // //
     if (pm.getPlugin("Essentials") == null) {
       pm.disablePlugin(this);
     }
-    MiniMessageManager.init(this);
     pm.registerEvents(new EssEventListener(this), this);
-    this.getCommand("code").setExecutor(new CodeCommandExecutor(this));
     // // // // // // // // LuckPerms // // // // // // // //
     if (pm.getPlugin("LuckPerms") != null) {
       LuckPermsManager.luckPermsSetup();
-      this.getCommand("vanishonlogin").setExecutor(new VanishOnLoginTabExecutor(this));
-      this.getCommand("vanishonlogin").setTabCompleter(new VanishOnLoginTabExecutor(this));
-
+      commands.put("vanishonlogin", new VanishOnLoginTabExecutor(this));
       // // // // // // // // SmartInvs // // // // // // // //
       if (pm.getPlugin("SmartInvs") != null) {
-        this.getCommand("suffix").setExecutor(new SuffixCommandExecutor(this));
+        commands.put("suffix", new SuffixCommandExecutor(this));
         pm.registerEvents(new SuffixListener(this), this);
       } else {
-        this.getCommand("suffix").setExecutor(new NotEnabledCommandExecutor());
+        commands.put("suffix", new NotEnabledCommandExecutor());
         Bukkit.getLogger().info("SmartInvs not found - not enabling /suffix.");
       }
 
     } else {
       Bukkit.getLogger().info("LuckPerms not found - not enabling permission features.");
-      this.getCommand("vanishonlogin").setExecutor(new NotEnabledCommandExecutor());
+      commands.put("vanishonlogin", new NotEnabledCommandExecutor());
     }
-
     // // // // // // // // Vault // // // // // // // //
     if (EconManager.setupEconomy(this)) {
-      // TODO: Make this more elegant with a Map or something
       pm.registerEvents(new VaultListener(this), this);
-      this.getCommand("headsell").setExecutor(new HeadSellCommandExecutor(this));
-      this.getCommand("xpbuy").setExecutor(new XpCommandExecutor(this));
-      this.getCommand("xpsell").setExecutor(new XpCommandExecutor(this));
+      commands.put("headsell", new HeadSellCommandExecutor(this));
+      commands.put("xpbuy", new XpCommandExecutor(this));
+      commands.put("xpsell", new XpCommandExecutor(this));
     } else {
       getLogger().warning("Vault or economy plugin not found - not enabling economy commands.");
-      this.getCommand("headsell").setExecutor(new NotEnabledCommandExecutor());
-      this.getCommand("xpbuy").setExecutor(new NotEnabledCommandExecutor());
-      this.getCommand("xpsell").setExecutor(new NotEnabledCommandExecutor());
+      commands.put("headsell", new NotEnabledCommandExecutor());
+      commands.put("xpbuy", new NotEnabledCommandExecutor());
+      commands.put("xpsell", new NotEnabledCommandExecutor());
     }
     // // // // // // // // Commands // // // // // // // //
-    this.getCommand("ashutils").setExecutor(new AshUtilsTabExecutor(this));
-    this.getCommand("ashutils").setTabCompleter(new AshUtilsTabExecutor(this));
-    this.getCommand("fake").setExecutor(new FakeTabExecutor(this));
-    this.getCommand("fake").setTabCompleter(new FakeTabExecutor(this));
-    this.getCommand("mod").setExecutor(new ModCommandExecutor());
-    this.getCommand("report").setExecutor(new ReportCommandExecutor(this));
+    for (Map.Entry<String, CommandExecutor> entry : commands.entrySet()) {
+      setExecutor(entry.getKey(), entry.getValue());
+    }
     getLogger().info("Commands and events registered.");
     // // // // // // // // Toggles // // // // // // // //
     StatusManager.setStatus("restartonempty", false);
@@ -98,5 +108,16 @@ public class AshUtils extends JavaPlugin {
   public void saveAll() {
     UserMapManager.saveUserMap();
     UserHelper.saveUsers();
+  }
+
+  public void setExecutor(String command, CommandExecutor executor) {
+    try {
+      Objects.requireNonNull(this.getCommand(command)).setExecutor(executor);
+      if (executor instanceof TabExecutor tabExecutor) {
+        Objects.requireNonNull(this.getCommand(command)).setTabCompleter(tabExecutor);
+      }
+    } catch (NullPointerException e) {
+      this.getLogger().warning(command + " is not registered in the plugin.yml. Check your build.");
+    }
   }
 }

@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -20,36 +21,30 @@ public class AshUtilsTabExecutor implements TabExecutor {
   }
 
   @Override
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     if (args.length == 0) {
       MessageSender.sendMessage(sender, "AshUtils v" + plugin.getDescription().getVersion() + " enabled.");
       return true;
     }
-    switch (args[0]) {
+    String[] subCommandArgs = Arrays.copyOfRange(args, 1, args.length);
+    return switch (args[0]) {
       //----------------Reload----------------//
-      case "reload":
-        return ReloadHandler.doUtilReload(sender, plugin);
+      case "reload" -> ReloadHandler.doUtilReload(sender, plugin);
       //------------RestartOnEmpty-----------//
-      case "restartonempty":
-      case "roe":
-      case "lc":
-      case "lockchat":
-        String instance = args[0];
-        args = Arrays.copyOfRange(args, 1, args.length);
-        return StatusToggleHandler.doToggleStatus(sender, args, instance);
-
-      case "clearchat":
-      case "cc":
-        return ClearChatHandler.doClearChat(plugin);
-      default:
+      case "restartonempty", "roe", "lc", "lockchat" ->
+              StatusToggleHandler.doToggleStatus(sender, subCommandArgs, args[0]);
+      case "clearchat", "cc" -> ClearChatHandler.doClearChat(plugin);
+      case "motd" -> MotdHandler.handleCommand(sender, subCommandArgs);
+      default -> {
         MessageSender.sendMessage(sender,
-                "Unrecognised subcommand. Expected: reload, restartonempty, clearchat, lockchat.");
-        return true;
-    }
+                "Unrecognised subcommand. Expected: reload, restartonempty, motd, clearchat, lockchat.");
+        yield true;
+      }
+    };
   }
 
   @Override
-  public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
     List<String> completions = new ArrayList<>();
     java.util.List<String> commands = new ArrayList<>();
 
@@ -74,5 +69,4 @@ public class AshUtilsTabExecutor implements TabExecutor {
     Collections.sort(completions);
     return completions;
   }
-
 }

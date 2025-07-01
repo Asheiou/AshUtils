@@ -16,6 +16,7 @@ discord:
 suffix:
   size: 3
   list: ["builder"]
+  url: "https://aeolia.xyz/suffix"
   ontime-reward:
     enabled: true
     name: "grinder"
