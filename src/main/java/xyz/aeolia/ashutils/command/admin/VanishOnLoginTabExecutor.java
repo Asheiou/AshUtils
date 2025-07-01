@@ -34,6 +34,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
           return permissionUpdate(sender, player.getUniqueId(), player.getName(), !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
         }
         MessageSender.sendMessage(sender, "This command cannot be run from the console without arguments.");
+        return true;
       case 1:
         if (sender instanceof Player player) {
           switch (args[0]) {
