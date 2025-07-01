@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import xyz.aeolia.ashutils.sender.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.sender.WebhookSender;
 
@@ -24,12 +25,12 @@ public class ReportCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, "This command can only be executed by a player.");
+      MessageSender.sendMessage(sender, Message.generic.notPlayer);
       return true;
     }
 
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, "Invalid usage! Usage:");
+      MessageSender.sendMessage(sender, Message.generic.commandUsage);
       return false;
     }
     URI uri;
@@ -38,7 +39,7 @@ public class ReportCommandExecutor implements CommandExecutor {
     } catch (Exception e) {
       plugin.getLogger().severe("Invalid discord.report-webhook in config.yml.");
       e.printStackTrace();
-      MessageSender.sendMessage(sender, "An internal error occurred. Please contact an administrator.");
+      MessageSender.sendMessage(sender, Message.error.generic);
       return true;
     }
     Location location = player.getLocation();
@@ -48,8 +49,7 @@ public class ReportCommandExecutor implements CommandExecutor {
 
     if (response.statusCode() != 204) {
       plugin.getLogger().severe("Could not send report: " + response.statusCode() + " " + response.body());
-      MessageSender.sendMessage(sender, "Could not send report, error " + response.statusCode() +
-              ". Please contact an administrator via <aqua>/discord</aqua> or the email on <aqua>/support</aqua>.");
+      MessageSender.sendMessage(sender, Message.error.generic);
       return true;
     }
     MessageSender.sendMessage(sender, "Report sent successfully. You will receive a response via " +

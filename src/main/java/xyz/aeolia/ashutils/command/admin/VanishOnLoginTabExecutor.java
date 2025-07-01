@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.aeolia.ashutils.manager.PermissionManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
+import xyz.aeolia.ashutils.sender.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         if (sender instanceof Player player) {
           return permissionUpdate(sender, player.getUniqueId(), player.getName(), !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
         }
-        MessageSender.sendMessage(sender, "This command cannot be run from the console without arguments.");
+        MessageSender.sendMessage(sender, Message.generic.notPlayerNoArgs);
         return true;
       case 1:
         if (sender instanceof Player player) {
@@ -43,7 +44,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
             case "false":
               return permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
             default:
-              MessageSender.sendMessage(sender, "Unknown argument! Usage:");
+              MessageSender.sendMessage(sender, Message.generic.commandUsage);
               return false;
           }
         }
@@ -51,7 +52,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         if (sender.hasPermission("ashutils.vanishonlogin.others")) {
           UUID playerUUID = UserMapManager.getUserFromName(args[1]);
           if (playerUUID == null) {
-            MessageSender.sendMessage(sender, "Player not found. Check your spelling and try again.");
+            MessageSender.sendMessage(sender, Message.player.notFound);
             return true;
           }
           switch (args[0]) {
@@ -60,12 +61,12 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
             case "false":
               return permissionUpdate(sender, playerUUID, args[1], false);
             default:
-              MessageSender.sendMessage(sender, "Unknown argument! Usage:");
+              MessageSender.sendMessage(sender, Message.generic.commandUsage);
               return false;
           }
         }
       default:
-        MessageSender.sendMessage(sender, "Too many arguments! Usage:");
+        MessageSender.sendMessage(sender, Message.generic.tooManyArgs);
         return false;
     }
   }

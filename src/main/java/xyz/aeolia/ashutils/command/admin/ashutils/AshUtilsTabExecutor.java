@@ -6,6 +6,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
+import xyz.aeolia.ashutils.sender.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class AshUtilsTabExecutor implements TabExecutor {
       case "clearchat", "cc" -> ClearChatHandler.doClearChat(plugin);
       case "motd" -> MotdHandler.handleCommand(sender, subCommandArgs);
       default -> {
-        MessageSender.sendMessage(sender,
-                "Unrecognised subcommand. Expected: reload, restartonempty, motd, clearchat, lockchat.");
+        MessageSender.sendMessage(sender, Message.generic.commandUsage);
+        MessageSender.sendMessage(sender,"/ashutils reload/restartonempty/motd/clearchat/lockchat.", false);
         yield true;
       }
     };

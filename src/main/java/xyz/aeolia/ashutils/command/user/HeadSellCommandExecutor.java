@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.EconManager;
+import xyz.aeolia.ashutils.sender.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 public class HeadSellCommandExecutor implements CommandExecutor {
@@ -23,7 +24,7 @@ public class HeadSellCommandExecutor implements CommandExecutor {
       ItemStack itemInHand = player.getInventory().getItemInMainHand();
       if (itemInHand.getType() == Material.PLAYER_HEAD) {
         if (args.length != 1) {
-          MessageSender.sendMessage(player, "Invalid usage! Usage:");
+          MessageSender.sendMessage(player, Message.generic.commandUsage);
           return false;
         }
 
@@ -36,11 +37,11 @@ public class HeadSellCommandExecutor implements CommandExecutor {
           try {
             amountToSell = Integer.parseInt(arg);
             if (amountToSell > itemInHand.getAmount()) {
-              MessageSender.sendMessage(player, "You don't have that many in your hand to sell!");
+              MessageSender.sendMessage(player, Message.econ.tooMany);
               return true;
             }
           } catch (NumberFormatException e) {
-            MessageSender.sendMessage(player, "Invalid argument! Usage:");
+            MessageSender.sendMessage(player, Message.generic.commandUsage);
             return false;
           }
         }
@@ -58,7 +59,7 @@ public class HeadSellCommandExecutor implements CommandExecutor {
       return true;
 
     }
-    MessageSender.sendMessage(sender, "This command cannot be run from the console.");
+    MessageSender.sendMessage(sender, Message.generic.notPlayer);
     return true;
   }
 

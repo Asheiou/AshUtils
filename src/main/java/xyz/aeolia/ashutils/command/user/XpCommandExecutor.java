@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.EconManager;
 import xyz.aeolia.ashutils.manager.ExperienceManager;
+import xyz.aeolia.ashutils.sender.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.math.BigDecimal;
@@ -25,11 +26,11 @@ public class XpCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, "This command cannot be run from the console.");
+      MessageSender.sendMessage(sender, Message.generic.notPlayer);
       return true;
     }
     if (args.length > 1) {
-      MessageSender.sendMessage(player, "Too many arguments! Usage:");
+      MessageSender.sendMessage(player, Message.generic.tooManyArgs);
       return false;
     }
     String currencySymbol = plugin.getConfig().getString("currency-symbol");
@@ -41,8 +42,8 @@ public class XpCommandExecutor implements CommandExecutor {
       case "xpsell":
         return sellXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
       default:
-        MessageSender.sendMessage(player,
-                "Error: Command not found. This is an issue with the plugin, please inform an administrator.");
+        plugin.getLogger().severe("Command " + command.getName() + " not found in XpCommandExecutor! This is a bug.");
+        MessageSender.sendMessage(player, Message.error.generic);
         return false;
     }
   }
@@ -64,7 +65,7 @@ public class XpCommandExecutor implements CommandExecutor {
       try {
         xpToBuy = Integer.parseInt(arg);
       } catch (Exception e) {
-        MessageSender.sendMessage(player, "Argument not recognised! Usage:");
+        MessageSender.sendMessage(player, Message.generic.commandUsage);
         return false;
       }
     double totalCost = (BigDecimal.valueOf(costPerXp).multiply(BigDecimal.valueOf(xpToBuy))).doubleValue();
@@ -98,7 +99,7 @@ public class XpCommandExecutor implements CommandExecutor {
       try {
         xpToSell = Integer.parseInt(arg);
       } catch (Exception e) {
-        MessageSender.sendMessage(player, "Argument not recognised! Usage:");
+        MessageSender.sendMessage(player, Message.generic.commandUsage);
         return false;
       }
       if (xpToSell > playerCurrentXp) {

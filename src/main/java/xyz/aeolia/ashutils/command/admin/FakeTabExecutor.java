@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
+import xyz.aeolia.ashutils.sender.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ public class FakeTabExecutor implements TabExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player) && args.length == 1) {
-      MessageSender.sendMessage(sender, "This command can only be executed by a player without an argument.");
+      MessageSender.sendMessage(sender, Message.generic.notPlayerNoArgs);
       return true;
     }
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
+      MessageSender.sendMessage(sender, Message.generic.commandUsage);
       return false;
     }
 
@@ -45,7 +46,7 @@ public class FakeTabExecutor implements TabExecutor {
         message = plugin.getConfig().getString("join-message");
         break;
       default:
-        MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
+        MessageSender.sendMessage(sender, Message.generic.commandUsage);
         return false;
     }
     assert message != null;
@@ -55,7 +56,7 @@ public class FakeTabExecutor implements TabExecutor {
     } else if (args.length == 2) {
       message = message.replace("{USERNAME}", args[1]);
     } else {
-      MessageSender.sendMessage(sender, "Unrecognised command usage. Usage:");
+      MessageSender.sendMessage(sender, Message.generic.commandUsage);
       return false;
     }
 
