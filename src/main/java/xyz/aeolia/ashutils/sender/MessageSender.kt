@@ -1,6 +1,7 @@
 package xyz.aeolia.ashutils.sender
 
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.command.CommandSender
@@ -28,20 +29,28 @@ class MessageSender {
       recipient: Audience,
       message: String?,
       includePrefix: Boolean = true) {
-      var toDeserialize: String?
-      if (includePrefix) {
-        val prefix = plugin.config.getString("chat-prefix")
-        toDeserialize = "$prefix <reset>$message"
-      } else toDeserialize = message
-      if (toDeserialize.isNullOrEmpty()) return
-      val adventureComponent = miniMessage.deserialize(toDeserialize)
-      recipient.sendMessage(adventureComponent)
+      if (message.isNullOrEmpty()) return
+      sendMessage(recipient, miniMessage.deserialize(message), includePrefix)
+
     }
 
     @JvmStatic
     fun sendMessage(recipient: CommandSender, message: String?) {
       // Allow calls from Java
       sendMessage(recipient, message, true)
+    }
+
+    @JvmStatic
+    fun sendMessage(recipient: Audience, message: Component, includePrefix: Boolean = true) {
+      val toSend: Component
+      if (includePrefix) {
+        val prefix = miniMessage.deserialize(plugin.config.getString("chat-prefix") + " <reset>")
+        toSend = Component.text()
+                .append(prefix)
+                .append(message)
+                .build()
+      } else toSend = message
+      recipient.sendMessage(toSend)
     }
   }
 }
