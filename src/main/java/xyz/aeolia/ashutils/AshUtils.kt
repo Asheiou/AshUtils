@@ -13,7 +13,7 @@ import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor
 import xyz.aeolia.ashutils.command.user.*
 import xyz.aeolia.ashutils.listener.*
 import xyz.aeolia.ashutils.manager.EconManager
-import xyz.aeolia.ashutils.manager.LuckPermsManager
+import xyz.aeolia.ashutils.manager.PermissionManager
 import xyz.aeolia.ashutils.manager.StatusManager
 import xyz.aeolia.ashutils.manager.UserMapManager
 import xyz.aeolia.ashutils.sender.MessageSender
@@ -55,7 +55,7 @@ class AshUtils : JavaPlugin() {
     // Softdepends
     //// LuckPerms
     if (pm.getPlugin("LuckPerms") != null) {
-      LuckPermsManager.luckPermsSetup()
+      PermissionManager.luckPermsSetup()
       commands["vanishonlogin"] = VanishOnLoginTabExecutor(this)
     } else {
       Bukkit.getLogger().info("LuckPerms not found - not enabling permission features.")
