@@ -57,7 +57,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
           }
           MessageSender.sendMessage(sender, "Created suffix $formatted<reset>.")
         }).exceptionally { throwable ->
-          plugin.logger.severe("Could not create group!");
+          plugin.logger.severe("Could not create group!")
           MessageSender.sendMessage(sender, throwable.message)
           null
         }
@@ -69,7 +69,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
       "revoke" -> false
       else -> return invEx(sender)
     }
-    val uuid = UserMapManager.getUserFromName(args[1])
+    val uuid = UserMapManager.getUuidFromName(args[1])
     if (uuid == null) {
       MessageSender.sendMessage(sender, Message.player.notFound)
       return true
@@ -98,7 +98,8 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
 
   fun invEx(sender: CommandSender): Boolean {
     // Short for invalid execution
-    MessageSender.sendMessage(sender, "Invalid usage! Usage: " + "\n" + "/suffix [grant/revoke] <user> <suffix>")
+    MessageSender.sendMessage(sender, Message.generic.commandUsage)
+    MessageSender.sendMessage(sender, "/suffix [grant/revoke] <user> <suffix>", false)
     return true
   }
 
@@ -114,6 +115,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
     if (args.size == 1) {
       commands.add("grant")
       commands.add("revoke")
+      if(sender.hasPermission("ashutils.suffix-create")) commands.add("create")
       StringUtil.copyPartialMatches<MutableList<String>>(args[0], commands, completions)
     } else if (args.size == 2) {
       if (args[0] == "grant" || args[0] == "revoke") {
