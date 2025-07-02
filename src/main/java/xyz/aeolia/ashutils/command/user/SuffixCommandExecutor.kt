@@ -44,9 +44,10 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
       val formatted = SuffixMenu.formatSuffix(args[1], true)
       PermissionManager.api.groupManager.createAndLoadGroup(args[1])
         .thenAccept(Consumer { e: Group ->
+          val formattedAmpersand = SuffixMenu.formatSuffix(args[1], false)
           val node: Node = SuffixNode.builder()
             .priority(5)
-            .suffix(" $formatted")
+            .suffix(" $formattedAmpersand")
             .build()
           e.data().add(node)
           PermissionManager.api.groupManager.saveGroup(e)
@@ -55,7 +56,11 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
             plugin.saveConfig()
           }
           MessageSender.sendMessage(sender, "Created suffix $formatted<reset>.")
-        })
+        }).exceptionally { throwable ->
+          plugin.logger.severe("Could not create group!");
+          MessageSender.sendMessage(sender, throwable.message)
+          null
+        }
       return true
     }
     if (args.size != 3) return invEx(sender)
@@ -70,7 +75,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
       return true
     }
 
-    if (!suffixList.contains(args[2])) {
+    if (!suffixList.contains(args[1])) {
       MessageSender.sendMessage(sender, "Invalid suffix!")
       return true
     }
