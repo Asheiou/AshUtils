@@ -43,13 +43,13 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
       if (!sender.hasPermission("ashutils.suffix-create")) return true
       val formatted = SuffixMenu.formatSuffix(args[1], true)
       PermissionManager.api.groupManager.createAndLoadGroup(args[1])
-        .thenAccept(Consumer { e: Group? ->
+        .thenAccept(Consumer { e: Group ->
           val node: Node = SuffixNode.builder()
             .priority(5)
             .suffix(" $formatted")
             .build()
-          e!!.data().add(node)
-          suffixList.add(args[1])
+          e.data().add(node)
+          PermissionManager.api.groupManager.saveGroup(e)
           if (!suffixList.contains(args[1])) {
             plugin.config.set("suffix.list", suffixList)
             plugin.saveConfig()
