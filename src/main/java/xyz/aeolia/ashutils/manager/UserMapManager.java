@@ -28,12 +28,11 @@ public class UserMapManager {
       try {
         new File(filePath).createNewFile();
         gson.toJson(new HashMap<String, String>(), new FileWriter(filePath));
-        return;
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
     } else {
-      CompletableFuture<Void> future = CompletableFuture.supplyAsync(() ->
+      CompletableFuture.supplyAsync(() ->
               {
                 try {
                   String jsonContent = Files.readString(Paths.get(filePath));
@@ -51,7 +50,7 @@ public class UserMapManager {
     }
   }
 
-  public static UUID getUserFromName(String name) {
+  public static UUID getUuidFromName(String name) {
     plugin.getLogger().info("Getting user from " + name);
     if (!userMap.containsKey(name)) {
       return null;
@@ -67,7 +66,7 @@ public class UserMapManager {
     if (userMap.isEmpty()) {
       return; // Prevent userMap from overwriting if the plugin crashes on startup
     }
-    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+    CompletableFuture.runAsync(() -> {
       try (FileWriter writer = new FileWriter(filePath)) {
         gson.toJson(userMap, writer);
       } catch (IOException e) {

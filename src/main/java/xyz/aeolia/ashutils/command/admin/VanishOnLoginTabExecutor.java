@@ -50,7 +50,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         }
       case 2:
         if (sender.hasPermission("ashutils.vanishonlogin.others")) {
-          UUID playerUUID = UserMapManager.getUserFromName(args[1]);
+          UUID playerUUID = UserMapManager.getUuidFromName(args[1]);
           if (playerUUID == null) {
             MessageSender.sendMessage(sender, Message.player.notFound);
             return true;
