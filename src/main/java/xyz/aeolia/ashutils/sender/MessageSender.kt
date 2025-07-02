@@ -2,15 +2,13 @@ package xyz.aeolia.ashutils.sender
 
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
-import net.md_5.bungee.chat.ComponentSerializer
 import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
 
 class MessageSender {
   companion object{
     lateinit var miniMessage : MiniMessage
-    lateinit var plugin : JavaPlugin;
+    lateinit var plugin : JavaPlugin
 
     @JvmStatic
     fun init(plugin : JavaPlugin) {
@@ -33,9 +31,7 @@ class MessageSender {
       } else toDeserialize = message
       if (toDeserialize.isNullOrEmpty()) return
       val adventureComponent = miniMessage.deserialize(toDeserialize)
-      val json = GsonComponentSerializer.gson().serialize(adventureComponent)
-      val spigotComponents = ComponentSerializer.parse(json)
-      recipient.spigot().sendMessage(*spigotComponents)
+      recipient.sendMessage(adventureComponent)
     }
 
     @JvmStatic

@@ -29,7 +29,7 @@ class AshUtils : JavaPlugin() {
     // Dependency check
     if (pm.getPlugin("Essentials") == null) {
       logger.info("No Essentials found!")
-      pluginLoader.disablePlugin(this)
+      pm.disablePlugin(this)
     }
     // Inits
     MessageSender.init(this)
