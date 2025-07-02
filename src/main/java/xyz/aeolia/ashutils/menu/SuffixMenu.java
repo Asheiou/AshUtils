@@ -87,6 +87,7 @@ public class SuffixMenu implements InventoryProvider {
       e.setCancelled(true);
       MessageSender.sendMessage(player, "<aqua><click:open_url:'" + plugin.getConfig()
               .getString("suffix.url") + "'>Click here</click></aqua> to learn more about suffixes!");
+      player.closeInventory();
       }));
 
   }
