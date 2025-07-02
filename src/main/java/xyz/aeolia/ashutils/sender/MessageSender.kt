@@ -35,8 +35,9 @@ class MessageSender {
     }
 
     @JvmStatic
+    @Deprecated("Since 1.8.6 - define includePrefix")
+    // Legacy handler from pre 1.8.6
     fun sendMessage(recipient: CommandSender, message: String?) {
-      // Allow calls from Java
       sendMessage(recipient, message, true)
     }
 
