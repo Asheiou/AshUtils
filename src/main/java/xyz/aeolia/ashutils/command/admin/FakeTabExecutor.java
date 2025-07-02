@@ -1,6 +1,6 @@
 package xyz.aeolia.ashutils.command.admin;
 
-import net.md_5.bungee.api.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -59,9 +59,8 @@ public class FakeTabExecutor implements TabExecutor {
       MessageSender.sendMessage(sender, Message.generic.commandUsage);
       return false;
     }
-
-    // This use of ChatColor is not ideal but currently is isolated to this one case so it won't be fixed
-    Bukkit.broadcastMessage(message.replace('&', ChatColor.COLOR_CHAR));
+    Component deserialized = MessageSender.miniMessage.deserialize(message);
+    Bukkit.getServer().broadcast(deserialized);
     return true;
   }
 

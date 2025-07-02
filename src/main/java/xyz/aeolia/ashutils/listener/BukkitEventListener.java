@@ -1,9 +1,10 @@
 package xyz.aeolia.ashutils.listener;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,8 +36,9 @@ public class BukkitEventListener implements Listener {
   }
 
   @EventHandler(priority = EventPriority.HIGH)
-  public void onChat(AsyncPlayerChatEvent event) {
-    if (pattern.matcher(event.getMessage()).matches()) {
+  public void onChat(AsyncChatEvent event) {
+    String plainText = PlainTextComponentSerializer.plainText().serialize(event.message());
+    if (pattern.matcher(plainText).matches()) {
       MessageSender.sendMessage(event.getPlayer(), "To use commands, type /<command>.");
       event.setCancelled(true);
       return;

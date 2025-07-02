@@ -28,7 +28,7 @@ public class VaultListener implements Listener {
     if (!config.getStringList("pvp.worlds").contains(victim.getLocation().getWorld().getName())) {
       return;
     }
-    for (ItemStack i : event.getDrops()) i.setType(Material.AIR);
+    for (ItemStack i : event.getDrops()) i.setAmount(0);
     Player killer = event.getEntity().getKiller();
     if (killer == null) {
       return;
