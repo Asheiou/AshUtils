@@ -1,4 +1,4 @@
-package xyz.aeolia.ashutils.manager;
+package xyz.aeolia.ashutils.instance;
 /*
 AUTHOR: Dev_Richard (https://www.spigotmc.org/members/dev_richard.38792/)
 DESC: A simple and easy to use class that can get and set a player's total experience points.
@@ -16,11 +16,11 @@ import org.bukkit.entity.Player;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class ExperienceManager {
+public class Experience {
 
   private final Player player;
 
-  public ExperienceManager(Player player) {
+  public Experience(Player player) {
     this.player = player;
   }
 
