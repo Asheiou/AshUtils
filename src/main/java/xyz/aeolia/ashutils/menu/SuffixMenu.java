@@ -106,13 +106,12 @@ public class SuffixMenu implements InventoryProvider {
         continue;
       } else if (capitalise) {
         formattedArray[i] = Character.toUpperCase(formattedArray[i]);
-        break;
+        capitalise = false;
       }
-      capitalise = false;
     }
     if (miniMessage) {
       return "<gray><italic>" + new String(formattedArray) + "</italic></gray>";
     }
-    return "&7&os" + new String(formattedArray);
+    return "&7&o" + new String(formattedArray);
   }
 }
