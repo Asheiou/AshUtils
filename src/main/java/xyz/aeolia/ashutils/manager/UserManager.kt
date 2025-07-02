@@ -1,90 +1,99 @@
-package xyz.aeolia.ashutils.manager;
+package xyz.aeolia.ashutils.manager
 
-import com.google.gson.Gson;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import xyz.aeolia.ashutils.object.User;
+import com.google.gson.Gson
+import org.bukkit.Bukkit
+import org.bukkit.OfflinePlayer
+import org.bukkit.entity.Player
+import org.bukkit.plugin.java.JavaPlugin
+import xyz.aeolia.ashutils.instance.User
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileReader
+import java.io.FileWriter
+import java.io.IOException
+import java.util.*
+import java.util.concurrent.CompletableFuture
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
+class UserManager {
 
-public class UserManager {
-  private static final Gson gson = new Gson();
-  private static JavaPlugin plugin;
-  private static File folder;
-  private static final HashMap<UUID, User> users = new HashMap<>();
+  companion object {
+    private val gson = Gson()
+    private val users: HashMap<UUID, User> = HashMap()
+    private lateinit var plugin: JavaPlugin
+    private lateinit var folder: File
 
-
-  public static void init(JavaPlugin plugin) {
-    UserManager.plugin = plugin;
-    folder = new File(plugin.getDataFolder() + "/users/");
-    if (!folder.exists()) {
-      if (!folder.mkdir()) {
-        Bukkit.getLogger().severe("Failed to create folder " + folder.getAbsolutePath());
-        plugin.getServer().getPluginManager().disablePlugin(plugin);
+    @JvmStatic
+    fun init(plugin: JavaPlugin) {
+      this.plugin = plugin
+      folder = File(plugin.dataFolder, "/users/")
+      if (!folder.exists()) {
+        if (folder.mkdir()) {
+          plugin.logger.severe("Could not create directory ${folder.absolutePath}.")
+          Bukkit.getPluginManager().disablePlugin(plugin)
+        }
       }
     }
-  }
 
-  public static User getUser(UUID uuid) {
-    User user;
-    user = users.get(uuid);
-    if (user == null) {
-      File file = new File(folder, uuid.toString() + ".json");
+    @JvmStatic
+    fun getUser(player: OfflinePlayer): User {
+      var user: User?
+      val uuid = player.uniqueId
+      user = users[uuid]
+      if (user != null) return user
+      val file = File(folder, "${uuid}.json")
       if (!file.exists()) {
-        user = new User();
-        user.setUuid(uuid);
-        putUser(user);
-        return user;
+        user = User()
+        user.uuid = uuid
+        user.online = player.isOnline
+        putUser(user)
+        return user
       }
       try {
-        user = gson.fromJson(new FileReader(file), User.class);
-        putUser(user);
-        return user;
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
+        user = gson.fromJson(FileReader(file), User::class.java)
+        putUser(user)
+        return user
+      } catch (_: FileNotFoundException) {
+        plugin.logger.severe("Could not read file ${file.absolutePath}.")
+        return User()
       }
     }
-    return user;
-  }
 
-  public static User getUser(Player player) {
-    return getUser(player.getUniqueId());
-  }
-
-  public static void putUser(User user) {
-    users.put(user.getUuid(), user);
-  }
-
-  public static void removeUser(UUID uuid) {
-    saveUser(getUser(uuid)); // save user to prevent data loss from prune
-    users.remove(uuid);
-  }
-
-  public static void saveUser(User user) {
-    File file = new File(folder, user.getUuid().toString() + ".json");
-    try {
-      FileWriter fileWriter = new FileWriter(file);
-      fileWriter.write(gson.toJson(user));
-      fileWriter.close();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    @JvmStatic
+    fun putUser(user: User) {
+      users.put(user.uuid!!, user)
     }
-  }
 
-  public static void saveUsers() {
-    if (users.isEmpty()) {
-      return;
+    @JvmStatic
+    fun removeUser(player: OfflinePlayer) {
+      val uuid = player.uniqueId
+      saveUser(getUser(player)) // save user to prevent data loss from prune
+      users.remove(uuid)
     }
-    CompletableFuture.supplyAsync(() -> {
-      for (User user : users.values()) {
-        saveUser(user);
+
+    @JvmStatic
+    fun saveUser(user: User) {
+      val file = File(folder, user.uuid.toString() + ".json")
+      try {
+        val fileWriter = FileWriter(file)
+        fileWriter.write(gson.toJson(user))
+        fileWriter.close()
+      } catch (e: IOException) {
+        throw RuntimeException(e)
       }
-      plugin.getLogger().info("Saved " + users.size() + " users!");
-      return null;
-    });
+    }
+
+    @JvmStatic
+    fun saveUsers() {
+      if (users.isEmpty()) {
+        return
+      }
+      CompletableFuture.supplyAsync<Any?> {
+        for (user in users.values) {
+          saveUser(user)
+        }
+        plugin.logger.info("Saved " + users.size + " users!")
+        null
+      }
+    }
   }
 }

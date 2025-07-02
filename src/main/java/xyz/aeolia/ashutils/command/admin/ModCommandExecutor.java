@@ -6,9 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.aeolia.ashutils.object.Message;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
-import xyz.aeolia.ashutils.object.User;
+import xyz.aeolia.ashutils.instance.User;
 import xyz.aeolia.ashutils.manager.UserManager;
 
 public class ModCommandExecutor implements CommandExecutor {

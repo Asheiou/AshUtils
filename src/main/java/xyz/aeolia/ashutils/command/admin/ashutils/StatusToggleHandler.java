@@ -2,7 +2,7 @@ package xyz.aeolia.ashutils.command.admin.ashutils;
 
 import org.bukkit.command.CommandSender;
 import xyz.aeolia.ashutils.manager.StatusManager;
-import xyz.aeolia.ashutils.object.Message;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 public class StatusToggleHandler {

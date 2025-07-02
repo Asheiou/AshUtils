@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.command.admin.ashutils.MotdHandler;
 import xyz.aeolia.ashutils.manager.StatusManager;
+import xyz.aeolia.ashutils.manager.UserManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.task.MessageLaterTask;
@@ -30,6 +31,7 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onPlayerQuit(PlayerQuitEvent event) {
+    UserManager.getUser(event.getPlayer()).setOnline(false);
     new ROEQuitTask(this.plugin).runTaskLater(this.plugin, 3);
     new UserPruneTask(event.getPlayer()).runTaskLater(this.plugin, plugin.getConfig().getLong("prune-time"));
 
@@ -63,6 +65,8 @@ public class BukkitEventListener implements Listener {
       plugin.getLogger().info(event.getPlayer().getName() + " is not registered to users.json. Adding them.");
     }
     UserMapManager.putUserInMap(event.getPlayer().getName(), event.getPlayer().getUniqueId());
+
+    UserManager.getUser(event.getPlayer()).setOnline(true);
 
     if (MotdHandler.getMotd() != null) {
       // Send MOTD if it exists

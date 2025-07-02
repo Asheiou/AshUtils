@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.aeolia.ashutils.manager.PermissionManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
-import xyz.aeolia.ashutils.object.Message;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;

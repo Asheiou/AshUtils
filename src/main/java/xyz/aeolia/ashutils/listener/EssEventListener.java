@@ -33,7 +33,7 @@ public class EssEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onAfkStatusChange(AfkStatusChangeEvent event) {
-    if (UserManager.getUser(event.getAffected().getUUID()).getVanish()) return;
+    if (UserManager.getUser(event.getAffected().getBase()).getVanish()) return;
     Server server = this.plugin.getServer();
     Pattern colourpattern = Pattern.compile("§(.)");
     Matcher matcher = colourpattern.matcher(event.getAffected().getDisplayName());

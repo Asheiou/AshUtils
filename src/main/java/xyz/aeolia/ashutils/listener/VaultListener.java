@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.listener;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.EconManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
-import xyz.aeolia.ashutils.object.User;
+import xyz.aeolia.ashutils.instance.User;
 import xyz.aeolia.ashutils.manager.UserManager;
 
 public class VaultListener implements Listener {
