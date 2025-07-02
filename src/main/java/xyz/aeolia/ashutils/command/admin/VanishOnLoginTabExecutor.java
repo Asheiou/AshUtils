@@ -28,7 +28,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
 
   @Override
   @SuppressWarnings("deprecated")
-  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     switch (args.length) {
       case 0:
         if (sender instanceof Player player) {
@@ -38,15 +38,14 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         return true;
       case 1:
         if (sender instanceof Player player) {
-          switch (args[0]) {
-            case "true":
-              return permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
-            case "false":
-              return permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
-            default:
+          return switch (args[0]) {
+            case "true" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
+            case "false" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
+            default -> {
               MessageSender.sendMessage(sender, Message.generic.commandUsage);
-              return false;
-          }
+              yield false;
+            }
+          };
         }
       case 2:
         if (sender.hasPermission("ashutils.vanishonlogin.others")) {
@@ -55,15 +54,14 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
             MessageSender.sendMessage(sender, Message.player.notFound);
             return true;
           }
-          switch (args[0]) {
-            case "true":
-              return permissionUpdate(sender, playerUUID, args[1], true);
-            case "false":
-              return permissionUpdate(sender, playerUUID, args[1], false);
-            default:
+          return switch (args[0]) {
+            case "true" -> permissionUpdate(sender, playerUUID, args[1], true);
+            case "false" -> permissionUpdate(sender, playerUUID, args[1], false);
+            default -> {
               MessageSender.sendMessage(sender, Message.generic.commandUsage);
-              return false;
-          }
+              yield false;
+            }
+          };
         }
       default:
         MessageSender.sendMessage(sender, Message.generic.tooManyArgs);
@@ -72,7 +70,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
   }
 
   @Override
-  public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+  public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     List<String> completions = new ArrayList<>();
     java.util.List<String> commands = new ArrayList<>();
 
