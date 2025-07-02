@@ -6,6 +6,6 @@ import xyz.aeolia.ashutils.manager.UserManager
 
 class VanishTask(val event: VanishStatusChangeEvent) : BukkitRunnable() {
   override fun run() {
-    UserManager.getUser(event.affected.uuid).vanish = event.value;
+    UserManager.getUser(event.affected.base).vanish = event.value;
   }
 }
