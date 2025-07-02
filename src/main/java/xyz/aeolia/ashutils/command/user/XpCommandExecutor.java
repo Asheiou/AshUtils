@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.EconManager;
-import xyz.aeolia.ashutils.manager.ExperienceManager;
+import xyz.aeolia.ashutils.instance.Experience;
 import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
@@ -34,13 +34,13 @@ public class XpCommandExecutor implements CommandExecutor {
       return false;
     }
     String currencySymbol = plugin.getConfig().getString("currency-symbol");
-    ExperienceManager experienceManager = new ExperienceManager(player);
+    Experience experience = new Experience(player);
 
     switch (command.getName()) {
       case "xpbuy":
-        return buyXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
+        return buyXp(player, args[0], experience, experience.getTotalExperience(), currencySymbol);
       case "xpsell":
-        return sellXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
+        return sellXp(player, args[0], experience, experience.getTotalExperience(), currencySymbol);
       default:
         plugin.getLogger().severe("Command " + command.getName() + " not found in XpCommandExecutor! This is a bug.");
         MessageSender.sendMessage(player, Message.error.generic);
@@ -48,7 +48,7 @@ public class XpCommandExecutor implements CommandExecutor {
     }
   }
 
-  public boolean buyXp(Player player, String arg, ExperienceManager experienceManager, int playerCurrentXp, String currencySymbol) {
+  public boolean buyXp(Player player, String arg, Experience experienceManager, int playerCurrentXp, String currencySymbol) {
     int xpToBuy;
     double playerBalance = econ.getBalance(player);
     double costPerXp = plugin.getConfig().getDouble("xp.buy-cost");
@@ -87,7 +87,7 @@ public class XpCommandExecutor implements CommandExecutor {
     return true;
   }
 
-  public boolean sellXp(Player player, String arg, ExperienceManager experienceManager, int playerCurrentXp, String currencySymbol) {
+  public boolean sellXp(Player player, String arg, Experience experienceManager, int playerCurrentXp, String currencySymbol) {
     if (playerCurrentXp == 0) {
       MessageSender.sendMessage(player, "You have no XP to sell!");
       return true;
