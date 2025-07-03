@@ -9,6 +9,12 @@ website: https://asheiou.cymru
 description: >
              The Aeolia bespoke everything-plugin!
 commands:
+  broadcast:
+    description: Broadcast a message to the server and the Discord.
+    usage: /<command> <message>
+    permission: ashutils.broadcast
+    permission-message: You don't have ashutils.broadcast.
+    aliases: [bc, shout]
   code:
     description: Generate a code to verify you own your account.
     usage: /<command>
@@ -31,6 +37,12 @@ commands:
     usage: /<command> <join/quit> [user]
     permission: ashutils.fake
     permission-message: You don't have ashutils.fake.
+  minimessage:
+    description: Send a chat message in MiniMessage
+    usage: /<command> [@Username] <message>
+    permission: ashutils.minimessage
+    permission-message: You don't have ashutils.minimessage.
+    aliases: [mm, mmsay]
   mod:
     description: Toggle mod mode
     usage: /<command> [true/false/status]
@@ -42,11 +54,11 @@ commands:
     permission: ashutils.report
     permission-message: You don't have ashutils.report.
   vanishonlogin:
-      aliases: vol
-      description: Vanish on login
-      usage: /<command> [true/false] [user]
-      permission: ashutils.vanishonlogin
-      permission-message: You don't have ashutils.vanishonlogin.
+    aliases: vol
+    description: Vanish on login
+    usage: /<command> [true/false] [user]
+    permission: ashutils.vanishonlogin
+    permission-message: You don't have ashutils.vanishonlogin.
   xpsell:
     aliases: sellxp
     description: Sell XP for money!
@@ -70,6 +82,9 @@ permissions:
   ashutils.alert:
     description: Allows seeing alerts
     default: op
+  ashutils.broadcast:
+    description: Allows /broadcast
+    default: op
   ashutils.code:
     description: Allows /code
     default: true
@@ -78,6 +93,9 @@ permissions:
     default: op
   ashutils.fake:
     description: Allows /fake
+    default: op
+  ashutils.minimessage:
+    description: Allows /minimessage
     default: op
   ashutils.mod:
     description: Allows mod mode

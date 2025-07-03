@@ -5,6 +5,8 @@ import cymru.asheiou.ClickableItem;
 import cymru.asheiou.SmartInventory;
 import cymru.asheiou.content.InventoryContents;
 import cymru.asheiou.content.InventoryProvider;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
@@ -36,15 +38,16 @@ public class SuffixMenu implements InventoryProvider {
   public void init(Player player, InventoryContents inventoryContents) {
     List<String> suffixList = plugin.getConfig().getStringList("suffix.list");
     for (String s : suffixList) {
-      String formatted = formatSuffix(s, false);
+      String formatted = formatSuffix(s, true);
+      Component formattedDeserialized = MessageSender.miniMessage.deserialize(formatted);
       ItemStack item;
       ItemMeta meta;
       if (player.hasPermission("group." + s)) {
         item = new ItemStack(Material.EMERALD_BLOCK, 1);
         meta = item.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(formatted);
-        meta.setLore(List.of(ChatColor.AQUA + "Equipped!"));
+        meta.displayName(formattedDeserialized);
+        meta.lore(List.of(Component.text("Equipped!").color(NamedTextColor.AQUA)));
         item.setItemMeta(meta);
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
@@ -57,8 +60,8 @@ public class SuffixMenu implements InventoryProvider {
         item = new ItemStack(Material.DEEPSLATE, 1);
         meta = item.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(formatted);
-        meta.setLore(List.of(ChatColor.GREEN + "Equip"));
+        meta.displayName(formattedDeserialized);
+        meta.lore(List.of(Component.text("Equip").color(NamedTextColor.GREEN)));
         item.setItemMeta(meta);
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
@@ -77,13 +80,14 @@ public class SuffixMenu implements InventoryProvider {
     SkullMeta playerHeadMeta = (SkullMeta) playerHead.getItemMeta();
     assert playerHeadMeta != null;
     playerHeadMeta.setOwningPlayer(player);
-    playerHeadMeta.setDisplayName(ChatColor.AQUA + "Want more suffixes?");
-    playerHeadMeta.setLore(List.of(ChatColor.RESET + "Click here to find out more!"));
+    playerHeadMeta.displayName(Component.text("Want more suffixes?").color(NamedTextColor.GOLD));
+    playerHeadMeta.lore(List.of(Component.text("Click here to find out more!").color(NamedTextColor.WHITE)));
     playerHead.setItemMeta(playerHeadMeta);
     inventoryContents.add(ClickableItem.of(playerHead, e -> {
       e.setCancelled(true);
       MessageSender.sendMessage(player, "<aqua><click:open_url:'" + plugin.getConfig()
               .getString("suffix.url") + "'>Click here</click></aqua> to learn more about suffixes!");
+      player.closeInventory();
       }));
 
   }
@@ -102,13 +106,12 @@ public class SuffixMenu implements InventoryProvider {
         continue;
       } else if (capitalise) {
         formattedArray[i] = Character.toUpperCase(formattedArray[i]);
-        break;
+        capitalise = false;
       }
-      capitalise = false;
     }
     if (miniMessage) {
       return "<gray><italic>" + new String(formattedArray) + "</italic></gray>";
     }
-    return ChatColor.GRAY.toString() + ChatColor.ITALIC + new String(formattedArray);
+    return "&7&o" + new String(formattedArray);
   }
 }

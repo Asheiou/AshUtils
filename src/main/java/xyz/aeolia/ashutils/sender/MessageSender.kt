@@ -1,16 +1,16 @@
 package xyz.aeolia.ashutils.sender
 
+import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
-import net.md_5.bungee.chat.ComponentSerializer
 import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
 
 class MessageSender {
   companion object{
     lateinit var miniMessage : MiniMessage
-    lateinit var plugin : JavaPlugin;
+    lateinit var plugin : JavaPlugin
 
     @JvmStatic
     fun init(plugin : JavaPlugin) {
@@ -25,23 +25,33 @@ class MessageSender {
     }
 
     @JvmStatic
-    fun sendMessage(recipient: CommandSender, message: String?, includePrefix: Boolean = true) {
-      var toDeserialize: String?;
-      if (includePrefix) {
-        val prefix = plugin.config.getString("chat-prefix")
-        toDeserialize = "$prefix <reset>$message";
-      } else toDeserialize = message
-      if (toDeserialize.isNullOrEmpty()) return
-      val adventureComponent = miniMessage.deserialize(toDeserialize)
-      val json = GsonComponentSerializer.gson().serialize(adventureComponent)
-      val spigotComponents = ComponentSerializer.parse(json)
-      recipient.spigot().sendMessage(*spigotComponents)
+    fun sendMessage(
+      recipient: Audience,
+      message: String?,
+      includePrefix: Boolean = true) {
+      if (message.isNullOrEmpty()) return
+      sendMessage(recipient, miniMessage.deserialize(message), includePrefix)
+
     }
 
     @JvmStatic
+    @Deprecated("Since 1.8.6 - define includePrefix")
+    // Legacy handler from pre 1.8.6
     fun sendMessage(recipient: CommandSender, message: String?) {
-      // Allow calls from Java
       sendMessage(recipient, message, true)
+    }
+
+    @JvmStatic
+    fun sendMessage(recipient: Audience, message: Component, includePrefix: Boolean = true) {
+      val toSend: Component
+      if (includePrefix) {
+        val prefix = miniMessage.deserialize(plugin.config.getString("chat-prefix") + " <reset>")
+        toSend = Component.text()
+                .append(prefix)
+                .append(message)
+                .build()
+      } else toSend = message
+      recipient.sendMessage(toSend)
     }
   }
 }

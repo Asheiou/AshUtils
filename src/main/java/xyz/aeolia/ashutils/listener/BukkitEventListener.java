@@ -1,14 +1,16 @@
 package xyz.aeolia.ashutils.listener;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.command.admin.ashutils.MotdHandler;
 import xyz.aeolia.ashutils.manager.StatusManager;
+import xyz.aeolia.ashutils.manager.UserManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.task.MessageLaterTask;
@@ -29,14 +31,16 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOWEST)
   public void onPlayerQuit(PlayerQuitEvent event) {
+    UserManager.getUser(event.getPlayer()).setOnline(false);
     new ROEQuitTask(this.plugin).runTaskLater(this.plugin, 3);
     new UserPruneTask(event.getPlayer()).runTaskLater(this.plugin, plugin.getConfig().getLong("prune-time"));
 
   }
 
   @EventHandler(priority = EventPriority.HIGH)
-  public void onChat(AsyncPlayerChatEvent event) {
-    if (pattern.matcher(event.getMessage()).matches()) {
+  public void onChat(AsyncChatEvent event) {
+    String plainText = PlainTextComponentSerializer.plainText().serialize(event.message());
+    if (pattern.matcher(plainText).matches()) {
       MessageSender.sendMessage(event.getPlayer(), "To use commands, type /<command>.");
       event.setCancelled(true);
       return;
@@ -49,7 +53,7 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerJoin(PlayerJoinEvent event) {
-    UUID refUUID = UserMapManager.getUserFromName(event.getPlayer().getName());
+    UUID refUUID = UserMapManager.getUuidFromName(event.getPlayer().getName());
     if (refUUID != null) {
       if (refUUID.equals(event.getPlayer().getUniqueId())) {
         plugin.getLogger().info(event.getPlayer().getName() + " is already registered to users.json.");
@@ -61,6 +65,8 @@ public class BukkitEventListener implements Listener {
       plugin.getLogger().info(event.getPlayer().getName() + " is not registered to users.json. Adding them.");
     }
     UserMapManager.putUserInMap(event.getPlayer().getName(), event.getPlayer().getUniqueId());
+
+    UserManager.getUser(event.getPlayer()).setOnline(true);
 
     if (MotdHandler.getMotd() != null) {
       // Send MOTD if it exists

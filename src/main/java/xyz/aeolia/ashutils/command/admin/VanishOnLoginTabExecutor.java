@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.aeolia.ashutils.manager.PermissionManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -27,50 +28,49 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
 
   @Override
   @SuppressWarnings("deprecated")
-  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     switch (args.length) {
       case 0:
         if (sender instanceof Player player) {
           return permissionUpdate(sender, player.getUniqueId(), player.getName(), !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
         }
-        MessageSender.sendMessage(sender, "This command cannot be run from the console without arguments.");
+        MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER_ARGS);
+        return true;
       case 1:
         if (sender instanceof Player player) {
-          switch (args[0]) {
-            case "true":
-              return permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
-            case "false":
-              return permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
-            default:
-              MessageSender.sendMessage(sender, "Unknown argument! Usage:");
-              return false;
-          }
+          return switch (args[0]) {
+            case "true" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
+            case "false" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
+            default -> {
+              MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+              yield false;
+            }
+          };
         }
       case 2:
         if (sender.hasPermission("ashutils.vanishonlogin.others")) {
-          UUID playerUUID = UserMapManager.getUserFromName(args[1]);
+          UUID playerUUID = UserMapManager.getUuidFromName(args[1]);
           if (playerUUID == null) {
-            MessageSender.sendMessage(sender, "Player not found. Check your spelling and try again.");
+            MessageSender.sendMessage(sender, Message.Player.NOT_FOUND);
             return true;
           }
-          switch (args[0]) {
-            case "true":
-              return permissionUpdate(sender, playerUUID, args[1], true);
-            case "false":
-              return permissionUpdate(sender, playerUUID, args[1], false);
-            default:
-              MessageSender.sendMessage(sender, "Unknown argument! Usage:");
-              return false;
-          }
+          return switch (args[0]) {
+            case "true" -> permissionUpdate(sender, playerUUID, args[1], true);
+            case "false" -> permissionUpdate(sender, playerUUID, args[1], false);
+            default -> {
+              MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+              yield false;
+            }
+          };
         }
       default:
-        MessageSender.sendMessage(sender, "Too many arguments! Usage:");
+        MessageSender.sendMessage(sender, Message.Generic.TOO_MANY_ARGS);
         return false;
     }
   }
 
   @Override
-  public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+  public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     List<String> completions = new ArrayList<>();
     java.util.List<String> commands = new ArrayList<>();
 

@@ -6,18 +6,19 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
-import xyz.aeolia.ashutils.user.User;
-import xyz.aeolia.ashutils.user.UserHelper;
+import xyz.aeolia.ashutils.instance.User;
+import xyz.aeolia.ashutils.manager.UserManager;
 
 public class ModCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, "Only players can execute this command.");
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
       return true;
     }
-    User user = UserHelper.getUser(player);
+    User user = UserManager.getUser(player);
     boolean toSet;
     if (args.length == 0) {
       toSet = !user.getModMode();
@@ -33,7 +34,7 @@ public class ModCommandExecutor implements CommandExecutor {
                 ? "enabled." : "disabled."));
         return true;
       default:
-        MessageSender.sendMessage(sender, "Invalid usage! Usage:");
+        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
         return false;
     }
     user.setModMode(toSet);

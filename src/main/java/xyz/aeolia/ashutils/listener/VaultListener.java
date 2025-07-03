@@ -1,6 +1,5 @@
 package xyz.aeolia.ashutils.listener;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.EconManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
-import xyz.aeolia.ashutils.user.User;
-import xyz.aeolia.ashutils.user.UserHelper;
+import xyz.aeolia.ashutils.instance.User;
+import xyz.aeolia.ashutils.manager.UserManager;
 
 public class VaultListener implements Listener {
   private final JavaPlugin plugin;
@@ -28,12 +27,12 @@ public class VaultListener implements Listener {
     if (!config.getStringList("pvp.worlds").contains(victim.getLocation().getWorld().getName())) {
       return;
     }
-    for (ItemStack i : event.getDrops()) i.setType(Material.AIR);
+    for (ItemStack i : event.getDrops()) i.setAmount(0);
     Player killer = event.getEntity().getKiller();
     if (killer == null) {
       return;
     }
-    User victimuser = UserHelper.getUser(victim);
+    User victimuser = UserManager.getUser(victim);
     long currentTimeSeconds = System.currentTimeMillis() / 1000L;
     if (currentTimeSeconds - victimuser.getLastPvpPayout() < config.getLong("pvp.prize-cooldown")) {
       return;

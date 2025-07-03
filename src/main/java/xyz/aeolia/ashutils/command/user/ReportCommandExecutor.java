@@ -14,6 +14,10 @@ import java.net.URI;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 
+import static xyz.aeolia.ashutils.instance.Message.Error.GENERIC;
+import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER;
+
 public class ReportCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
 
@@ -22,14 +26,14 @@ public class ReportCommandExecutor implements CommandExecutor {
   }
 
   @Override
-  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, "This command can only be executed by a player.");
+      MessageSender.sendMessage(sender, NOT_PLAYER, true);
       return true;
     }
 
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, "Invalid usage! Usage:");
+      MessageSender.sendMessage(sender, COMMAND_USAGE, true);
       return false;
     }
     URI uri;
@@ -38,7 +42,7 @@ public class ReportCommandExecutor implements CommandExecutor {
     } catch (Exception e) {
       plugin.getLogger().severe("Invalid discord.report-webhook in config.yml.");
       e.printStackTrace();
-      MessageSender.sendMessage(sender, "An internal error occurred. Please contact an administrator.");
+      MessageSender.sendMessage(sender, GENERIC, true);
       return true;
     }
     Location location = player.getLocation();
@@ -48,12 +52,11 @@ public class ReportCommandExecutor implements CommandExecutor {
 
     if (response.statusCode() != 204) {
       plugin.getLogger().severe("Could not send report: " + response.statusCode() + " " + response.body());
-      MessageSender.sendMessage(sender, "Could not send report, error " + response.statusCode() +
-              ". Please contact an administrator via <aqua>/discord</aqua> or the email on <aqua>/support</aqua>.");
+      MessageSender.sendMessage(sender, GENERIC, true);
       return true;
     }
     MessageSender.sendMessage(sender, "Report sent successfully. You will receive a response via " +
-            "<aqua>/mail</aqua> or on our Discord if you're a member.");
+            "<aqua>/mail</aqua> or on our Discord if you're a member.", true);
     return true;
   }
 }

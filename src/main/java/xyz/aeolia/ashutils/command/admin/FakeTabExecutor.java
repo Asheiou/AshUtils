@@ -1,6 +1,6 @@
 package xyz.aeolia.ashutils.command.admin;
 
-import net.md_5.bungee.api.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ public class FakeTabExecutor implements TabExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player) && args.length == 1) {
-      MessageSender.sendMessage(sender, "This command can only be executed by a player without an argument.");
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER_ARGS);
       return true;
     }
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
+      MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
       return false;
     }
 
@@ -45,7 +46,7 @@ public class FakeTabExecutor implements TabExecutor {
         message = plugin.getConfig().getString("join-message");
         break;
       default:
-        MessageSender.sendMessage(sender, "Unrecognised command usage. Usage: ");
+        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
         return false;
     }
     assert message != null;
@@ -55,12 +56,11 @@ public class FakeTabExecutor implements TabExecutor {
     } else if (args.length == 2) {
       message = message.replace("{USERNAME}", args[1]);
     } else {
-      MessageSender.sendMessage(sender, "Unrecognised command usage. Usage:");
+      MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
       return false;
     }
-
-    // This use of ChatColor is not ideal but currently is isolated to this one case so it won't be fixed
-    Bukkit.broadcastMessage(message.replace('&', ChatColor.COLOR_CHAR));
+    Component deserialized = MessageSender.miniMessage.deserialize(message);
+    Bukkit.getServer().broadcast(deserialized);
     return true;
   }
 

@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.sender.WebhookSender;
 
@@ -25,7 +26,7 @@ public class CodeCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, "You must be a player to use this command.");
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
       return true;
     }
     String code = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
@@ -36,14 +37,14 @@ public class CodeCommandExecutor implements CommandExecutor {
     } catch (URISyntaxException e) {
       plugin.getLogger().severe("discord.code-webhook URI invalid. Please check your config.");
       e.printStackTrace();
-      MessageSender.sendMessage(sender, "An internal error occurred. Please contact an administrator");
+      MessageSender.sendMessage(sender, Message.Error.GENERIC);
       return true;
     }
 
     HttpResponse<String> response = WebhookSender.postWebhook(uri, player.getName() + "'s code is **" + code + "**. Only accept it within 24 hours of this message.");
     if (response.statusCode() != 204) {
       plugin.getLogger().severe("discord.code-webhook returned " + response.statusCode() + " " + response.body());
-      MessageSender.sendMessage(sender, "An internal error occurred. Please contact an administrator");
+      MessageSender.sendMessage(sender, Message.Error.GENERIC);
     }
 
     MessageSender.sendMessage(sender, "Your code is <aqua>" + code

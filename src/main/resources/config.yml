@@ -10,6 +10,7 @@ xp:
   maximum-buy: 10000
 discord:
   afk-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
+  broadcast-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   code-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   mine-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
   report-webhook: "PUT APPLICATION/JSON WEBHOOK URL HERE"
@@ -26,3 +27,4 @@ pvp:
   kill-prize: 100
   prize-cooldown: 60
 prune-time: 2000
+chat-format: "<{DISPLAYNAME}<reset>>"

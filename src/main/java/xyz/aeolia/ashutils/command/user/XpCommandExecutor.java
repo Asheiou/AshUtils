@@ -7,7 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.manager.EconManager;
-import xyz.aeolia.ashutils.manager.ExperienceManager;
+import xyz.aeolia.ashutils.instance.Experience;
+import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.math.BigDecimal;
@@ -25,29 +26,29 @@ public class XpCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, "This command cannot be run from the console.");
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
       return true;
     }
     if (args.length > 1) {
-      MessageSender.sendMessage(player, "Too many arguments! Usage:");
+      MessageSender.sendMessage(player, Message.Generic.TOO_MANY_ARGS);
       return false;
     }
     String currencySymbol = plugin.getConfig().getString("currency-symbol");
-    ExperienceManager experienceManager = new ExperienceManager(player);
+    Experience experience = new Experience(player);
 
     switch (command.getName()) {
       case "xpbuy":
-        return buyXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
+        return buyXp(player, args[0], experience, experience.getTotalExperience(), currencySymbol);
       case "xpsell":
-        return sellXp(player, args[0], experienceManager, experienceManager.getTotalExperience(), currencySymbol);
+        return sellXp(player, args[0], experience, experience.getTotalExperience(), currencySymbol);
       default:
-        MessageSender.sendMessage(player,
-                "Error: Command not found. This is an issue with the plugin, please inform an administrator.");
+        plugin.getLogger().severe("Command " + command.getName() + " not found in XpCommandExecutor! This is a bug.");
+        MessageSender.sendMessage(player, Message.Error.GENERIC);
         return false;
     }
   }
 
-  public boolean buyXp(Player player, String arg, ExperienceManager experienceManager, int playerCurrentXp, String currencySymbol) {
+  public boolean buyXp(Player player, String arg, Experience experienceManager, int playerCurrentXp, String currencySymbol) {
     int xpToBuy;
     double playerBalance = econ.getBalance(player);
     double costPerXp = plugin.getConfig().getDouble("xp.buy-cost");
@@ -64,7 +65,7 @@ public class XpCommandExecutor implements CommandExecutor {
       try {
         xpToBuy = Integer.parseInt(arg);
       } catch (Exception e) {
-        MessageSender.sendMessage(player, "Argument not recognised! Usage:");
+        MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
         return false;
       }
     double totalCost = (BigDecimal.valueOf(costPerXp).multiply(BigDecimal.valueOf(xpToBuy))).doubleValue();
@@ -86,7 +87,7 @@ public class XpCommandExecutor implements CommandExecutor {
     return true;
   }
 
-  public boolean sellXp(Player player, String arg, ExperienceManager experienceManager, int playerCurrentXp, String currencySymbol) {
+  public boolean sellXp(Player player, String arg, Experience experienceManager, int playerCurrentXp, String currencySymbol) {
     if (playerCurrentXp == 0) {
       MessageSender.sendMessage(player, "You have no XP to sell!");
       return true;
@@ -98,7 +99,7 @@ public class XpCommandExecutor implements CommandExecutor {
       try {
         xpToSell = Integer.parseInt(arg);
       } catch (Exception e) {
-        MessageSender.sendMessage(player, "Argument not recognised! Usage:");
+        MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
         return false;
       }
       if (xpToSell > playerCurrentXp) {

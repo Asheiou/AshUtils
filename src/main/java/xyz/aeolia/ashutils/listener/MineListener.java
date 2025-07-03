@@ -14,7 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.aeolia.ashutils.sender.MessageSender;
 import xyz.aeolia.ashutils.sender.WebhookSender;
-import xyz.aeolia.ashutils.user.UserHelper;
+import xyz.aeolia.ashutils.manager.UserManager;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -185,7 +185,7 @@ public class MineListener implements Listener {
             + "</aqua><yellow> (light level: </yellow><aqua>" + lightLevel + "</aqua><yellow>)!";
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player.hasPermission("ashutils.alert"))
-        if (UserHelper.getUser(player).getModMode())
+        if (UserManager.getUser(player).getModMode())
           MessageSender.sendMessage(player, "<gold><bold>!! <reset>" + message, false);
     }
     URI uri;
