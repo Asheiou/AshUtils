@@ -6,16 +6,19 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import xyz.aeolia.ashutils.instance.Message;
-import xyz.aeolia.ashutils.sender.MessageSender;
+import org.jetbrains.annotations.NotNull;
 import xyz.aeolia.ashutils.instance.User;
 import xyz.aeolia.ashutils.manager.UserManager;
+import xyz.aeolia.ashutils.sender.MessageSender;
+
+import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER;
 
 public class ModCommandExecutor implements CommandExecutor {
   @Override
-  public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
+      MessageSender.sendMessage(sender, NOT_PLAYER, true);
       return true;
     }
     User user = UserManager.getUser(player);
@@ -31,14 +34,14 @@ public class ModCommandExecutor implements CommandExecutor {
         break;
       case "status":
         MessageSender.sendMessage(sender, "Mod mode is currently " + (user.getModMode()
-                ? "enabled." : "disabled."));
+                ? "enabled." : "disabled."), true);
         return true;
       default:
-        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+        MessageSender.sendMessage(sender, COMMAND_USAGE, true);
         return false;
     }
     user.setModMode(toSet);
-    MessageSender.sendMessage(sender, "Mod mode " + (toSet ? "enabled." : "disabled."));
+    MessageSender.sendMessage(sender, "Mod mode " + (toSet ? "enabled." : "disabled."), true);
 
     try {
       /* Soft depend ess */

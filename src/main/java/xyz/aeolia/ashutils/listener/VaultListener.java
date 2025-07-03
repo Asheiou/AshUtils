@@ -43,7 +43,7 @@ public class VaultListener implements Listener {
 
     String messageEnd = " and claimed a prize of <aqua>"
             + config.getString("currency-symbol") + pvpPrize + "</aqua>.";
-    MessageSender.sendMessage(victim, killer.getName() + " killed you" + messageEnd);
-    MessageSender.sendMessage(killer, "You killed " + victim.getName() + messageEnd);
+    MessageSender.sendMessage(victim, killer.getName() + " killed you" + messageEnd, true);
+    MessageSender.sendMessage(killer, "You killed " + victim.getName() + messageEnd, true);
   }
 }

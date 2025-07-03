@@ -7,7 +7,6 @@ import cymru.asheiou.content.InventoryContents;
 import cymru.asheiou.content.InventoryProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -52,7 +51,7 @@ public class SuffixMenu implements InventoryProvider {
         inventoryContents.add(ClickableItem.of(item, e -> {
           e.setCancelled(true);
           PermissionManager.groupUpdate(plugin, player.getUniqueId(), s, false);
-          MessageSender.sendMessage(player, "Suffix unequipped.");
+          MessageSender.sendMessage(player, "Suffix unequipped.", true);
           player.closeInventory();
         }));
 
@@ -71,7 +70,8 @@ public class SuffixMenu implements InventoryProvider {
             }
           }
           PermissionManager.groupUpdate(plugin, player.getUniqueId(), s, true);
-          MessageSender.sendMessage(player, "Suffix changed to " + formatSuffix(s, true) + ".");
+          MessageSender.sendMessage(player, "Suffix changed to " + formatSuffix(s, true) + ".",
+                  true);
           player.closeInventory();
         }));
       }
@@ -86,7 +86,7 @@ public class SuffixMenu implements InventoryProvider {
     inventoryContents.add(ClickableItem.of(playerHead, e -> {
       e.setCancelled(true);
       MessageSender.sendMessage(player, "<aqua><click:open_url:'" + plugin.getConfig()
-              .getString("suffix.url") + "'>Click here</click></aqua> to learn more about suffixes!");
+              .getString("suffix.url") + "'>Click here</click></aqua> to learn more about suffixes!", true);
       player.closeInventory();
       }));
 
@@ -103,7 +103,6 @@ public class SuffixMenu implements InventoryProvider {
     for (int i = 0; i < formattedArray.length; i++) {
       if (formattedArray[i] == '-') {
         capitalise = true;
-        continue;
       } else if (capitalise) {
         formattedArray[i] = Character.toUpperCase(formattedArray[i]);
         capitalise = false;

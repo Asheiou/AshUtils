@@ -41,13 +41,13 @@ public class BukkitEventListener implements Listener {
   public void onChat(AsyncChatEvent event) {
     String plainText = PlainTextComponentSerializer.plainText().serialize(event.message());
     if (pattern.matcher(plainText).matches()) {
-      MessageSender.sendMessage(event.getPlayer(), "To use commands, type /<command>.");
+      MessageSender.sendMessage(event.getPlayer(), "To use commands, type /<command>.", true);
       event.setCancelled(true);
       return;
     }
     if (StatusManager.getStatus("lockchat") && !event.getPlayer().hasPermission("asheiou.lockchat.exempt")) {
       event.setCancelled(true);
-      MessageSender.sendMessage(event.getPlayer(), "Chat has been locked by a moderator.");
+      MessageSender.sendMessage(event.getPlayer(), "Chat has been locked by a moderator.", true);
     }
   }
 

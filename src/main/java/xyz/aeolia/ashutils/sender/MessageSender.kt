@@ -4,7 +4,6 @@ import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
 
 class MessageSender {
@@ -32,13 +31,6 @@ class MessageSender {
       if (message.isNullOrEmpty()) return
       sendMessage(recipient, miniMessage.deserialize(message), includePrefix)
 
-    }
-
-    @JvmStatic
-    @Deprecated("Since 1.8.6 - define includePrefix")
-    // Legacy handler from pre 1.8.6
-    fun sendMessage(recipient: CommandSender, message: String?) {
-      sendMessage(recipient, message, true)
     }
 
     @JvmStatic

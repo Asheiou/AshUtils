@@ -7,9 +7,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 import xyz.aeolia.ashutils.manager.EconManager;
-import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
+
+import static xyz.aeolia.ashutils.instance.Message.Econ.SOLD;
+import static xyz.aeolia.ashutils.instance.Message.Econ.TOO_MANY;
+import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER;
 
 public class HeadSellCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;
@@ -19,12 +24,12 @@ public class HeadSellCommandExecutor implements CommandExecutor {
   }
 
   @Override
-  public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     if (sender instanceof Player player) {
       ItemStack itemInHand = player.getInventory().getItemInMainHand();
       if (itemInHand.getType() == Material.PLAYER_HEAD) {
         if (args.length != 1) {
-          MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
+          MessageSender.sendMessage(player, COMMAND_USAGE, true);
           return false;
         }
 
@@ -37,11 +42,11 @@ public class HeadSellCommandExecutor implements CommandExecutor {
           try {
             amountToSell = Integer.parseInt(arg);
             if (amountToSell > itemInHand.getAmount()) {
-              MessageSender.sendMessage(player, Message.Econ.TOO_MANY);
+              MessageSender.sendMessage(player, TOO_MANY, true);
               return true;
             }
           } catch (NumberFormatException e) {
-            MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
+            MessageSender.sendMessage(player, COMMAND_USAGE, true);
             return false;
           }
         }
@@ -49,17 +54,16 @@ public class HeadSellCommandExecutor implements CommandExecutor {
         int worth = this.plugin.getConfig().getInt("head-worth") * amountToSell;
         player.getInventory().getItemInMainHand().setAmount(itemInHand.getAmount() - amountToSell);
         EconManager.getEcon().depositPlayer(player, worth);
-        MessageSender.sendMessage(player,
-                "You have sold <aqua>" + amountToSell + (amountToSell == 1 ? " head" : " heads") + "</aqua> for <aqua>"
-                        + this.plugin.getConfig().getString("currency-symbol") + worth + "</aqua>.");
+        MessageSender.sendMessage(player, String.format(SOLD, amountToSell, (amountToSell == 1 ? "head":"heads"),
+                this.plugin.getConfig().getString("currency-symbol"), worth), true);
         return true;
 
       }
-      MessageSender.sendMessage(player, "You're not holding a head!");
+      MessageSender.sendMessage(player, "You're not holding a head!", false);
       return true;
 
     }
-    MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
+    MessageSender.sendMessage(sender, NOT_PLAYER, false);
     return true;
   }
 

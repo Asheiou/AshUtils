@@ -12,7 +12,7 @@ public class ClearChatHandler {
           player.sendMessage(" ");
         }
       } else {
-        MessageSender.sendMessage(player, "Chat cleared for non-exempt users.");
+        MessageSender.sendMessage(player, "Chat cleared for non-exempt users.", true);
       }
     }
     return true;

@@ -9,12 +9,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
-import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER_ARGS;
 
 public class FakeTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;
@@ -24,13 +26,13 @@ public class FakeTabExecutor implements TabExecutor {
   }
 
   @Override
-  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
     if (!(sender instanceof Player) && args.length == 1) {
-      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER_ARGS);
+      MessageSender.sendMessage(sender, NOT_PLAYER_ARGS, true);
       return true;
     }
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+      MessageSender.sendMessage(sender, COMMAND_USAGE, true);
       return false;
     }
 
@@ -46,7 +48,7 @@ public class FakeTabExecutor implements TabExecutor {
         message = plugin.getConfig().getString("join-message");
         break;
       default:
-        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+        MessageSender.sendMessage(sender, COMMAND_USAGE, true);
         return false;
     }
     assert message != null;
@@ -56,7 +58,7 @@ public class FakeTabExecutor implements TabExecutor {
     } else if (args.length == 2) {
       message = message.replace("{USERNAME}", args[1]);
     } else {
-      MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+      MessageSender.sendMessage(sender, COMMAND_USAGE, true);
       return false;
     }
     Component deserialized = MessageSender.miniMessage.deserialize(message);

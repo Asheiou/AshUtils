@@ -11,13 +11,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.aeolia.ashutils.manager.PermissionManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
-import xyz.aeolia.ashutils.instance.Message;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+
+import static xyz.aeolia.ashutils.instance.Message.Generic.*;
+import static xyz.aeolia.ashutils.instance.Message.Player.NOT_FOUND;
 
 public class VanishOnLoginTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;
@@ -34,7 +36,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         if (sender instanceof Player player) {
           return permissionUpdate(sender, player.getUniqueId(), player.getName(), !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
         }
-        MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER_ARGS);
+        MessageSender.sendMessage(sender, NOT_PLAYER_ARGS, true);
         return true;
       case 1:
         if (sender instanceof Player player) {
@@ -42,7 +44,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
             case "true" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
             case "false" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
             default -> {
-              MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+              MessageSender.sendMessage(sender, COMMAND_USAGE, true);
               yield false;
             }
           };
@@ -51,20 +53,20 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         if (sender.hasPermission("ashutils.vanishonlogin.others")) {
           UUID playerUUID = UserMapManager.getUuidFromName(args[1]);
           if (playerUUID == null) {
-            MessageSender.sendMessage(sender, Message.Player.NOT_FOUND);
+            MessageSender.sendMessage(sender, NOT_FOUND, true);
             return true;
           }
           return switch (args[0]) {
             case "true" -> permissionUpdate(sender, playerUUID, args[1], true);
             case "false" -> permissionUpdate(sender, playerUUID, args[1], false);
             default -> {
-              MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
+              MessageSender.sendMessage(sender, COMMAND_USAGE, true);
               yield false;
             }
           };
         }
       default:
-        MessageSender.sendMessage(sender, Message.Generic.TOO_MANY_ARGS);
+        MessageSender.sendMessage(sender, TOO_MANY_ARGS, true);
         return false;
     }
   }
@@ -98,7 +100,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
   boolean permissionUpdate(CommandSender sender, UUID uuid, String playerName, boolean status) {
     PermissionManager.groupUpdate(plugin, uuid, plugin.getConfig().getString("vanish-on-login-group"), status);
     String toSend = "VanishOnLogin " + (status ? "enabled" : "disabled") + " for " + playerName + ".";
-    MessageSender.sendMessage(sender, toSend);
+    MessageSender.sendMessage(sender, toSend, true);
     return true;
   }
 }

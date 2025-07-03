@@ -7,7 +7,7 @@ import xyz.aeolia.ashutils.sender.MessageSender;
 
 public class ReloadHandler {
   public static boolean doUtilReload(CommandSender sender, JavaPlugin plugin) {
-    MessageSender.sendMessage(sender, "Starting config reload...");
+    MessageSender.sendMessage(sender, "Starting config reload...", true);
     Integer[] response = new ConfigManager(plugin, true).loadConfig();
     String compose = "Reload complete! ";
     if (response[0] == -1) {
@@ -16,7 +16,7 @@ public class ReloadHandler {
       compose += "Added " + response[0] + " value" + (response[0] == 1 ? "" : "s") + ", removed "
               + response[1] + " value" + (response[1] == 1 ? "" : "s") + ".";
     }
-    MessageSender.sendMessage(sender, compose);
+    MessageSender.sendMessage(sender, compose, true);
     return true;
   }
 }
