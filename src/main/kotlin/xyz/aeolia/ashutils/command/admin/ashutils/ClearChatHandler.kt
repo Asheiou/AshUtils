@@ -1,20 +1,24 @@
-package xyz.aeolia.ashutils.command.admin.ashutils;
+package xyz.aeolia.ashutils.command.admin.ashutils
 
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import xyz.aeolia.ashutils.sender.MessageSender;
+import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
+import org.bukkit.plugin.java.JavaPlugin
+import xyz.aeolia.ashutils.sender.MessageSender
 
-public class ClearChatHandler {
-  public static boolean doClearChat(JavaPlugin plugin) {
-    for (Player player : plugin.getServer().getOnlinePlayers()) {
-      if (!player.hasPermission("ashutils.clearchat.exempt")) {
-        for (int i = 0; i < 100; i++) {
-          player.sendMessage(" ");
+class ClearChatHandler {
+  companion object {
+    @JvmStatic
+    fun doClearChat() : Boolean {
+      for (player in Bukkit.getOnlinePlayers()) {
+        if(!player.hasPermission("ashutils.clearchat.exempt")) {
+          repeat (100) {
+            player.sendMessage(Component.text(" "))
+          }
+        } else {
+          MessageSender.sendMessage(player, "Chat cleared for non-exempt users.")
         }
-      } else {
-        MessageSender.sendMessage(player, "Chat cleared for non-exempt users.", true);
       }
+      return true
     }
-    return true;
   }
 }

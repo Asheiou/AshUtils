@@ -35,7 +35,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
       //------------RestartOnEmpty-----------//
       case "restartonempty", "roe", "lc", "lockchat" ->
               StatusToggleHandler.doToggleStatus(sender, subCommandArgs, args[0]);
-      case "clearchat", "cc" -> ClearChatHandler.doClearChat(plugin);
+      case "clearchat", "cc" -> ClearChatHandler.doClearChat();
       case "motd" -> MotdHandler.handleCommand(sender, subCommandArgs);
       default -> {
         MessageSender.sendMessage(sender, COMMAND_USAGE, true);
