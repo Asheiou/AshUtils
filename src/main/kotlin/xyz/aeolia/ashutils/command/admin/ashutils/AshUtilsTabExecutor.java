@@ -52,6 +52,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
 
     if (args.length == 1) {
       if (sender.hasPermission("ashutils.admin")) {
+        commands.add("motd");
         commands.add("reload");
         commands.add("restartonempty");
         commands.add("lockchat");
@@ -61,10 +62,11 @@ public class AshUtilsTabExecutor implements TabExecutor {
 
     } else if (args.length == 2) {
       if (args[0].equals("restartonempty") || args[0].equals("lockchat")) {
-        if (sender.hasPermission("ashutils.admin"))
+        if (sender.hasPermission("ashutils.admin")) {
           commands.add("true");
-        commands.add("false");
-        commands.add("status");
+          commands.add("false");
+          commands.add("status");
+        }
       }
       StringUtil.copyPartialMatches(args[1], commands, completions);
     }
