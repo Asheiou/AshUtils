@@ -17,7 +17,7 @@ class WebhookSender {
       builder.POST(HttpRequest.BodyPublishers.ofString(json.toString()))
       builder.headers("content-type", "application/json")
       val request = builder.build()
-      return HttpClient.newHttpClient().sendAsync(request, HttpResponse.BodyHandlers.ofString()).join();
+      return HttpClient.newHttpClient().sendAsync(request, HttpResponse.BodyHandlers.ofString()).join()
     }
   }
 }
