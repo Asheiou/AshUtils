@@ -1,19 +1,21 @@
 package xyz.aeolia.ashutils.instance
 
 object Message {
-  object econ {
-    const val tooMany = "You don't have that many to sell!"
+  object Econ {
+    const val TOO_MANY = "You don't have that many to sell!"
   }
-  object error {
-    const val generic = "An internal error occurred. Please contact an administrator."
+  object Error {
+    const val CONFIG = "The config is not correctly configured - it is missing field %s."
+    const val GENERIC = "An internal error occurred. Please contact an administrator."
   }
-  object generic {
-    const val commandUsage = "Unrecognised usage. Usage:"
-    const val notPlayer = "You must be a player to execute this command."
-    const val notPlayerNoArgs = "You must be a player to execute this command without arguments."
-    const val tooManyArgs = "Too many arguments! Usage:"
+  object Generic {
+    const val COMMAND_USAGE = "Unrecognised usage. Usage:"
+    const val NOT_PLAYER = "You must be a player to execute this command."
+    const val NOT_PLAYER_ARGS = "You must be a player to execute this command without arguments."
+    const val TOO_MANY_ARGS = "Too many arguments! Usage:"
   }
-  object player {
-    const val notFound = "Player not found. Please check your spelling and try again."
+  object Player {
+    const val NOT_FOUND = "Player not found. Please check your spelling and try again."
+    const val OFFLINE = "This command cannot accept an offline player."
   }
 }
