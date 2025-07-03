@@ -14,17 +14,17 @@ class MotdHandler {
     fun handleCommand(sender: CommandSender, args: Array<out String?>?): Boolean {
       if (args?.size == 0 || args == null) {
         motd = null
-        MessageSender.sendMessage(sender, "MOTD reset!", true)
+        MessageSender.sendMessage(sender, "MOTD reset!")
         return true
       }
       motd = args.joinToString(" ")
-      MessageSender.sendMessage(sender, "Motd set to:", true)
+      MessageSender.sendMessage(sender, "Motd set to:")
       val broadcastStatus = WebhookSender.broadcast(MessageSender.miniMessage.deserialize(motd!!))
       if (broadcastStatus) return true
-      MessageSender.sendMessage(sender, REQUEST_FAIL_GENERIC, true)
+      MessageSender.sendMessage(sender, REQUEST_FAIL_GENERIC)
       MessageSender.sendMessage(
         sender, "It will persist until the server restarts or you reset it by " +
-                "running this command again without an argument.", true
+                "running this command again without an argument."
       )
       return true
     }

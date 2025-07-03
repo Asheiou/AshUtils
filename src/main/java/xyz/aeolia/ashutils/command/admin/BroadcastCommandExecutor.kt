@@ -16,12 +16,12 @@ class BroadcastCommandExecutor(val plugin: JavaPlugin) : CommandExecutor {
     label: String,
     args: Array<out String>): Boolean {
     if (args.isEmpty()) {
-      MessageSender.sendMessage(sender, COMMAND_USAGE, true)
+      MessageSender.sendMessage(sender, COMMAND_USAGE)
     }
     val message = MessageSender.miniMessage.deserialize(args.joinToString(" "))
     val broadcastStatus = WebhookSender.broadcast(message)
     if (broadcastStatus) return true
-    MessageSender.sendMessage(sender, REQUEST_FAIL_GENERIC, true)
+    MessageSender.sendMessage(sender, REQUEST_FAIL_GENERIC)
     return true
   }
 }

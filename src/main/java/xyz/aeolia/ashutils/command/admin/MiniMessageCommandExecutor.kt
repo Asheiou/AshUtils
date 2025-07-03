@@ -58,7 +58,7 @@ class MiniMessageCommandExecutor(val plugin: JavaPlugin) : CommandExecutor {
     val message = mm.deserialize(args.joinToString(" "))
     var chatFormat = plugin.config.getString("chat-format")
     if (chatFormat == null) {
-      MessageSender.sendMessage(sender, String.format(CONFIG, "chat-format"), true)
+      MessageSender.sendMessage(sender, String.format(CONFIG, "chat-format"))
       return true
     }
     chatFormat = chatFormat.replace("{DISPLAYNAME}", mm.serialize(identity.displayName()))
