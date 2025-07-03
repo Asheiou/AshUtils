@@ -26,11 +26,11 @@ public class FakeTabExecutor implements TabExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player) && args.length == 1) {
-      MessageSender.sendMessage(sender, Message.generic.notPlayerNoArgs);
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER_ARGS);
       return true;
     }
     if (args.length == 0) {
-      MessageSender.sendMessage(sender, Message.generic.commandUsage);
+      MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
       return false;
     }
 
@@ -46,7 +46,7 @@ public class FakeTabExecutor implements TabExecutor {
         message = plugin.getConfig().getString("join-message");
         break;
       default:
-        MessageSender.sendMessage(sender, Message.generic.commandUsage);
+        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
         return false;
     }
     assert message != null;
@@ -56,7 +56,7 @@ public class FakeTabExecutor implements TabExecutor {
     } else if (args.length == 2) {
       message = message.replace("{USERNAME}", args[1]);
     } else {
-      MessageSender.sendMessage(sender, Message.generic.commandUsage);
+      MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
       return false;
     }
     Component deserialized = MessageSender.miniMessage.deserialize(message);

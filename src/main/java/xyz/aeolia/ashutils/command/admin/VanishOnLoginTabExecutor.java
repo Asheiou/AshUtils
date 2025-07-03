@@ -34,7 +34,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         if (sender instanceof Player player) {
           return permissionUpdate(sender, player.getUniqueId(), player.getName(), !player.hasPermission("group." + plugin.getConfig().getString("vanish-on-login-group")));
         }
-        MessageSender.sendMessage(sender, Message.generic.notPlayerNoArgs);
+        MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER_ARGS);
         return true;
       case 1:
         if (sender instanceof Player player) {
@@ -42,7 +42,7 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
             case "true" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), true);
             case "false" -> permissionUpdate(sender, player.getUniqueId(), player.getName(), false);
             default -> {
-              MessageSender.sendMessage(sender, Message.generic.commandUsage);
+              MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
               yield false;
             }
           };
@@ -51,20 +51,20 @@ public class VanishOnLoginTabExecutor implements TabExecutor {
         if (sender.hasPermission("ashutils.vanishonlogin.others")) {
           UUID playerUUID = UserMapManager.getUuidFromName(args[1]);
           if (playerUUID == null) {
-            MessageSender.sendMessage(sender, Message.player.notFound);
+            MessageSender.sendMessage(sender, Message.Player.NOT_FOUND);
             return true;
           }
           return switch (args[0]) {
             case "true" -> permissionUpdate(sender, playerUUID, args[1], true);
             case "false" -> permissionUpdate(sender, playerUUID, args[1], false);
             default -> {
-              MessageSender.sendMessage(sender, Message.generic.commandUsage);
+              MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
               yield false;
             }
           };
         }
       default:
-        MessageSender.sendMessage(sender, Message.generic.tooManyArgs);
+        MessageSender.sendMessage(sender, Message.Generic.TOO_MANY_ARGS);
         return false;
     }
   }

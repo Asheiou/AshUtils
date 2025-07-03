@@ -15,7 +15,7 @@ public class ModCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, Message.generic.notPlayer);
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
       return true;
     }
     User user = UserManager.getUser(player);
@@ -34,7 +34,7 @@ public class ModCommandExecutor implements CommandExecutor {
                 ? "enabled." : "disabled."));
         return true;
       default:
-        MessageSender.sendMessage(sender, Message.generic.commandUsage);
+        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
         return false;
     }
     user.setModMode(toSet);

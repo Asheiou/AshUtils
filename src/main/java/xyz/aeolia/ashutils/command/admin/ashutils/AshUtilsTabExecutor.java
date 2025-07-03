@@ -37,7 +37,7 @@ public class AshUtilsTabExecutor implements TabExecutor {
       case "clearchat", "cc" -> ClearChatHandler.doClearChat(plugin);
       case "motd" -> MotdHandler.handleCommand(sender, subCommandArgs);
       default -> {
-        MessageSender.sendMessage(sender, Message.generic.commandUsage);
+        MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
         MessageSender.sendMessage(sender,"/ashutils reload/restartonempty/motd/clearchat/lockchat.", false);
         yield true;
       }

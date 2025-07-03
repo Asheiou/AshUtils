@@ -19,7 +19,7 @@ public class StatusToggleHandler {
     };
     if (args.length > 0) {
       if (args.length > 1) {
-        MessageSender.sendMessage(sender, Message.generic.tooManyArgs);
+        MessageSender.sendMessage(sender, Message.Generic.TOO_MANY_ARGS);
         MessageSender.sendMessage(sender, "/ashutils " + instance + " [true/false/status].");
       }
       switch (args[0].toLowerCase()) {
@@ -36,7 +36,7 @@ public class StatusToggleHandler {
                   instanceFormatted + " " + (StatusManager.getStatus(instance) ? "enabled" : "disabled") + ".");
           return true;
         default:
-          MessageSender.sendMessage(sender, Message.generic.commandUsage);
+          MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE);
           return false;
       }
     }

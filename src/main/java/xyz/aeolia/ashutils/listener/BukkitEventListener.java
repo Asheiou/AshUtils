@@ -53,7 +53,7 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerJoin(PlayerJoinEvent event) {
-    UUID refUUID = UserMapManager.getUserFromName(event.getPlayer().getName());
+    UUID refUUID = UserMapManager.getUuidFromName(event.getPlayer().getName());
     if (refUUID != null) {
       if (refUUID.equals(event.getPlayer().getUniqueId())) {
         plugin.getLogger().info(event.getPlayer().getName() + " is already registered to users.json.");

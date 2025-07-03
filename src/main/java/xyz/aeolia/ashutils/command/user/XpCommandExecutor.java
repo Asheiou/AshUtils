@@ -26,11 +26,11 @@ public class XpCommandExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (!(sender instanceof Player player)) {
-      MessageSender.sendMessage(sender, Message.generic.notPlayer);
+      MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
       return true;
     }
     if (args.length > 1) {
-      MessageSender.sendMessage(player, Message.generic.tooManyArgs);
+      MessageSender.sendMessage(player, Message.Generic.TOO_MANY_ARGS);
       return false;
     }
     String currencySymbol = plugin.getConfig().getString("currency-symbol");
@@ -43,7 +43,7 @@ public class XpCommandExecutor implements CommandExecutor {
         return sellXp(player, args[0], experience, experience.getTotalExperience(), currencySymbol);
       default:
         plugin.getLogger().severe("Command " + command.getName() + " not found in XpCommandExecutor! This is a bug.");
-        MessageSender.sendMessage(player, Message.error.generic);
+        MessageSender.sendMessage(player, Message.Error.GENERIC);
         return false;
     }
   }
@@ -65,7 +65,7 @@ public class XpCommandExecutor implements CommandExecutor {
       try {
         xpToBuy = Integer.parseInt(arg);
       } catch (Exception e) {
-        MessageSender.sendMessage(player, Message.generic.commandUsage);
+        MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
         return false;
       }
     double totalCost = (BigDecimal.valueOf(costPerXp).multiply(BigDecimal.valueOf(xpToBuy))).doubleValue();
@@ -99,7 +99,7 @@ public class XpCommandExecutor implements CommandExecutor {
       try {
         xpToSell = Integer.parseInt(arg);
       } catch (Exception e) {
-        MessageSender.sendMessage(player, Message.generic.commandUsage);
+        MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
         return false;
       }
       if (xpToSell > playerCurrentXp) {

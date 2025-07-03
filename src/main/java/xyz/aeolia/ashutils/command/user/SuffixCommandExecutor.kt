@@ -71,7 +71,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
     }
     val uuid = UserMapManager.getUuidFromName(args[1])
     if (uuid == null) {
-      MessageSender.sendMessage(sender, Message.player.notFound)
+      MessageSender.sendMessage(sender, Message.Player.NOT_FOUND)
       return true
     }
 
@@ -98,7 +98,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
 
   fun invEx(sender: CommandSender): Boolean {
     // Short for invalid execution
-    MessageSender.sendMessage(sender, Message.generic.commandUsage)
+    MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE)
     MessageSender.sendMessage(sender, "/suffix [grant/revoke] <user> <suffix>", false)
     return true
   }

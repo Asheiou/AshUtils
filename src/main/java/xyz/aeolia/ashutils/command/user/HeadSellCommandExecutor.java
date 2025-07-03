@@ -24,7 +24,7 @@ public class HeadSellCommandExecutor implements CommandExecutor {
       ItemStack itemInHand = player.getInventory().getItemInMainHand();
       if (itemInHand.getType() == Material.PLAYER_HEAD) {
         if (args.length != 1) {
-          MessageSender.sendMessage(player, Message.generic.commandUsage);
+          MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
           return false;
         }
 
@@ -37,11 +37,11 @@ public class HeadSellCommandExecutor implements CommandExecutor {
           try {
             amountToSell = Integer.parseInt(arg);
             if (amountToSell > itemInHand.getAmount()) {
-              MessageSender.sendMessage(player, Message.econ.tooMany);
+              MessageSender.sendMessage(player, Message.Econ.TOO_MANY);
               return true;
             }
           } catch (NumberFormatException e) {
-            MessageSender.sendMessage(player, Message.generic.commandUsage);
+            MessageSender.sendMessage(player, Message.Generic.COMMAND_USAGE);
             return false;
           }
         }
@@ -59,7 +59,7 @@ public class HeadSellCommandExecutor implements CommandExecutor {
       return true;
 
     }
-    MessageSender.sendMessage(sender, Message.generic.notPlayer);
+    MessageSender.sendMessage(sender, Message.Generic.NOT_PLAYER);
     return true;
   }
 

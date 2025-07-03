@@ -6,7 +6,9 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabExecutor
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.aeolia.ashutils.command.NotEnabledCommandExecutor
+import xyz.aeolia.ashutils.command.admin.BroadcastCommandExecutor
 import xyz.aeolia.ashutils.command.admin.FakeTabExecutor
+import xyz.aeolia.ashutils.command.admin.MiniMessageCommandExecutor
 import xyz.aeolia.ashutils.command.admin.ModCommandExecutor
 import xyz.aeolia.ashutils.command.admin.VanishOnLoginTabExecutor
 import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor
@@ -18,6 +20,7 @@ import xyz.aeolia.ashutils.manager.StatusManager
 import xyz.aeolia.ashutils.manager.UserMapManager
 import xyz.aeolia.ashutils.sender.MessageSender
 import xyz.aeolia.ashutils.manager.UserManager
+import xyz.aeolia.ashutils.sender.WebhookSender
 import java.time.Duration
 import java.time.Instant
 
@@ -35,6 +38,7 @@ class AshUtils : JavaPlugin() {
     MessageSender.init(this)
     UserManager.init(this)
     UserMapManager.loadUserMap()
+    WebhookSender.init(this)
     val mineListener = MineListener(this)
     // Repeaters
     Bukkit.getScheduler().scheduleSyncRepeatingTask(this, { this.saveAll() }, 6000L, 6000L)
@@ -48,8 +52,10 @@ class AshUtils : JavaPlugin() {
     // Commands
     val commands = HashMap<String, CommandExecutor>()
     commands["ashutils"] = AshUtilsTabExecutor(this)
+    commands["broadcast"] = BroadcastCommandExecutor(this)
     commands["code"] = CodeCommandExecutor(this)
     commands["fake"] = FakeTabExecutor(this)
+    commands["minimessage"] = MiniMessageCommandExecutor(this)
     commands["mod"] = ModCommandExecutor()
     commands["report"] = ReportCommandExecutor(this)
     // Softdepends
@@ -58,8 +64,8 @@ class AshUtils : JavaPlugin() {
       PermissionManager.luckPermsSetup()
       commands["vanishonlogin"] = VanishOnLoginTabExecutor(this)
     } else {
-      Bukkit.getLogger().info("LuckPerms not found - not enabling permission features.")
-      commands["vanishonlogin"] = NotEnabledCommandExecutor();
+      logger.info("LuckPerms not found - not enabling permission features.")
+      commands["vanishonlogin"] = NotEnabledCommandExecutor()
     }
     //// SmartInvs
     if (pm.getPlugin("SmartInvs") != null && pm.getPlugin("LuckPerms") != null) {
@@ -67,7 +73,7 @@ class AshUtils : JavaPlugin() {
       pm.registerEvents(SuffixListener(this), this)
     } else {
       commands["suffix"] = NotEnabledCommandExecutor()
-      Bukkit.getLogger().info("SmartInvs not found - not enabling /suffix.")
+      logger.info("SmartInvs not found - not enabling /suffix.")
     }
     //// Vault
     if (EconManager.setupEconomy(this)) {
@@ -105,11 +111,11 @@ class AshUtils : JavaPlugin() {
 
   fun setExecutor(command: String, executor: CommandExecutor?) {
     try {
-      this.getCommand(command)?.setExecutor(executor);
+      this.getCommand(command)?.setExecutor(executor)
       if (executor is TabExecutor) {
         this.getCommand(command)?.tabCompleter = executor
       }
-    } catch (e: NullPointerException) {
+    } catch (_: NullPointerException) {
       this.logger.warning("$command is not registered in the plugin.yml. Check your build.")
     }
   }
