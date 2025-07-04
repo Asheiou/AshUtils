@@ -12,4 +12,10 @@ tmp/**/*
 local.properties
 *.iml
 dependency-reduced-pom.xml
-/target/
+target/
+build/
+gradle.properties
+gradlew
+gradlew.bat
+settings.gradle.kts
+.gradle/
