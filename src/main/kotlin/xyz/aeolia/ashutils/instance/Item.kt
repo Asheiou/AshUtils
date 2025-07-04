@@ -13,7 +13,7 @@ class Item(
   val displayName: String? = null,
   val lore: List<String>? = null,
   val material: String,
-  val amount: Int,
+  val amount: Int = 1,
   val enchantments: MutableMap<String, Int>? = null
 ) {
   val stack: ItemStack? = loadStack()

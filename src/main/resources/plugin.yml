@@ -57,6 +57,11 @@ commands:
     usage: "/<command> [true/false/status]"
     permission: ashutils.mod
     permission-message: You don't have ashutils.mod.
+  pvp:
+    description: Pick a kit and play
+    usage: "/<command>"
+    permission: ashutils.pvp
+    permission-message: You don't have ashutils.pvp.
   report:
     description: Create a report to our staff
     usage: "/<command> <report message>"
@@ -117,6 +122,9 @@ permissions:
   ashutils.mod:
     description: Allows mod mode
     default: op
+  ashutils.pvp:
+    description: Allows /pvp
+    default: true
   ashutils.report:
     description: Allows /report
     default: true

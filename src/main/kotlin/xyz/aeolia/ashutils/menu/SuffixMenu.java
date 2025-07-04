@@ -1,10 +1,10 @@
 package xyz.aeolia.ashutils.menu;
 
 
-import cymru.asheiou.ClickableItem;
-import cymru.asheiou.SmartInventory;
-import cymru.asheiou.content.InventoryContents;
-import cymru.asheiou.content.InventoryProvider;
+import cymru.asheiou.inv.ClickableItem;
+import cymru.asheiou.inv.SmartInventory;
+import cymru.asheiou.inv.content.InventoryContents;
+import cymru.asheiou.inv.content.InventoryProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.apache.commons.lang.WordUtils;

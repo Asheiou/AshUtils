@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xyz.aeolia</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.9-dev1</version>
+  <version>1.9-dev2</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -58,7 +58,7 @@
     <dependency>
       <groupId>cymru.asheiou.inv</groupId>
       <artifactId>smart-invs</artifactId>
-      <version>1.2.8</version>
+      <version>1.2.8.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -173,7 +173,9 @@
                 <includes>
                   <include>cymru.asheiou:configmanager</include>
                   <include>org.jetbrains.kotlin:*</include>
+                  <include>org.jetbrains.kotlinx:*</include>
                   <include>kotlin:*</include>
+                  <include>kotlinx:*</include>
                 </includes>
               </artifactSet>
               <relocations>
@@ -182,7 +184,10 @@
                   <shadedPattern>xyz.aeolia.ashutils.shade.configmanager</shadedPattern>
                 </relocation>
                 <relocation>
-                  <pattern>org.jetbrains</pattern>
+                  <pattern>kotlinx</pattern>
+                  <shadedPattern>xyz.aeolia.ashutils.shade.kotlinx</shadedPattern>
+                </relocation>
+                <relocation>
                   <pattern>kotlin</pattern>
                   <shadedPattern>xyz.aeolia.ashutils.shade.kotlin</shadedPattern>
                 </relocation>

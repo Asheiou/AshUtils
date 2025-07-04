@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabExecutor
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.aeolia.ashutils.command.NotEnabledCommandExecutor
+import xyz.aeolia.ashutils.command.PVPCommandExecutor
 import xyz.aeolia.ashutils.command.admin.BroadcastCommandExecutor
 import xyz.aeolia.ashutils.command.admin.FakeTabExecutor
 import xyz.aeolia.ashutils.command.admin.MiniMessageCommandExecutor
@@ -57,6 +58,7 @@ class AshUtils : JavaPlugin() {
     commands["broadcast"] = BroadcastCommandExecutor(this)
     commands["code"] = CodeCommandExecutor(this)
     commands["fake"] = FakeTabExecutor(this)
+    commands["pvp"] = PVPCommandExecutor(this)
     commands["minimessage"] = MiniMessageCommandExecutor(this)
     commands["mod"] = ModCommandExecutor()
     commands["report"] = ReportCommandExecutor(this)
