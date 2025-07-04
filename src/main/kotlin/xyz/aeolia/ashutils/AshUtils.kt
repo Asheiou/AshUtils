@@ -15,6 +15,7 @@ import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor
 import xyz.aeolia.ashutils.command.user.*
 import xyz.aeolia.ashutils.listener.*
 import xyz.aeolia.ashutils.manager.EconManager
+import xyz.aeolia.ashutils.manager.KitManager
 import xyz.aeolia.ashutils.manager.PermissionManager
 import xyz.aeolia.ashutils.manager.StatusManager
 import xyz.aeolia.ashutils.manager.UserMapManager
@@ -35,6 +36,7 @@ class AshUtils : JavaPlugin() {
       pm.disablePlugin(this)
     }
     // Inits
+    KitManager.init(this)
     MessageSender.init(this)
     UserManager.init(this)
     UserMapManager.loadUserMap()
@@ -102,6 +104,7 @@ class AshUtils : JavaPlugin() {
 
   override fun onDisable() {
     saveAll()
+    KitManager.cleanup()
   }
 
   fun saveAll() {

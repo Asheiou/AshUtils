@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xyz.aeolia</groupId>
   <artifactId>ashutils</artifactId>
-  <version>1.8.9-dev1</version>
+  <version>1.9-dev1</version>
   <packaging>jar</packaging>
   <name>AshUtils</name>
   <inceptionYear>2025</inceptionYear>
@@ -87,6 +87,11 @@
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
       <version>2.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-coroutines-core-jvm</artifactId>
+      <version>1.10.2</version>
     </dependency>
   </dependencies>
 

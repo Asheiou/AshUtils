@@ -3,6 +3,7 @@ package xyz.aeolia.ashutils.command.admin.ashutils;
 import cymru.asheiou.configmanager.ConfigManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.aeolia.ashutils.manager.KitManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 public class ReloadHandler {
@@ -17,6 +18,8 @@ public class ReloadHandler {
               + response[1] + " value" + (response[1] == 1 ? "" : "s") + ".";
     }
     MessageSender.sendMessage(sender, compose, true);
+    MessageSender.sendMessage(sender, "Starting kits reload...", true);
+    KitManager.init(plugin, sender);
     return true;
   }
 }
