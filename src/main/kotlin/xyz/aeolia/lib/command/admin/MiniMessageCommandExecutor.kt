@@ -21,8 +21,9 @@ class MiniMessageCommandExecutor(val plugin: JavaPlugin) : CommandExecutor {
     sender: CommandSender,
     command: Command,
     label: String,
-    args: Array<out String>
+    argsInput: Array<out String>
   ): Boolean {
+    var args = argsInput
     if (sender !is Player) {
       MessageSender.sendMessage(sender, NOT_PLAYER, true)
       return true
@@ -46,7 +47,7 @@ class MiniMessageCommandExecutor(val plugin: JavaPlugin) : CommandExecutor {
           MessageSender.sendMessage(sender, OFFLINE, true)
           return true
         }
-        args.drop(0)
+        args = args.drop(1).toTypedArray()
       } else {
         MessageSender.sendMessage(sender, OFFLINE, true)
         return true
