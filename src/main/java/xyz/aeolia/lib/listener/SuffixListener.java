@@ -34,7 +34,7 @@ public class SuffixListener implements Listener {
         plugin.getLogger().severe("Ontime reward group is null");
         return;
       }
-      String permission = "lib.suffix." + rewardGroup;
+      String permission = "ashutils.suffix." + rewardGroup;
       if (player.hasPermission(permission)) return;
       PermissionManager.permissionUpdate(player.getUniqueId(), permission, true);
       new MessageLaterTask(player, "You have received an ontime reward suffix: "
