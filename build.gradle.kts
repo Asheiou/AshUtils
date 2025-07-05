@@ -58,8 +58,8 @@ dependencies {
 }
 
 group = "xyz.aeolia"
-version = "1.9-dev3"
-description = "AshUtils"
+version = "2.0-dev4"
+description = "AeoliaLib"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 publishing {
@@ -94,10 +94,10 @@ tasks.shadowJar {
         exclude(dependency("org.jetbrains.kotlin:kotlin-serialization-compiler-plugin"))
     }
 
-    relocate("kotlin", "xyz.aeolia.ashutils.shade.kotlin")
-    relocate("kotlinx", "xyz.aeolia.ashutils.shade.kotlinx")
-    relocate("cymru.asheiou.configmanager", "xyz.aeolia.ashutils.shade.configmanager")
-    relocate("hk.siggi.bukkit.plugcubebuildersin", "xyz.aeolia.ashutils.shade.plugcubebuildersin")
-    relocate("org.apache.commons.lang3", "xyz.aeolia.ashutils.shade.lang")
-    relocate("org.apache.commons.text", "xyz.aeolia.ashutils.shade.text")
+    relocate("kotlin", "xyz.aeolia.lib.shade.kotlin")
+    relocate("kotlinx", "xyz.aeolia.lib.shade.kotlinx")
+    relocate("cymru.asheiou.configmanager", "xyz.aeolia.lib.shade.configmanager")
+    relocate("hk.siggi.bukkit.plugcubebuildersin", "xyz.aeolia.lib.shade.plugcubebuildersin")
+    relocate("org.apache.commons.lang3", "xyz.aeolia.lib.shade.lang")
+    relocate("org.apache.commons.text", "xyz.aeolia.lib.shade.text")
 }

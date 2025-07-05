@@ -1,0 +1,25 @@
+package xyz.aeolia.lib.command.admin.util;
+
+import cymru.asheiou.configmanager.ConfigManager;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+import xyz.aeolia.lib.manager.KitManager;
+import xyz.aeolia.lib.sender.MessageSender;
+
+public class ReloadHandler {
+  public static boolean doUtilReload(CommandSender sender, JavaPlugin plugin) {
+    MessageSender.sendMessage(sender, "Starting config reload...", true);
+    Integer[] response = new ConfigManager(plugin, true).loadConfig();
+    String compose = "Reload complete! ";
+    if (response[0] == -1) {
+      compose += "Your config file was empty, deleted, or unreadable. It has been replaced with the default.";
+    } else if (response[0] > 0 || response[1] > 0) {
+      compose += "Added " + response[0] + " value" + (response[0] == 1 ? "" : "s") + ", removed "
+              + response[1] + " value" + (response[1] == 1 ? "" : "s") + ".";
+    }
+    MessageSender.sendMessage(sender, compose, true);
+    MessageSender.sendMessage(sender, "Starting kits reload...", true);
+    KitManager.init(plugin, sender);
+    return true;
+  }
+}
