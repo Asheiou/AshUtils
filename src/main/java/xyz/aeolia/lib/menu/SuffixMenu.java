@@ -55,7 +55,7 @@ public class SuffixMenu implements InventoryProvider {
           player.closeInventory();
         }));
 
-      } else if (player.hasPermission("ashutils.suffix." + s)) {
+      } else if (player.hasPermission("lib.suffix." + s)) {
         item = new ItemStack(Material.DEEPSLATE, 1);
         meta = item.getItemMeta();
         assert meta != null;

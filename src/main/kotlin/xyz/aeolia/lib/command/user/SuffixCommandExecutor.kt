@@ -79,7 +79,7 @@ class SuffixCommandExecutor(var plugin: JavaPlugin) : TabExecutor {
       MessageSender.sendMessage(sender, "Invalid suffix!")
       return true
     }
-    if (PermissionManager.permissionUpdate(uuid, "ashutils.suffix." + args[2], status)) {
+    if (PermissionManager.permissionUpdate(uuid, "lib.suffix." + args[2], status)) {
       if (!status) {
         PermissionManager.groupUpdate(plugin, uuid, args[2], false)
       }
