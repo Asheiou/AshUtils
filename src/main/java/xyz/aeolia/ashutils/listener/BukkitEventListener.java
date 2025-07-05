@@ -1,7 +1,10 @@
 package xyz.aeolia.ashutils.listener;
 
+import com.earth2me.essentials.Essentials;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,6 +16,7 @@ import xyz.aeolia.ashutils.manager.StatusManager;
 import xyz.aeolia.ashutils.manager.UserManager;
 import xyz.aeolia.ashutils.manager.UserMapManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
+import xyz.aeolia.ashutils.serializable.User;
 import xyz.aeolia.ashutils.task.MessageLaterTask;
 import xyz.aeolia.ashutils.task.ROEQuitTask;
 import xyz.aeolia.ashutils.task.UserPruneTask;
@@ -24,9 +28,11 @@ public class BukkitEventListener implements Listener {
 
   private final JavaPlugin plugin;
   private final Pattern pattern = Pattern.compile("^:[A-Z]{4,}$");
+  private Essentials ess;
 
   public BukkitEventListener(JavaPlugin plugin) {
     this.plugin = plugin;
+    ess = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
@@ -53,24 +59,27 @@ public class BukkitEventListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerJoin(PlayerJoinEvent event) {
-    UUID refUUID = UserMapManager.getUuidFromName(event.getPlayer().getName());
+    Player player = event.getPlayer();
+    UUID refUUID = UserMapManager.getUuidFromName(player.getName());
     if (refUUID != null) {
-      if (refUUID.equals(event.getPlayer().getUniqueId())) {
-        plugin.getLogger().info(event.getPlayer().getName() + " is already registered to users.json.");
+      if (refUUID.equals(player.getUniqueId())) {
+        plugin.getLogger().info(player.getName() + " is already registered to users.json.");
       }
       else {
-        plugin.getLogger().info(event.getPlayer().getName() + " is registered to users.json as another UUID! Correcting.");
+        plugin.getLogger().info(player.getName() + " is registered to users.json as another UUID! Correcting.");
       }
     } else {
-      plugin.getLogger().info(event.getPlayer().getName() + " is not registered to users.json. Adding them.");
+      plugin.getLogger().info(player.getName() + " is not registered to users.json. Adding them.");
     }
-    UserMapManager.putUserInMap(event.getPlayer().getName(), event.getPlayer().getUniqueId());
+    UserMapManager.putUserInMap(player.getName(), player.getUniqueId());
 
-    UserManager.getUser(event.getPlayer()).setOnline(true);
+    User user = UserManager.getUser(player);
+    user.setOnline(true);
+    user.setVanish(ess.getUser(player).isVanished());
 
     if (MotdHandler.getMotd() != null) {
       // Send MOTD if it exists
-      new MessageLaterTask(event.getPlayer(), MotdHandler.getMotd()).runTaskLater(plugin, 20L);
+      new MessageLaterTask(player, MotdHandler.getMotd()).runTaskLater(plugin, 20L);
     }
   }
 }

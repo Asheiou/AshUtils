@@ -50,7 +50,7 @@ class Item(
       meta.addEnchant(enchantment, enchant.value, true)
     }
     stack.itemMeta = meta
-    MessageSender.Companion.sendMessage(Bukkit.getConsoleSender(), "Loaded stack: ${Json.encodeToString<ItemStack>(stack)}")
+    MessageSender.Companion.sendMessage(Bukkit.getConsoleSender(), "Loaded stack $stack")
     return stack
   }
 }
