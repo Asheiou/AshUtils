@@ -93,6 +93,16 @@
       <artifactId>kotlinx-coroutines-core-jvm</artifactId>
       <version>1.10.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-serialization-json-jvm</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-serialization-compiler-plugin</artifactId>
+      <version>2.2.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -121,6 +131,9 @@
         </executions>
         <configuration>
           <jvmTarget>21</jvmTarget>
+          <compilerPlugins>
+            <plugin>kotlinx-serialization</plugin>
+          </compilerPlugins>
         </configuration>
       </plugin>
       <plugin>

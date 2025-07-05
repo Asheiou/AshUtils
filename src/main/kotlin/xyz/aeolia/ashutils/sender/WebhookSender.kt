@@ -5,8 +5,8 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
-import xyz.aeolia.ashutils.instance.Message.Error.CONFIG
-import xyz.aeolia.ashutils.instance.Message.Error.REQUEST_FAIL
+import xyz.aeolia.ashutils.utils.Message.Error.CONFIG
+import xyz.aeolia.ashutils.utils.Message.Error.REQUEST_FAIL
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest

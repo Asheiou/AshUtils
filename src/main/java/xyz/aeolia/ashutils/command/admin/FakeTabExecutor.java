@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
-import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER_ARGS;
+import static xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.utils.Message.Generic.NOT_PLAYER_ARGS;
 
 public class FakeTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;

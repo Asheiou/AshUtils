@@ -10,7 +10,7 @@ import org.bukkit.command.TabExecutor
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.util.StringUtil
-import xyz.aeolia.ashutils.instance.Message
+import xyz.aeolia.ashutils.utils.Message
 import xyz.aeolia.ashutils.manager.PermissionManager
 import xyz.aeolia.ashutils.manager.UserMapManager
 import xyz.aeolia.ashutils.menu.SuffixMenu

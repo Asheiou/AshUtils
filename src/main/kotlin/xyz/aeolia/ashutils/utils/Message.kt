@@ -1,4 +1,4 @@
-package xyz.aeolia.ashutils.instance
+package xyz.aeolia.ashutils.utils
 
 object Message {
   object Econ {

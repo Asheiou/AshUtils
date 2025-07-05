@@ -4,8 +4,8 @@ import org.bukkit.command.CommandSender;
 import xyz.aeolia.ashutils.manager.StatusManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
-import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
-import static xyz.aeolia.ashutils.instance.Message.Generic.TOO_MANY_ARGS;
+import static xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.utils.Message.Generic.TOO_MANY_ARGS;
 
 public class StatusToggleHandler {
   public static boolean doToggleStatus(CommandSender sender, String[] args, String instance) {

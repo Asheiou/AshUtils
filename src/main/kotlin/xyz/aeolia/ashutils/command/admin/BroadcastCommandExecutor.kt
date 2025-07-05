@@ -4,8 +4,8 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
-import xyz.aeolia.ashutils.instance.Message.Error.REQUEST_FAIL_GENERIC
-import xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE
+import xyz.aeolia.ashutils.utils.Message.Error.REQUEST_FAIL_GENERIC
+import xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE
 import xyz.aeolia.ashutils.sender.MessageSender
 import xyz.aeolia.ashutils.sender.WebhookSender
 

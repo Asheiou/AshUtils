@@ -1,18 +1,21 @@
 package xyz.aeolia.ashutils.manager
 
-import com.google.gson.Gson
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.plugin.java.JavaPlugin
-import xyz.aeolia.ashutils.instance.User
-import java.io.*
+import xyz.aeolia.ashutils.serializable.User
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileWriter
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
 class UserManager {
 
   companion object {
-    private val gson = Gson()
     private val users: HashMap<UUID, User> = HashMap()
     private lateinit var plugin: JavaPlugin
     private lateinit var folder: File
@@ -44,7 +47,8 @@ class UserManager {
         return user
       }
       try {
-        user = gson.fromJson(FileReader(file), User::class.java)
+        user = Json.decodeFromString(file.readText())!!
+
         putUser(user)
         return user
       } catch (_: FileNotFoundException) {
@@ -70,7 +74,7 @@ class UserManager {
       val file = File(folder, user.uuid.toString() + ".json")
       try {
         val fileWriter = FileWriter(file)
-        fileWriter.write(gson.toJson(user))
+        fileWriter.write(Json.encodeToString(user))
         fileWriter.close()
       } catch (e: IOException) {
         throw RuntimeException(e)

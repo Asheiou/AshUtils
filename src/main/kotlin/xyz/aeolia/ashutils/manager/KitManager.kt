@@ -1,22 +1,22 @@
 package xyz.aeolia.ashutils.manager
 
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import net.kyori.adventure.audience.Audience
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
-import xyz.aeolia.ashutils.instance.Kit
-import xyz.aeolia.ashutils.instance.Message.Error.GENERIC
+import xyz.aeolia.ashutils.serializable.Kit
+import xyz.aeolia.ashutils.utils.Message.Error.GENERIC
 import xyz.aeolia.ashutils.sender.MessageSender
+import xyz.aeolia.ashutils.serializable.User
 import java.io.File
 
 class KitManager {
   companion object {
-    val gson = Gson()
     val kits = mutableMapOf<String, Kit>()
     lateinit var plugin: JavaPlugin
     lateinit var scope: CoroutineScope
@@ -45,10 +45,8 @@ class KitManager {
         if (file.isFile) {
             try {
               val id = file.nameWithoutExtension
-              val kit = file.reader().use { reader ->
-                gson.fromJson(reader, Kit::class.java).apply {
-                  this.id = id
-                }
+              val kit = Json.decodeFromString<Kit>(file.readText()).apply {
+                this.id = id
               }
               kits[id] = kit
             } catch (e: Exception) {
@@ -71,8 +69,8 @@ class KitManager {
         items.addAll(kits["__global__"]!!.items)
       }
       player.inventory.clear()
-      for (item in kit.items) {
-        val stack = item.stack ?: run {
+      kit.items.forEach { item ->
+        val stack = item.loadStack() ?: run {
           MessageSender.sendMessage(player, GENERIC)
           plugin.logger.warning("Error processing item $item in kit ${kit.id}")
           return false

@@ -7,12 +7,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import xyz.aeolia.ashutils.instance.User;
+import xyz.aeolia.ashutils.serializable.User;
 import xyz.aeolia.ashutils.manager.UserManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
-import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
-import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER;
+import static xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.utils.Message.Generic.NOT_PLAYER;
 
 public class ModCommandExecutor implements CommandExecutor {
   @Override

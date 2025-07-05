@@ -8,6 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.aeolia.ashutils.manager.KitManager
+import xyz.aeolia.ashutils.sender.MessageSender
 import java.io.File
 import kotlin.math.ceil
 
@@ -28,7 +29,11 @@ open class PVPMenu(open val plugin: JavaPlugin) : InventoryProvider {
       } catch (e: NullPointerException) {
         true
       }
-      if (condition) contents.add(ClickableItem.of(kit.value.displayItem.stack) { e ->
+      val displayItem = kit.value.displayItem.loadStack()?: run {
+        MessageSender.sendMessage(player, "displayItem in kit ${kit.key} failed to deserialize!")
+        return@forEach
+      }
+      if (condition) contents.add(ClickableItem.of(displayItem) { e ->
         e.isCancelled = true
         KitManager.givePlayerKit(player, kit.value)
       })

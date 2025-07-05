@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE;
 
 public class AshUtilsTabExecutor implements TabExecutor {
   JavaPlugin plugin;

@@ -15,8 +15,8 @@ import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 
-import static xyz.aeolia.ashutils.instance.Message.Error.GENERIC;
-import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER;
+import static xyz.aeolia.ashutils.utils.Message.Error.GENERIC;
+import static xyz.aeolia.ashutils.utils.Message.Generic.NOT_PLAYER;
 
 public class CodeCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

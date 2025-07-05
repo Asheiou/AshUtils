@@ -18,8 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static xyz.aeolia.ashutils.instance.Message.Generic.*;
-import static xyz.aeolia.ashutils.instance.Message.Player.NOT_FOUND;
+import static xyz.aeolia.ashutils.utils.Message.Generic.*;
+import static xyz.aeolia.ashutils.utils.Message.Player.NOT_FOUND;
 
 public class VanishOnLoginTabExecutor implements TabExecutor {
   private final JavaPlugin plugin;

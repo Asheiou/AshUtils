@@ -14,7 +14,11 @@ import xyz.aeolia.ashutils.command.admin.ModCommandExecutor
 import xyz.aeolia.ashutils.command.admin.VanishOnLoginTabExecutor
 import xyz.aeolia.ashutils.command.admin.ashutils.AshUtilsTabExecutor
 import xyz.aeolia.ashutils.command.user.*
-import xyz.aeolia.ashutils.listener.*
+import xyz.aeolia.ashutils.listener.BukkitEventListener
+import xyz.aeolia.ashutils.listener.EssEventListener
+import xyz.aeolia.ashutils.listener.MineListener
+import xyz.aeolia.ashutils.listener.SuffixListener
+import xyz.aeolia.ashutils.listener.VaultListener
 import xyz.aeolia.ashutils.manager.EconManager
 import xyz.aeolia.ashutils.manager.KitManager
 import xyz.aeolia.ashutils.manager.PermissionManager

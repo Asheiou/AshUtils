@@ -8,13 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import xyz.aeolia.ashutils.manager.EconManager;
-import xyz.aeolia.ashutils.instance.Experience;
+import xyz.aeolia.ashutils.utils.Experience;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
 import java.math.BigDecimal;
 
-import static xyz.aeolia.ashutils.instance.Message.Error.GENERIC;
-import static xyz.aeolia.ashutils.instance.Message.Generic.*;
+import static xyz.aeolia.ashutils.utils.Message.Error.GENERIC;
+import static xyz.aeolia.ashutils.utils.Message.Generic.*;
 
 public class XpCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

@@ -7,11 +7,11 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
-import xyz.aeolia.ashutils.instance.Message.Error.CONFIG
-import xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE
-import xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER
-import xyz.aeolia.ashutils.instance.Message.Player.NOT_FOUND
-import xyz.aeolia.ashutils.instance.Message.Player.OFFLINE
+import xyz.aeolia.ashutils.utils.Message.Error.CONFIG
+import xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE
+import xyz.aeolia.ashutils.utils.Message.Generic.NOT_PLAYER
+import xyz.aeolia.ashutils.utils.Message.Player.NOT_FOUND
+import xyz.aeolia.ashutils.utils.Message.Player.OFFLINE
 import xyz.aeolia.ashutils.manager.UserManager
 import xyz.aeolia.ashutils.manager.UserMapManager
 import xyz.aeolia.ashutils.sender.MessageSender

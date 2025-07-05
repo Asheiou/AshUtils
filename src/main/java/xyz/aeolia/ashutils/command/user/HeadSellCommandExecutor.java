@@ -11,10 +11,10 @@ import org.jetbrains.annotations.NotNull;
 import xyz.aeolia.ashutils.manager.EconManager;
 import xyz.aeolia.ashutils.sender.MessageSender;
 
-import static xyz.aeolia.ashutils.instance.Message.Econ.SOLD;
-import static xyz.aeolia.ashutils.instance.Message.Econ.TOO_MANY;
-import static xyz.aeolia.ashutils.instance.Message.Generic.COMMAND_USAGE;
-import static xyz.aeolia.ashutils.instance.Message.Generic.NOT_PLAYER;
+import static xyz.aeolia.ashutils.utils.Message.Econ.SOLD;
+import static xyz.aeolia.ashutils.utils.Message.Econ.TOO_MANY;
+import static xyz.aeolia.ashutils.utils.Message.Generic.COMMAND_USAGE;
+import static xyz.aeolia.ashutils.utils.Message.Generic.NOT_PLAYER;
 
 public class HeadSellCommandExecutor implements CommandExecutor {
   JavaPlugin plugin;

@@ -1,7 +1,7 @@
 package xyz.aeolia.ashutils.command.admin.ashutils
 
 import org.bukkit.command.CommandSender
-import xyz.aeolia.ashutils.instance.Message.Error.REQUEST_FAIL_GENERIC
+import xyz.aeolia.ashutils.utils.Message.Error.REQUEST_FAIL_GENERIC
 import xyz.aeolia.ashutils.sender.MessageSender
 import xyz.aeolia.ashutils.sender.WebhookSender
 
