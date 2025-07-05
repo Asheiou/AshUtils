@@ -40,6 +40,7 @@ repositories {
 
 dependencies {
     implementation("cymru.asheiou.inv:smart-invs:1.2.8.1")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation(libs.cymru.asheiou.configmanager)
     implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk8)
     implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core.jvm)
