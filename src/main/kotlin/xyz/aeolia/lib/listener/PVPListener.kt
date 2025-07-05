@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
+import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.aeolia.lib.manager.UserManager
 import xyz.aeolia.lib.sender.MessageSender
@@ -19,6 +20,12 @@ import xyz.aeolia.lib.serializable.User
 
 class PVPListener(val plugin: JavaPlugin) : Listener {
   val playersWarned = mutableListOf<Player>()
+
+  @EventHandler(priority = EventPriority.NORMAL)
+  fun onPlayerQuit(event: PlayerQuitEvent) {
+    playersWarned.remove(event.player)
+    clearBlocks(UserManager.getUser(event.player))
+  }
 
   @EventHandler(priority = EventPriority.LOWEST)
   fun onBlockPlace (event: BlockPlaceEvent) {
