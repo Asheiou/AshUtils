@@ -46,8 +46,12 @@ dependencies {
     implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json.jvm)
     implementation(libs.org.jetbrains.kotlin.kotlin.serialization.compiler.plugin)
     compileOnly(libs.io.papermc.paper.paper.api)
-    compileOnly(libs.net.essentialsx.essentialsx)
-    compileOnly(libs.com.github.milkbowl.vaultapi)
+    compileOnly(libs.net.essentialsx.essentialsx) {
+        exclude(group = "org.spigotmc", module = "spigot-api")
+    }
+    compileOnly(libs.com.github.milkbowl.vaultapi) {
+        exclude(group = "org.bukkit", module = "bukkit")
+    }
     compileOnly(libs.net.luckperms.api)
 }
 
