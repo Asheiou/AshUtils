@@ -24,7 +24,7 @@ public class VaultListener implements Listener {
   public void onPlayerDeath(PlayerDeathEvent event) {
     FileConfiguration config = plugin.getConfig();
     Player victim = event.getEntity();
-    if (!config.getStringList("pvp.worlds").contains(victim.getLocation().getWorld().getName())) {
+    if (!victim.getLocation().getWorld().getName().equals(plugin.getConfig().getString("pvp.world"))) {
       return;
     }
     for (ItemStack i : event.getDrops()) i.setAmount(0);

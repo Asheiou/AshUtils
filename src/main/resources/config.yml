@@ -23,8 +23,9 @@ suffix:
     name: "grinder"
     reward-time: TIME IN DAYS
 pvp:
-  worlds: ["testing"]
+  world: "testing"
   kill-prize: 100
   prize-cooldown: 60
+  spawn_locations: []
 prune-time: 2000
 chat-format: "<{DISPLAYNAME}<reset>>"

@@ -15,20 +15,20 @@ import java.io.File
 import kotlin.math.ceil
 
 open class PVPMenu(open val plugin: JavaPlugin) : InventoryProvider {
-  val INVENTORY = SmartInventory.builder()
+  val inventory = SmartInventory.builder()
     .id("pvpMenu")
     .provider(this)
     .size(getRows(), 9)
     .type(InventoryType.CHEST)
     .title("Kits")
-    .build()
+    .build()!!
 
   override fun init(player: Player, contents: InventoryContents) {
     KitManager.kits.forEach { kit ->
       if(kit.value.id == "__global__") return@forEach
       val condition = try {
         player.hasPermission(kit.value.permission)
-      } catch (e: NullPointerException) {
+      } catch (_: NullPointerException) {
         true
       }
       val displayItem = kit.value.displayItem.loadStack()?: run {
@@ -39,6 +39,8 @@ open class PVPMenu(open val plugin: JavaPlugin) : InventoryProvider {
         e.isCancelled = true
         PVPListener.clearBlocks(UserManager.getUser(player))
         KitManager.givePlayerKit(player, kit.value)
+        MessageSender.sendMessage(player, "Equipped kit ${kit.value.displayName}!")
+        PVPListener.tpPlayerToArena(player, plugin)
       })
     }
   }
