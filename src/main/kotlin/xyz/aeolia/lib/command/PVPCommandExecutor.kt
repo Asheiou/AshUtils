@@ -1,6 +1,5 @@
 package xyz.aeolia.lib.command
 
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes.player
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

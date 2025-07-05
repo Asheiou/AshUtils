@@ -19,7 +19,7 @@ class Item(
   val enchantments: MutableMap<String, Int>? = null
 ) {
   fun loadStack(): ItemStack? {
-    val mm = MessageSender.Companion.miniMessage;
+    val mm = MessageSender.Companion.miniMessage
     val material = Material.getMaterial(this.material.uppercase())?: run {
       MessageSender.Companion.sendMessage(Bukkit.getConsoleSender(), "Material ${this.material.uppercase()} not found")
       return null
