@@ -68,7 +68,7 @@ class KitManager {
         items.addAll(kits["__global__"]!!.items)
       }
       player.inventory.clear()
-      kit.items.forEach { item ->
+      items.forEach { item ->
         val stack = item.loadStack() ?: run {
           MessageSender.sendMessage(player, GENERIC)
           plugin.logger.warning("Error processing item $item in kit ${kit.id}")
