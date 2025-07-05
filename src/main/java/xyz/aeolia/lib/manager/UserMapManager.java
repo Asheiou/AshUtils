@@ -81,4 +81,8 @@ public class UserMapManager {
       return null;
     });
   }
+
+  public static Map<String, String> getUserMap() {
+    return userMap;
+  }
 }

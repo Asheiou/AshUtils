@@ -30,6 +30,7 @@ repositories {
     }
 
     maven {
+        name = "asheiou"
         url = uri("https://repo.asheiou.cymru/releases/")
     }
 
@@ -58,13 +59,23 @@ dependencies {
 }
 
 group = "xyz.aeolia"
-version = "2.0-dev4"
+version = "2.0-dev5"
 description = "AeoliaLib"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])
+    }
+    repositories {
+        maven {
+            name = "asheiou"
+            url = uri("https://repo.asheiou.cymru/snapshots")
+            credentials {
+                username = providers.gradleProperty("asheiouUser").orElse("").get()
+                password = providers.gradleProperty("asheiouPassword").orElse("").get()
+            }
+        }
     }
 }
 
