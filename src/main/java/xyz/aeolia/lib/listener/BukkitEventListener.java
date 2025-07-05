@@ -51,7 +51,7 @@ public class BukkitEventListener implements Listener {
       event.setCancelled(true);
       return;
     }
-    if (StatusManager.getStatus("lockchat") && !event.getPlayer().hasPermission("asheiou.lockchat.exempt")) {
+    if (StatusManager.getStatus("lockchat") && !event.getPlayer().hasPermission("lib.lockchat.exempt")) {
       event.setCancelled(true);
       MessageSender.sendMessage(event.getPlayer(), "Chat has been locked by a moderator.", true);
     }
