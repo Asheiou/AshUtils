@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class Kit(
   var id: String? = null,
   val displayName: String,
-  val permission: String = "libls.kit",
+  val permission: String = "lib.kit",
   val items: List<Item>,
   val displayItem: Item,
 )
