@@ -44,6 +44,22 @@ class PVPCommandExecutor(plugin1: JavaPlugin) : CommandExecutor, PVPMenu(plugin1
         return true
       }
     }
+    if (args[0] == "addspawn") {
+      val location = sender.location
+      if (sender.world.name != plugin.config.getString("pvp.world")) {
+        MessageSender.sendMessage(sender, "You can only run this command in the PVP world!")
+        return true
+      }
+      val spawnLocations = plugin.config.getList("pvp.spawn-locations") ?: run {
+        MessageSender.sendMessage(sender, Message.Error.CONFIG.format("pvp.spawn-locations"))
+        return true
+      }
+      val newSpawnLocations = spawnLocations.plus(listOf(location.blockX, location.blockY, location.blockZ))
+      plugin.config.set("pvp.spawn-locations", newSpawnLocations)
+      plugin.saveConfig()
+      plugin.reloadConfig()
+    }
+    MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE)
     return false
   }
 }
