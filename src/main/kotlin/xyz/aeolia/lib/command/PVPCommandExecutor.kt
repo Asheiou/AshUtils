@@ -30,6 +30,7 @@ class PVPCommandExecutor(plugin1: JavaPlugin) : CommandExecutor, PVPMenu(plugin1
     if(args[0] == "respawn") {
       if (args.size == 1) {
         PVPListener.tpPlayerToArena(sender, plugin)
+        return true
       } else {
         var condition = false
         Bukkit.getOnlinePlayers().forEach { player ->
@@ -54,10 +55,16 @@ class PVPCommandExecutor(plugin1: JavaPlugin) : CommandExecutor, PVPMenu(plugin1
         MessageSender.sendMessage(sender, Message.Error.CONFIG.format("pvp.spawn-locations"))
         return true
       }
-      val newSpawnLocations = spawnLocations.plus(listOf(location.blockX, location.blockY, location.blockZ))
+      val locationMap = mutableMapOf<String, Double>()
+      locationMap["x"] = location.blockX.toDouble()+0.5 //Centre on block
+      locationMap["y"] = location.blockY.toDouble()
+      locationMap["z"] = location.blockZ.toDouble()+0.5
+      val newSpawnLocations = spawnLocations.plus(locationMap)
       plugin.config.set("pvp.spawn-locations", newSpawnLocations)
       plugin.saveConfig()
       plugin.reloadConfig()
+      MessageSender.sendMessage(sender, "Location added.")
+      return true
     }
     MessageSender.sendMessage(sender, Message.Generic.COMMAND_USAGE)
     return false

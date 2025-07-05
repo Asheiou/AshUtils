@@ -89,19 +89,19 @@ class PVPListener(val plugin: JavaPlugin) : Listener {
         plugin.logger.warning("PVP spawn labels are not configured!")
         return
       }
-      val spawnLocation: List<Double>
+      val spawnLocation: Map<String, Double>
       try {
         @Suppress("UNCHECKED_CAST")
-        spawnLocation = spawnLocations.random() as List<Double>
+        spawnLocation = spawnLocations.random() as Map<String, Double>
       } catch(_: ClassCastException) {
         plugin.logger.warning("PVP spawn location could not be correctly cast")
         return
       }
       val location = Location(
             Bukkit.getServer().getWorld(plugin.config.getString("pvp.world")!!),
-            spawnLocation[0],
-            spawnLocation[1],
-            spawnLocation[2]
+            spawnLocation["x"]?: (-100).toDouble(),
+            spawnLocation["y"]?: (-100).toDouble(),
+            spawnLocation["z"]?: (-100).toDouble()
         )
       player.teleport(location)
     }
