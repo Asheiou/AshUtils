@@ -5,17 +5,23 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import xyz.aeolia.lib.serializable.User;
 
 public final class WorldBlock {
 
   public final String world;
   public final int x, y, z;
+  public final User placer;
 
   public WorldBlock(Block block) {
-    this(block.getWorld().getName(), block.getX(), block.getY(), block.getZ());
+    this(block, null);
   }
 
-  public WorldBlock(String world, int x, int y, int z) {
+  public WorldBlock(Block block, User placer) {
+    this(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), placer);
+  }
+
+  public WorldBlock(String world, int x, int y, int z, User placer) {
     if (world == null) {
       throw new NullPointerException();
     }
@@ -23,6 +29,7 @@ public final class WorldBlock {
     this.x = x;
     this.y = y;
     this.z = z;
+    this.placer = placer;
   }
 
   public WorldChunk getChunk() {
@@ -40,6 +47,10 @@ public final class WorldBlock {
   public Location getBukkitLocation(boolean middle) {
     double w = middle ? 0.5 : 0.0;
     return new Location(Bukkit.getWorld(world), ((double) x) + w, ((double) y) + w, ((double) z) + w);
+  }
+
+  public User getPlacer() {
+    return placer;
   }
 
   public boolean isChunkLoaded() {
