@@ -41,6 +41,7 @@ repositories {
 dependencies {
     implementation("cymru.asheiou.inv:smart-invs:1.2.8.1")
     implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("org.apache.commons:commons-text:1.1")
     implementation(libs.cymru.asheiou.configmanager)
     implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk8)
     implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core.jvm)
@@ -88,6 +89,8 @@ tasks.shadowJar {
         include(dependency("cymru.asheiou:configmanager"))
         include(dependency("org.jetbrains.kotlin:"))
         include(dependency("org.jetbrains.kotlinx:"))
+        include(dependency("org.apache.commons:commons-lang3"))
+        include(dependency("org.apache.commons:commons-text"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-serialization-compiler-plugin"))
     }
 
@@ -95,4 +98,6 @@ tasks.shadowJar {
     relocate("kotlinx", "xyz.aeolia.ashutils.shade.kotlinx")
     relocate("cymru.asheiou.configmanager", "xyz.aeolia.ashutils.shade.configmanager")
     relocate("hk.siggi.bukkit.plugcubebuildersin", "xyz.aeolia.ashutils.shade.plugcubebuildersin")
+    relocate("org.apache.commons.lang3", "xyz.aeolia.ashutils.shade.lang")
+    relocate("org.apache.commons.text", "xyz.aeolia.ashutils.shade.text")
 }
