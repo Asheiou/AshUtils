@@ -21,15 +21,15 @@ class PVPListener(val plugin: JavaPlugin) : Listener {
   fun onBlockPlace (event: BlockPlaceEvent) {
     val player = event.player
     val user = processBlockEvent(player, event.isCancelled, plugin) ?: return
-    if (player !in playersWarned) {
-      if (!user.modMode) {
+    if (!user.modMode) {
+      user.pvpBlocks.add(WorldBlock(event.block))
+      if (player !in playersWarned) {
         MessageSender.sendMessage(player, "Blocks placed here will be deleted when you die or leave the world!")
         playersWarned.add(player)
-      } else {
-        playersWarned.remove(player)
       }
+    } else {
+      playersWarned.remove(player)
     }
-    user.pvpBlocks.add(WorldBlock(event.block))
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
@@ -51,6 +51,7 @@ class PVPListener(val plugin: JavaPlugin) : Listener {
       user.pvpBlocks.forEach { block ->
         block.bukkitBlock.type = Material.AIR
       }
+      user.pvpBlocks.clear()
     }
 
     fun processBlockEvent(player: Player, cancelled: Boolean, plugin: JavaPlugin): User? {

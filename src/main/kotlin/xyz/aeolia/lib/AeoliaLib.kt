@@ -17,6 +17,7 @@ import xyz.aeolia.lib.command.user.*
 import xyz.aeolia.lib.listener.BukkitEventListener
 import xyz.aeolia.lib.listener.EssEventListener
 import xyz.aeolia.lib.listener.MineListener
+import xyz.aeolia.lib.listener.PVPListener
 import xyz.aeolia.lib.listener.SuffixListener
 import xyz.aeolia.lib.listener.VaultListener
 import xyz.aeolia.lib.manager.EconManager
@@ -52,6 +53,7 @@ class AeoliaLib : JavaPlugin() {
     Bukkit.getScheduler().scheduleSyncRepeatingTask(this, { mineListener.tick() }, 1L, 1L)
     pm.registerEvents(BukkitEventListener(this), this)
     pm.registerEvents(EssEventListener(this), this)
+    pm.registerEvents(PVPListener(this), this)
     // Config
     ConfigManager(this, true).loadConfig()
     config.options().copyDefaults(true)
