@@ -15,8 +15,4 @@ dependency-reduced-pom.xml
 target/
 build/
 gradle.properties
-gradlew
-gradlew.bat
-settings.gradle.kts
 .gradle/
-gradle/
