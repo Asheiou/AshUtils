@@ -1,4 +1,4 @@
-chat-prefix: "<gradient:#ff0066:#aa0022>AshUtils</gradient>"
+chat-prefix: "<gradient:#ff0066:#aa0022>Aeolia</gradient>"
 head-worth: 100
 currency-symbol: $
 vanish-on-login-group: vol
@@ -23,8 +23,9 @@ suffix:
     name: "grinder"
     reward-time: TIME IN DAYS
 pvp:
-  worlds: ["testing"]
+  world: "testing"
   kill-prize: 100
   prize-cooldown: 60
+  spawn-locations: []
 prune-time: 2000
 chat-format: "<{DISPLAYNAME}<reset>>"

@@ -1,132 +1,148 @@
-name: AshUtils
-main: xyz.aeolia.ashutils.AshUtils
-version: ${project.version}
+---
+name: AeoliaLib
+main: xyz.aeolia.lib.AeoliaLib
+version: "%%VERSION"
 author: Asheiou
 api-version: 1.21.5
-softdepend: [ Vault, LuckPerms, SmartInvs ]
-depend: [ Essentials ]
+softdepend:
+- Vault
+- LuckPerms
+- SmartInvs
+depend:
+- Essentials
 website: https://asheiou.cymru
-description: >
-             The Aeolia bespoke everything-plugin!
+description: '>
+              The Aeolia bespoke everything-plugin!'
 commands:
+  util:
+    aliases: util
+    description: Admin command.
+    usage: "/<command>"
+    permission: lib.admin
+    permission-message: You don't have lib.admin.
   broadcast:
     description: Broadcast a message to the server and the Discord.
-    usage: /<command> <message>
-    permission: ashutils.broadcast
-    permission-message: You don't have ashutils.broadcast.
-    aliases: [bc, shout]
+    usage: "/<command> <message>"
+    permission: lib.broadcast
+    permission-message: You don't have lib.broadcast.
+    aliases:
+    - bc
+    - shout
   code:
     description: Generate a code to verify you own your account.
-    usage: /<command>
-    permission: ashutils.code
-    permission-message: You don't have ashutils.code.
+    usage: "/<command>"
+    permission: lib.code
+    permission-message: You don't have lib.code.
+  fake:
+    description: Fake join or quit
+    usage: "/<command> <join/quit> [user]"
+    permission: lib.fake
+    permission-message: You don't have lib.fake.
   headsell:
     aliases: sellhead
     description: Sell any unwanted player heads back to the server!
-    usage: /<command> <amount/all>
-    permission: ashutils.headsell
-    permission-message: You don't have ashutils.headsell.
-  ashutils:
-    aliases: util
-    description: Admin command.
-    usage: /<command>
-    permission: ashutils.admin
-    permission-message: You don't have ashutils.admin.
-  fake:
-    description: Fake join or quit
-    usage: /<command> <join/quit> [user]
-    permission: ashutils.fake
-    permission-message: You don't have ashutils.fake.
+    usage: "/<command> <amount/all>"
+    permission: lib.headsell
+    permission-message: You don't have lib.headsell.
   minimessage:
     description: Send a chat message in MiniMessage
-    usage: /<command> [@Username] <message>
-    permission: ashutils.minimessage
-    permission-message: You don't have ashutils.minimessage.
-    aliases: [mm, mmsay]
+    usage: "/<command> [@Username] <message>"
+    permission: lib.minimessage
+    permission-message: You don't have lib.minimessage.
+    aliases:
+    - mm
+    - mmsay
   mod:
     description: Toggle mod mode
-    usage: /<command> [true/false/status]
-    permission: ashutils.mod
-    permission-message: You don't have ashutils.mod.
+    usage: "/<command> [true/false/status]"
+    permission: lib.mod
+    permission-message: You don't have lib.mod.
+  pvp:
+    description: Pick a kit and play
+    usage: "/<command>"
+    permission: lib.pvp
+    permission-message: You don't have lib.pvp.
   report:
     description: Create a report to our staff
-    usage: /<command> <report message>
-    permission: ashutils.report
-    permission-message: You don't have ashutils.report.
+    usage: "/<command> <report message>"
+    permission: lib.report
+    permission-message: You don't have lib.report.
+  suffix:
+    description: Open the suffix menu
+    usage: "/<command>"
+    permission: lib.suffix
+    permission-message: You don't have lib.suffix.
   vanishonlogin:
     aliases: vol
     description: Vanish on login
-    usage: /<command> [true/false] [user]
-    permission: ashutils.vanishonlogin
-    permission-message: You don't have ashutils.vanishonlogin.
-  xpsell:
-    aliases: sellxp
-    description: Sell XP for money!
-    usage: /<command> <amount/all>
-    permission: ashutils.xpsell
-    permission-message: You don't have ashutils.xpsell.
+    usage: "/<command> [true/false] [user]"
+    permission: lib.vanishonlogin
+    permission-message: You don't have lib.vanishonlogin.
   xpbuy:
     aliases: buyxp
     description: Buy XP!
-    usage: /<command> <amount/maximum>
-    permission: ashutils.xpbuy
-    permission-message: You don't have ashutils.xpbuy.
-  suffix:
-    description: Open the suffix menu
-    usage: /<command>
-    permission: ashutils.suffix
-    permission-message: You don't have ashutils.suffix.
-    
+    usage: "/<command> <amount/maximum>"
+    permission: lib.xpbuy
+    permission-message: You don't have lib.xpbuy.
+  xpsell:
+    aliases: sellxp
+    description: Sell XP for money!
+    usage: "/<command> <amount/all>"
+    permission: lib.xpsell
+    permission-message: You don't have lib.xpsell.
 
 permissions:
-  ashutils.alert:
+  lib.admin:
+    description: Allows /util
+    default: op
+  lib.alert:
     description: Allows seeing alerts
     default: op
-  ashutils.broadcast:
+  lib.broadcast:
     description: Allows /broadcast
     default: op
-  ashutils.code:
+  lib.clearchat.exempt:
+    description: Allows exemption from /util clearchat
+    default: op
+  lib.code:
     description: Allows /code
     default: true
-  ashutils.admin:
-    description: Allows /ashutils
-    default: op
-  ashutils.fake:
+  lib.fake:
     description: Allows /fake
     default: op
-  ashutils.minimessage:
+  lib.headsell:
+    description: Allows head sell
+    default: true
+  lib.lockchat.exempt:
+    description: Allows exemption from /util lockchat
+    default: op
+  lib.minimessage:
     description: Allows /minimessage
     default: op
-  ashutils.mod:
+  lib.mod:
     description: Allows mod mode
     default: op
-  ashutils.report:
+  lib.pvp:
+    description: Allows /pvp
+    default: true
+  lib.report:
     description: Allows /report
     default: true
-  ashutils.xpsell:
-    description: Allows /xpsell
-    default: true
-  ashutils.suffix:
+  lib.suffix:
     description: Allows /suffix
     default: true
-  ashutils.suffix-grant:
+  lib.suffix-grant:
     description: Allows /suffix with arguments
     default: op
-  ashutils.xpbuy:
-    description: Allows /xpbuy
-    default: true
-  ashutils.lockchat.exempt:
-    description: Allows exemption from /ashutils lockchat
-    default: op
-  ashutils.clearchat.exempt:
-    description: Allows exemption from /ashutils clearchat
-    default: op
-  ashutils.vanishonlogin:
+  lib.vanishonlogin:
     description: Allows use of /vanishonlogin for this user
     default: op
-  ashutils.vanishonlogin.others:
+  lib.vanishonlogin.others:
     description: Allows use of /vanishonlogin for all users
     default: op
-  ashutils.headsell:
-    description: Allows head sell
+  lib.xpbuy:
+    description: Allows /xpbuy
+    default: true
+  lib.xpsell:
+    description: Allows /xpsell
     default: true
